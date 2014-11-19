@@ -1,0 +1,273 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+
+\newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+\setlength\parindent{0pt}
+
+\pgfkeys{/pgfplots/MyAxisStyle/.style={xmin=-10,xmax=10, ymin=-10,ymax=10,height=6cm,width=6cm}}
+
+\begin{document}
+
+\section*{16.4: Surface Integrals (Type 1)}
+
+\subsection*{Parametric Surface}
+
+We have previously learned two ways to describe a surface; today we add another.
+
+\begin{enumerate}
+  \item $z=f(x,y)$ can be used to describe simple surfaces, but not something like a sphere (which fails the vertical line test).
+  \item $F(x,y,z)=0$ which can then be used to represent a sphere.
+  \item $\vec{r}(u,v) = \begin{cases} x=x(u,v) \\ y=y(u,v) \\ z=z(u,v) \end{cases}$ the new way
+\end{enumerate}
+
+Before, parametric equations can be used to represent a curve:
+
+\[
+\begin{cases}
+  x=x(t)
+  y=y(t)
+  z=z(t)
+\end{cases}
+\]
+
+Which can be represented with
+
+\[
+\vec{r}(t) = \left<x(t), y(t), z(t)\right>
+\]
+
+Likewise, parametric surfaces can be represented with:
+
+\[
+\vec{r}(u,v) = \left<x(u,v), y(u,v), z(u,v)\right>
+\]
+
+\subsection*{Example: Parametric Sphere}
+
+Normally represented as $x^2+y^2+z^2=R^2$, but now to represent as a parametric surface, we need to recall spherical coordinates, which are defined with $f(\rho, \theta, \phi)$.
+
+Recall that you can convert between spherical coordinates and rectangular coordinates with
+
+\[
+\begin{cases}
+  x = \rho \sin{\phi} \cos{\theta} \\
+  y = \rho \sin{\phi} \sin{\theta} \\
+  z = \rho \cos{\phi}
+\end{cases}
+\]
+
+With this in mind, we can reason that $\rho=R$, giving a natural way to substitute into the original equation and get a parametric equation:
+
+\[
+\vec{r}(\phi, \theta) = \begin{cases}
+  x = R \sin{\phi} \cos{\theta} \\
+  y = R \sin{\phi} \sin{\theta} \\
+  z = R \cos{\phi} \\
+  0 \le \phi \le \pi \\
+  0 \le \theta \le 2 \pi
+\end{cases}
+\]
+
+\subsection*{Example: Cylinder}
+
+Normally, represented as $x^2+y^2=R^2$ in $3$-space. The most natural way to represent this surface is in cylindrical coordinates, which can be represented with $\vec{f}(r, \theta, z)$.
+
+Recall that to convert between cylindrical and rectangular coordinates, we can use
+
+\[
+\begin{cases}
+  x = r \cos{\theta}
+  y = r \sin{\theta}
+  z = z
+\end{cases}
+\]
+
+Naturally, we can replace the variable $r$ with the constant $R$ and get the parametric equation:
+
+\[
+\vec{r}(\theta, z) = \begin{cases}
+  x = R \cos{\theta} \\
+  y = R \sin{\theta} \\
+  z = z \\
+  0 \le \theta \le 2 \pi
+\end{cases}
+\]
+
+\subsection*{Example: Understanding a Surface in Parametric Form}
+
+Given $\vec{G}(u,v) = \left<u \cos{v}, u \sin{v}, u\right>$, we want to be able to understand the surface. Looking at the first two components, we see a $\sin$ and $\cos$ which we know has a relation that $\sin^2 \theta + \cos^2 \theta = 1$, therefore with square the components and add them together.
+
+\[
+\begin{cases}
+  x^2+y^2 = u^2 \cos^2 v + u^2 \sin^2 v \\
+  z^2 = u^2
+\end{cases}
+\]
+
+\[
+x^2 + y^2 = z^2
+\]
+
+To understand this equation, we can take slices in the planes:
+
+\[
+x=0 \implies y^2 = z^2
+\]
+
+Which we know to be ... thing.
+
+\subsection*{Tangent Plane to a Parametric Surface}
+
+We want to find the tangent plane of $\vec{G}(u,v) = \left<x(u,v), y(u,v), z(u,v)\right>$ at the point $(x_0, y_0, z_0)$ which have parameters $(u_0, v_0)$.
+
+We start by fixing one variable of the surface with $\vec{G}(u,v_0)$ which is a function of one variable, and therefore is a curve.
+
+After this, we can take the partial derivative of the function to get $\dfrac{\partial \vec{G}}{\partial u}(u, v_0)$, which gives us one vector of the tangent plane. Recall that we only need two vectors to define the plane, because we take the cross product to get the normal vector.
+
+Similarly, we can fix $u$ and take partial derivatives to get $\dfrac{\partial \vec{G}}{\partial v}(u_0, v)$.
+
+Finally, the normal vector can be found by:
+
+\[
+\vec{n} = \dfrac{\partial \vec{G}}{\partial u}(u_0, v_0) \times \dfrac{\partial \vec{G}}{\partial v}(u_0, v_0)
+\]
+
+One final point to be made is that we can take the length of $\vec{n}$, which fully written out is:
+
+\[
+\norm{\vec{n}} = \norm{\dfrac{\partial \vec{G}}{\partial u}(u_0, v_0) \times \dfrac{\partial \vec{G}}{\partial v}(u_0, v_0)}
+\]
+
+Recall that the length of a cross product gives us the area of the parallogram formed by the two vectors.
+
+\subsection*{Example: Finding the tangent plane}
+
+Given $\vec{G}(\theta, z) = \left<2 \cos{\theta}, 2\sin{\theta}, z\right>$, we want to find the equation of the tangent plane at the point $\left(\sqrt{2}, \sqrt{2}, 5\right)$.
+
+Remember that we need to find the input parameters $(\theta_0, z_0)$ to use the equation from before.
+
+\[
+\begin{cases}
+  \cos{\theta_0} = \frac{\sqrt{2}}{2} \\
+  \sin{\theta_0} = \frac{\sqrt{2}}{2} \\
+  z_0 = 5
+\end{cases}
+\implies
+\begin{cases}
+  \theta_0 = \frac{\pi}{4} \\
+  z_0 = 5
+\end{cases}
+\]
+
+Now that we have our input parameters, we take partial derivatives of $\vec{G}$.
+
+\[
+\begin{cases}
+  \dfrac{\partial \vec{G}}{\partial \theta} = \left<-2 \sin \theta, 2 \cos{\theta}, 0\right> \\
+  \dfrac{\partial \vec{G}}{\partial z} = \left<0, 0, 1\right> \\
+\end{cases}
+\]
+
+Now using the equation from earlier, we get
+
+\[
+\vec{n} = \left(\dfrac{\partial \vec{G}}{\partial \theta} \times \dfrac{\partial \vec{G}}{\partial z}\right)(\frac{\pi}{4}, 5)
+\]
+
+To evaluate this, we will have to take a $3\times3$ determinant, which we can simplify by substituting $(\theta_0, z_0)$ to get
+
+\[
+\vec{n} = \left<-\sqrt{2}, \sqrt{2}, 0\right> \times \left<0, 0, 1\right>
+\]
+
+And substituting into the equation for the determinant, we get:
+
+\[
+\vec{n} = \left| \begin{array}{ccc}
+  \hat{i}   & \hat{j}  & \hat{k} \\
+  -\sqrt{2} & \sqrt{2} & 0       \\
+  0         & 0        & 1
+\end{array}\right|
+\]
+
+\subsection*{Example: Parametric Sphere}
+
+Given $\vec{G}(\theta, \phi) = \left<R \sin{\phi} \cos{\theta}, R \sin{\phi} \sin{\theta}, R \cos{\phi}\right>$, we want to find the value:
+
+\[
+\norm{\dfrac{\partial \vec{G}}{\partial \theta} \times \dfrac{\partial \vec{G}}{\partial \phi}}
+\]
+
+The process to calculate this is tedious, but it gives a clean result:
+
+\[
+\norm{\dfrac{\partial \vec{G}}{\partial \theta} \times \dfrac{\partial \vec{G}}{\partial \phi}} = R^2 \sin{\phi}
+\]
+
+Which, if you recall that the length of a cross product is the area of a parallogram, then this should make the formula for calculating the triple integral in spherical coordinates:
+
+\[
+\iiint f(\rho \sin{\phi} \cos{\theta}, \rho \sin{\phi} \sin{\theta}, \rho \cos{\phi}) \, \underline{\rho^2 \sin{\phi}} \, d\rho d\phi d\theta
+\]
+
+\subsection*{Type-$1$ Surface Integral}
+
+Given the surface $S$ defined by
+
+\[
+S: \begin{cases}
+  \vec{G}(u,v) \\
+  (u,v) \in D
+\end{cases}
+\]
+
+and the mass density function $f(x,y,z)$ on the surface, find the total mass $M$.
+
+We can take a small part of the total mass $dM$. We know that the area on the surface will be proportional to
+
+\[
+\norm{\dfrac{\partial \vec{G}}{\partial u} \times \dfrac{\partial \vec{G}}{\partial v}}
+\]
+
+But this area could be very large, so we multiply by $du$ and $dv$ to get an small piece of area:
+
+\[
+\norm{\dfrac{\partial \vec{G}}{\partial u} \times \dfrac{\partial \vec{G}}{\partial v}} du dv
+\]
+
+Locally, the density will not change, so we can multiply by the density function at that point to get:
+
+\[
+dM = f(x,y,z) \norm{\dfrac{\partial \vec{G}}{\partial u} \times \dfrac{\partial \vec{G}}{\partial v}} du dv
+\]
+
+Then we can add up all the small $dM$ pieces, which in calculus means taking the integral.
+
+\[
+M = \iint_S f(x,y,z) dS
+\]
+
+Note that for a line integral, we have a very similar formula:
+
+\[
+  \text{Line Integral:} \int_c f(x,y,z) ds
+\]
+
+There are some differences, however.
+
+\begin{enumerate}
+  \item The line integral has only one integral (e.g. it is not a double integral).
+  \item The line integral uses a lower case $s$ rather than an upper case $S$.
+\end{enumerate}
+
+\subsection*{Computing the Type-$1$ Surface Integral}
+
+\[
+\begin{array}{rcl}
+  M & \overset{def}{=} & \iint_S f(x,y,z) dS \\
+    &               =  & \iint_D f(x(u,v), y(u,v), z(u,v))\norm{\dfrac{\partial \vec{G}}{\partial u} \times \dfrac{\partial \vec{G}}{\partial v}} du dv
+\end{array}
+\]
+
+\end{document}
