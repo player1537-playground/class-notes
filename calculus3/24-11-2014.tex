@@ -1,0 +1,257 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+
+\newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+\setlength\parindent{0pt}
+\newcommand{\D}[1]{\mathrm{d}#1}
+\newcommand{\partialfrac}[2]{\dfrac{\partial #1}{\partial #2}}
+
+\pgfkeys{/pgfplots/MyAxisStyle/.style={xmin=-10,xmax=10, ymin=-10,ymax=10,height=6cm,width=6cm}}
+
+\begin{document}
+
+\section*{16.5: Surface Integral}
+
+Recall that, for a function $\vec{F}=<F_1, F_2, F_3>$, the surface integral is denoted by
+
+\[
+\iint_S \vec{F}\cdot\vec{n} \D{S}
+\]
+
+Where $S$ is a surface, and $\vec{n}$ is a unift normal vectiro in the direction of the surface.
+
+Alternatively, it can be represented as:
+
+\[
+\iint_S \vec{F}\cdot \D{\vec{S}}
+\]
+
+\subsection*{Computation}
+
+The surface $S$ is parametrized by
+
+\[
+S: \begin{cases}
+  \vec{G}(u,v) = \left<x(u,v), y(u,v), z(u,v)\right> \\
+  (u, v) \in D
+  \end{cases}
+\]
+
+and the normal vector $n$ by
+
+%\[
+%\vec{n} = \dfrac
+%    {\dfrac{\partial \vec{G}}{\partial u} \times \dfrac{\partial \vec{G}}{\partial v}}
+%    \norm{\dfrac{\partial \vec{G}}{\partial u} \times \dfrac{\partial \vec{G}}{\partial v}
+%\]
+
+Therefore, we can compute by
+
+\[
+\iint_S \vec{F} \cdot \vec{n} \D{S}
+\]
+
+\[
+= \iint_D \vec{F} \cdot \left(\dfrac{\partial \vec{G}}{\partial u} \times \dfrac{\partial \vec{G}}{\partial v}\right) \D{S}
+\]
+
+Recall that the triple product $\vec{a} \cdot \left(\vec{b} \times \vec{c}\right)$ can be computed with a single matrix operation.
+
+\[
+= \iint_D \left| \begin{array}{ccc}
+  F_1 & F_2 & F_3 \\
+  \dfrac{\partial x}{\partial u} & \dfrac{\partial y}{\partial u} & \dfrac{\partial z}{\partial u} \\
+  \dfrac{\partial x}{\partial v} & \dfrac{\partial y}{\partial v} & \dfrac{\partial z}{\partial v}
+  \end{array} \right| \D{S}
+\]
+
+\subsection*{Example}
+
+Given a function $\vec{F}=<0, 0, x>$ and a surface $S$ given by
+
+\[
+S: \begin{cases}
+  \vec{G}(u,v) = \left<u^2, v, u^3-v^2\right> \\
+  (u,v) \in [0,1] \times [0,1]
+\end{cases}
+\]
+
+Compute the surface integral
+
+\[
+\iint_S \vec{F} \cdot \D{\vec{S}}
+\]
+
+Keep in mind that the normal vector must point \textit{out} of the surface in the positive direction.
+
+With this in mind, we look at the direction of $F$ which always points in the positive $z$ direction. Also notice when computing the cross product, it will always be positive because of the directions of $F$ and $S$.
+
+Now we compute our partial derivatives:
+
+\[
+\begin{cases}
+  \frac{\partial \vec{G}}{\partial u} = \left<2 u, 0, 3 u^2\right> \\
+  \frac{\partial \vec{G}}{\partial v} = \left<0, 1, -2 v\right>
+\end{cases}
+\]
+
+Then the cross product
+
+\[
+\partialfrac{\vec{G}}{u} \times \partialfrac{\vec{G}}{v} = \left|\begin{array}{ccc}
+  \hat{i} & \hat{j} & \hat{k} \\
+  2u & 0 & 3 u^2 \\
+  0 & 1 & -2 v \\
+\end{array}\right|
+\]
+
+Which ends up being
+
+\[
+\partialfrac{\vec{G}}{u} \times \partialfrac{\vec{G}}{v} = -3u ^2 \hat{i} + 4 u v \hat{j} + 2 u \hat{k}
+\]
+
+Now the next step of the formula is to compute the dot product of this quantity to $\vec{F}$.
+
+\[
+\vec{F} \cdot \left(\partialfrac{\vec{G}}{u} \times \partialfrac{\vec{G}}{v}\right) = x \left(2 u\right) = 2 u^3
+\]
+
+When you look at ``up'' or ``down'', you look at the $z$ component, and in this case that component is $2 u$ which is always positive. Had it been negative, we could have just multiplied our cross product by $-1$.
+
+Finally, we compute the final answer.
+
+\[
+\iint_S \vec{F} \cdot \D{\vec{S}}
+\]
+
+\[
+= \int_0^1 \int_0^1 2 u^3 du dv
+\]
+
+\[
+= \frac{1}{2}
+\]
+
+\subsection*{Special Case of Surface Integral}
+
+This is the case where $S$ is given by a function, such as
+
+\[
+S: \begin{cases}
+  z = f(x,y) \\
+  (x,y) \in D
+  \end{cases}
+\]
+
+We can parametrize this by
+
+\[
+S: \begin{cases}
+  x = x \\
+  y = y \\
+  z = f(x, y)
+\end{cases}
+\]
+
+To compute the integral, we'll have to compute the cross product, so let's look at that
+
+\[
+\begin{cases}
+  \partialfrac{\vec{G}}{x} = \left<1, 0, \partialfrac{f}{x}\right> \\
+  \partialfrac{\vec{G}}{x} = \left<0, 1, \partialfrac{f}{y}\right>
+\end{cases}
+\]
+
+\[
+\partialfrac{\vec{G}}{x} \times \partialfrac{\vec{G}}{y}
+= \left| \begin{array}{ccc}
+  \hat{i} & \hat{j} & \hat{k} \\
+  1 & 0 & \partialfrac{f}{x} \\
+  0 & 1 & \partialfrac{f}{y}
+  \end{array} \right|
+\]
+
+\[
+= -\partialfrac{f}{x} \hat{i} - \partialfrac{f}{y} \hat{j} + \hat{k}
+\]
+
+\[
+\vec{F} \cdot \partialfrac{\vec{G}}{x} \times \partialfrac{\vec{G}}{y}
+=
+- F_1 \partialfrac{f}{x} + F_2 \partialfrac{f}{y} + F_3
+\]
+
+Looking at the direction of the cross product, we know that it is pointing in the right direction because its $z$ component is positive.
+
+\[
+\iint_S \vec{F} \cdot \D{\vec{S}} = \iint_D - F_1 \partialfrac{f}{x} + F_2 \partialfrac{f}{y} + F_3 \D{A}
+\]
+
+\subsection*{Example}
+
+Compute the triple integral with a function $\vec{F} = \left<z,x,1\right>$ and $S$ given by
+
+\[
+S: \begin{cases}
+  x^2+y^2+z^2 = 1 \\
+  z \ge 0
+\end{cases}
+\]
+
+Looking at the sign of the eventual cross product, we see that ``outwards'' of the surface points in the upwards direction, and the force is always in the upwards direction as well, therefore the cross product will be positive.
+
+We first solve for $z$ in the surface function, because we know that $z \ge 0$, we get
+
+\[
+z = \sqrt{1 - x^2 - y^2}
+\]
+
+To get $D$, we set $z=0$ and get
+
+\[
+D: x^2+y^2 \le 1
+\]
+
+Using the equation we came up with earlier, we can jump straight to the computation:
+
+\[
+\iint_S \vec{F} \cdot \D{\vec{S}}
+\]
+
+\[
+= \iint_D - F_1 \partialfrac{f}{x} + F_2 \partialfrac{f}{y} + F_3 \D{A}
+\]
+
+\[
+= \iint_D \left(
+-\sqrt{1-x^2-y^2} \frac{-x}{\sqrt{1-x^2-y^2}}
+- x \frac{-y}{\sqrt{1-x^2-y^2}}
++ 1
+\right) \D{A}
+\]
+
+\[
+= \iint_D \left(x + x y + 1\right) \D{A}
+\]
+
+Now we do a polar substitution to simplify the domain
+
+\[
+D': \begin{cases} r \le 1 & 0 \le 2 \pi \end{cases}
+\]
+
+\[
+= \int_0^{2\pi} \int_0^1 r \cos{\theta} + r \cos{\theta} r \sin{\theta} + 1 \D{r} \D{\theta}
+\]
+
+\[
+= \pi
+\]
+
+\subsection*{Quiz and Homework}
+
+16.4 and 16.5
+
+\end{document}
