@@ -6,17 +6,25 @@
 \usepackage[frenchb]{babel}
 \usepackage[normalem]{ulem}
 \usepackage[bottom=1in]{geometry}
+\usepackage{pgf}
 
 \setlength\parindent{0pt}
 
 \newcounter{LineNumber}
 \newcommand{\poemlinebase}[2]{
   \stepcounter{LineNumber}
-  #1 & {\centering #2} \\
+  #1 & & {\centering #2} \\
 }
 
 \newcommand{\poemline}[1]{
-  \poemlinebase{\theLineNumber}{#1}
+  \pgfmathparse{mod(\theLineNumber,5)==0}
+  \poemlinebase{
+    \ifnum \pgfmathresult=1
+    \theLineNumber
+    \else
+
+    \fi
+  }{#1}
 }
 
 \pagestyle{fancy}
@@ -28,38 +36,39 @@
 \pagenumbering{gobble}
 
 \newcommand{\refrain}{
-  \poemlinebase{Refrain}{Il y a 7 milliards de personnes, mais je cherche juste un.}
-  \poemlinebase{Refrain}{Il y a trillions de faits, mais je cherche juste un.}
+  \poemlinebase{Refrain}{Il y a 7 milliards de personnes, mais je cherche juste une.}
+  \poemlinebase{Refrain}{Il y a billions de faits, mais je cherche juste un.}
 }
 
 \begin{document}
-{\centering \uline{Le Titre Frappant}}
+
+{\centering
+  \uline{Je Cherche Juste Une}\par
+}
 
 \centering
-\begin{tabular}{{r}{c}}
+\begin{tabular}{{r}@{}p{1cm}@{}{c}}
   %\hfill & \hspace{4in} \\
   \poemline{Ma recherche a fallu beaucoup de temps.}
   \poemline{Je me trouve \`{a} Marseille}
-  \poemline{Pour d\'{e}couvrir la v\'{e}rit\'{e} de mon grand-p\`{e}re.}
+  \poemline{Pour d\'{e}couvrir la v\'{e}rit\'{e} sur mon grand-p\`{e}re.}
   \refrain
-  \poemline{Dans la maison de Jeanne LeBlanc,}
-  \poemline{J'attends sa r\'{e}ponse, qui expiquera la v\'{e}rit\'{e}.}
-  \poemline{Mais je n'aime pas sa r\'{e}cit.}
-  \poemline{Est-qu'il est vrai? Est-que mon grand-p\`{e}re un tra\^{i}tre?}
+  \poemline{\`{A} la maison de Jeanne LeBlanc,}
+  \poemline{J'attends sa r\'{e}ponse qui expliquera la v\'{e}rit\'{e}.}
+  \poemline{Mais je n'aime pas son r\'{e}cit.}
+  \poemline{Est-qu'il est vrai? Est-que mon grand-p\`{e}re \'{e}tait un tra\^{i}tre?}
   \poemline{Je cherche une autre source -- la mus\'{e}e.}
-  \poemline{L\`{a} je trouve un photo de l'homme qui s'appele Fergus}
+  \poemline{L\`{a}, je trouve une photo de l'homme qui s'appelle Fergus}
   \poemline{Donc, je voyage au Casablanca.}
   \refrain
-  \poemline{Voila le fils de Fergus.}
-  \poemline{Il me dit que je doive porter des v\^{e}tements plus longues.}
-  \poemline{L'homme, Fergus, commence \`{a} expliquer la situation}
+  \poemline{L'homme Fergus commence \`{a} expliquer la situation}
   \poemline{Il dit que c'\'{e}tait un malentendu.}
-  \poemline{Cette nuit, lui et Antoine ont cr\'{e}\'{e} un plan pour tromper l'ennemi.}
-  \poemline{Dans le peur de s'appeller un tra\^{i}tre, il a \'{e}schapp\'{e} pour Maroc.}
+  \poemline{Cette nuit, on a leur vu incorrecte.}
+  \poemline{Quand l'appelle un tra\^{i}tre, il s'\'{e}st \'{e}schapp\'{e} au Maroc.}
   \poemline{Satisfait de sa r\'{e}ponse, je retourne \`{a} France}
-  \poemline{Mon voyage est termin\'{e}e}
-  \poemline{Il y a 7 milliards de personnes, mais j'ai trouv\'{e} juste un.}
-  \poemline{Il y a trillions de faits, mais j'ai cherch\'{e} juste un.}
+  \poemline{Mon voyage est termin\'{e}}
+  \poemline{Il y a 7 milliards de personnes, mais j'ai trouv\'{e} juste une.}
+  \poemline{Il y a billions de faits, mais j'ai cherch\'{e} juste un.}
 \end{tabular}
 
 \end{document}
