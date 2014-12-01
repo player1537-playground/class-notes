@@ -1,0 +1,173 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+
+\newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+\setlength\parindent{0pt}
+\newcommand{\D}[1]{\mathrm{d}#1}
+\newcommand{\partialfrac}[2]{\dfrac{\partial #1}{\partial #2}}
+
+\pgfkeys{/pgfplots/MyAxisStyle/.style={xmin=-10,xmax=10, ymin=-10,ymax=10,height=6cm,width=6cm}}
+
+\begin{document}
+
+\section*{The Final}
+
+Friday, December 5, 2014
+
+\subsection*{Things to Study}
+
+First, focus on the middle parts. Then, try to do all the additional practice problems that the TA gives.
+
+\section*{17.2 Stokes' Theorem}
+
+The idea of this is to generalize Green's Theorem, which has a two dimensional field $\vec{F} = \left<F_1, F_2\right>$ and the integral
+
+\[
+\oint_c \vec{F} \cdot \D{\vec{s}} \overset{\text{Green}}{=} \iint_D \left|\begin{array}{cc} \partialfrac{}{x} & \partialfrac{}{y} \\ F_1 & F_2 \end{array}\right| \D{A}
+\]
+
+\subsection*{Stokes'}
+
+Given a field $\vec{F}=\left<F_1, F_2, F_3\right>$ and a closed curve $c$, we can calculate
+
+\[
+\oint_c \vec{F} \cdot \D{\vec{s}} \overset{\text{Stokes}}{=} \iint_S \text{curl} \vec{F} \cdot \D{\vec{S}}
+\]
+
+Where the orientation of the curve follows the right-hand-rule. Suppose there's a sheet of paper which represents the surface, the boundary curve would follow the RHR based on whether you choose the normal to go up, or down from the paper.
+
+You would use these theorems to simplify
+
+\subsection*{Example}
+
+Given a field $\vec{F} = \left<\sin{x^2}, e^{y^2}+x^2, z^4+2x^2\right>$ and a curve given by the points $\left\{(0,0,1), (3,0,0), (0,2,0)\right\}$, calculate
+
+\[
+\oint_c \vec{F} \cdot \D{\vec{s}} \overset{\text{Stokes}}{=} \iint_S \text{curl} \vec{F} \cdot \D{\vec{S}}
+\]
+
+After evaluating the curl of $\vec{F}$, we must calculate the equation of the surface, which is $S: \frac{1}{3} x + \frac{1}{2} y + z = 1$. This can be parametrized by
+
+\[
+z = g(x,y) = 1 - \frac{1}{3} x - \frac{1}{2} y
+\]
+
+Then we continue evaluating to get the answer.
+
+\subsection*{Understanding}
+
+Suppose there were two surfaces $S_1$ and $S_2$ which shared the same boundary, how would
+
+\[
+\iint_{S_1} \text{curl} \vec{F} \cdot \D{\vec{S_1}}
+\]
+
+and
+
+\[
+\iint_{S_2} \text{curl} \vec{F} \cdot \D{\vec{S_2}}
+\]
+
+compare? They would be equal by Stokes' Theorem, because they can be rewritten as a line integral around the common boundary. Note that this only works because we are dealing with the \textit{curl} of the field, and not the field itself.
+
+Now suppose there's another surface $S_3$ which goes below the two other surfaces, and has the opposite direction, how would its integral compare? It would be negative, because the direction of the boundary curve is reversed.
+
+\subsection*{Knowing When to Use it}
+
+What would let us know that we need to use Stokes' Theorem?
+
+One example would be: Find $\iint_S \text{curl} \vec{F} \cdot \D{\vec{S}}$ where $\vec{F} = \left<x, x y, x y z\right>$.
+
+Rather than evaluate the curl, and then do the surface integral, we can just use Stokes' Theorem to get a simpler line integral of just $\vec{F}$.
+
+\subsection*{Example}
+
+Calculate the surface integral
+
+\[
+\iint_S \text{curl} \vec{F} \cdot \D{\vec{S}}
+\]
+
+where $\vec{F} = \left<x z, y z, x y\right>$ over the surface $S$, which can be given by a semi-dome with radius $2$ which coincides with a cylinder of radius $1$.
+
+We apply Stokes' Thoerem to get:
+
+\[
+\iint_S \text{curl} \vec{F} \cdot \D{\vec{S}} \begin{array}{rl}
+  = & \oint_c \vec{F} \cdot \D{\vec{S}} \\
+  = & \oint_c x z \D{x} + y z \D{y} + x y \D{z}
+\end{array}
+\]
+
+Where we take $c$ to be the boundary curve going around the semi-dome.
+
+We can parametrize $c$ by
+
+\[
+c: \begin{cases}
+  x = \cos{\theta} \\
+  y = \sin{\theta} \\
+  z = \sqrt{3}
+\end{cases}
+\]
+
+And substitute this into the equation to get:
+
+\[
+= \int_0^{2\pi} \cos{\theta} \sqrt{3} (\sin{\theta}) + \sin{\theta}\sqrt{3} \cos{\theta} + \cos{\theta}\sin{\theta} \D{\theta}
+\]
+
+Which we could simplify to get the final answer.
+
+\subsection*{Example}
+
+Given a field $\vec{F} = \left<y + z, \sin{(x y)}, e^{xyz}\right>$ over a surface $S$ given by: an arbitrary surface left of a unit circle in the $Y Z$ plane such that the normal vector points outwards of the surface. Calculate
+
+\[
+\iint_S \text{curl} \vec{F} \cdot \D{\vec{S}}
+\]
+
+By Stokes' Thoerem, this can be rewritten as
+
+\[
+\iint_S \text{curl} \vec{F} \cdot \D{\vec{S}}
+=
+\oint_c \vec{F} \cdot \D{\vec{s}}
+\]
+
+\[
+= \oint_c (y + z) \D{x} + \sin(x y) \D{y} + e^{x y z} \D{z}
+\]
+
+The parametrized form of the curve $c$ can be given by
+
+\[
+c: \begin{cases} x = \cos{\theta} \\ y = 0 \\ z = \sin{\theta} \end{cases}
+\]
+
+Therefore we can write the integral as
+
+\[
+= \int_0^{2\pi} (0 + \sin{\theta})(-\sin{\theta}) + \sin{0} + \cos{\theta} \D{\theta}
+\]
+
+\[
+= \int_0^{2\pi} (- \sin^2 \theta + \cos{\theta}) \D{\theta}
+\]
+
+\[
+= \int_0^{2\pi} (\frac{1 - \cos{2 \theta}}{2} + \cos{\theta}) \D{\theta}
+\]
+
+\[
+= \pi
+\]
+
+Followup: What if the surface pointed the opposite direction, what would the surface integral be?
+
+\[
+- \pi
+\]
+
+\end{document}
