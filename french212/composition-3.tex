@@ -22,7 +22,7 @@
     \ifnum \pgfmathresult=1
     \theLineNumber
     \else
-
+    \theLineNumber
     \fi
   }{#1}
 }
@@ -42,13 +42,10 @@
 
 \begin{document}
 
-{\centering
-  \uline{Je Cherche Juste Une}\par
-}
-
 \centering
 \begin{tabular}{{r}@{}p{1cm}@{}{c}}
   %\hfill & \hspace{4in} \\
+  & & {\uline{Je Cherche Juste Une}} \\
   \poemline{Ma recherche a fallu beaucoup de temps.}
   \poemline{Je me trouve \`{a} Marseille}
   \poemline{Pour d\'{e}couvrir la v\'{e}rit\'{e} sur mon grand-p\`{e}re.}

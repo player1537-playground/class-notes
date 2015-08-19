@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+
+\setlength\parindent{0pt}
+
+\pgfkeys{/pgfplots/MyAxisStyle/.style={xmin=-10,xmax=10, ymin=-10,ymax=10,height=6cm,width=6cm}}
+
+\begin{document}
+
+\section*{2.1}
+
+Consider these declarative sentences
+
+\[
+\begin{cases}
+  $``5 is an odd integer''$ \\
+  $``6 is an odd integer''$ \\
+  $``x $\ge$ 7''$
+\end{cases}
+\]
+
+\begin{tabular}{c|c|c}
+English & Symbol & Name \\
+\hline
+``p or q'' & $p \wedge q$ & Disjunction \\
+\hline
+``p and q'' & $p \vee q$ & Conjunction \\
+\hline
+``not p'' & $\neg p$ & Negation \\
+\hline
+``p implies q'' & $p \rightarrow q$ & Implication \\
+``if p then q'' \\
+``p is sufficient for q'' \\
+``q is necessary for p'' \\
+``p only if q'' \\
+\hline
+``p if and only if q'' & $p \leftrightarrow q$ & Biconditionals \\
+``p iff q''
+\end{tabular}
+
+\end{document}
