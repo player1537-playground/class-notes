@@ -10,17 +10,7 @@ define pdf_rule
 	@rm $(@:pdf=aux) $(@:pdf=log)
 endef
 
-.PHONY: pdf/cosc311/next cosc311/next
-pdf/cosc311/next: cosc311/next
-	@echo
-	@echo PDFS += $(dir $<)$(NEXT).pdf
-	@echo $(dir $@)$(NEXT).pdf: $(dir $<)$(NEXT).tex
-	@echo '	$$(call pdf_rule)'
-	@echo
-	touch $(dir $<)$(NEXT).tex
-
-.PHONY: pdf/phy231/next phy231/next
-pdf/phy231/next: phy231/next
+define pdf_next_rule
 	@echo
 	@echo PDFS += $(dir $<)$(NEXT).pdf
 	@echo $(dir $@)$(NEXT).pdf: $(dir $<)$(NEXT).tex
@@ -32,6 +22,31 @@ pdf/phy231/next: phy231/next
 	else touch $(dir $<)$(NEXT).tex; \
 	echo 'Just touching file'; \
 	fi
+endef
+
+.PHONY: pdf/cosc311/next cosc311/next
+pdf/cosc311/next: cosc311/next
+	$(call pdf_next_rule)
+
+.PHONY: pdf/phy231/next phy231/next
+pdf/phy231/next: phy231/next
+	$(call pdf_next_rule)
+
+PDFS += pdf/math231/2014-11-17.pdf
+pdf/math231/2014-11-17.pdf: math231/2014-11-17.tex
+	$(call pdf_rule)
+
+PDFS += pdf/math231/2014-11-19.pdf
+pdf/math231/2014-11-19.pdf: math231/2014-11-19.tex
+	$(call pdf_rule)
+
+PDFS += pdf/math231/2014-11-24.pdf
+pdf/math231/2014-11-24.pdf: math231/2014-11-24.tex
+	$(call pdf_rule)
+
+PDFS += pdf/math231/2014-12-01.pdf
+pdf/math231/2014-12-01.pdf: math231/2014-12-01.tex
+	$(call pdf_rule)
 
 PDFS += pdf/cosc311/2015-08-19.pdf
 pdf/cosc311/2015-08-19.pdf: cosc311/2015-08-19.tex
@@ -47,3 +62,4 @@ pdf/all: $(PDFS)
 .PHONY: clean
 clean:
 	find . -name '*~' -print -exec rm {} \;
+	rm -r pdf
