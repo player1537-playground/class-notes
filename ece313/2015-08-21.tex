@@ -1,0 +1,187 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+\pgfkeys{/pgfplots/MyAxisStyle/.style={xmin=-10,xmax=10, ymin=-10,ymax=10,height=6cm,width=6cm}}
+
+\begin{document}
+
+\section*{Last class}
+
+Remember that individual outcomes cannot have an probability, only
+sets can have a probability. When we say $P(5) = 1/6$, what we really
+mean is that $P(\{5\}) = 1/6$.
+
+We do this because elements having probabilities is not a useful
+characteristic when we start bringing in combinations of events and
+probabilities.
+
+Sometimes it is important to limit the number of outcomes of an
+experiment so that we can get a model that is more convenient for
+different purposes.
+
+For example, we might want to look at 3 coin tosses, writing them in
+binary, we can get the numbers $0, 1, \cdots, 7$. Perhaps we're
+interested in actually flipping coins, but it might be that we're more
+interested in the results of rolling a die. For this, we might compose
+a strategy where, if we get a $0$ or a $7$, we re-flip the coins.
+
+Additionally, we might only be interested in whether the result of the
+die roll is even or odd. For this, the only events we're interested in
+are:
+
+\[
+\overset{\text{Set of events}}{\{\{2, 4, 6\}, \{1, 3, 5\}\}}
+\]
+
+We might separate these events into:
+
+\[
+\begin{cases}
+\text{even } = E = \{2, 4, 6\} \\
+\text{odd } = E' = \{1, 3, 5\}
+\end{cases}
+\]
+
+\section*{Assigning Probabilities}
+
+When we discuss the probability of a particular event (e.g. even), we
+might write it as:
+
+\[
+P(E) = P(\{2, 4, 6\}) = \frac{1}{6} + \frac{1}{6} + \frac{1}{6} = \frac{1}{2}
+\]
+
+The problem arises when we try to apply this same method to something
+with an infinite number of outcomes, where every outcome has a
+probability of $0$.
+
+The workaround for this problem is to never refer to the probability
+of a single outcome, but instead to assign probabilities to
+events. For example, the probability for even and odd numbers on a die
+is merely assigned, rather than computed. This way events can have
+non-zero probabilities, while their individual outcomes are zero.
+
+The question might arise: how can you still assign a probability to an
+event with each outcome having zero probability? A better way to think
+about things is to suppose there is a function that takes a value from
+a domain to a codomain, symbolically $f: D\rightarrow C$. This
+function can be viewed as a magical black box that somehow gives a
+probability when given a set, but doesn't just sum up each outcome in
+the set.
+
+Recall that one way that functions can be defined is by creating a
+table of values. To be a little more rigorous, we could define the
+function's domain and codomain as:
+
+\[
+f: \{E, E'\} \rightarrow [0, 1]
+\]
+
+With a table of values:
+
+\begin{tabular}{c|c}
+x & f(x) \\
+\hline
+E & 2/3 \\
+E' & 1/3
+\end{tabular}
+
+Okay\ldots Where did we get this table from? We don't want to muck
+around with how these functions are computed (until a later section),
+so we can instead just assume that this function exists in some
+way. Perhaps, for a simple probability distribution, we might actually
+sum up each outcome's probability, but in the general case, we can
+just avoid the issue for now.
+
+\section*{Example}
+
+To illustrate why we might want this particular framework, we'll look
+at an example.
+
+Suppose we are given a sample space:
+
+\[
+S = \left\{ x \mid 5 \le x < 15, x \in \mathbf{R} \right\}
+\]
+
+We also have an interesting event:
+
+\[
+I = \left\{x \mid 6 \le x \le 7, x \in \mathbf{R} \right\}
+\]
+
+Suppose then that we wrap our sample space into a circle, so that the
+$5$ and $15$ meet. Then suppose we put a spinner in the middle of the
+circle, and flick it, and whatever value we get out is the
+outcome. Then suppose that the spinner is perfectly unbiased, which
+means that for every point on that circle/in our domain, they all have
+the same probability (e.g. $\rho$).
+
+Now we have two cases for the value of $\rho$, either $\rho=0$ (in
+which case using the classical model of probability would result in a
+probability of $0$), or $\rho>0$ (in which case, the classical model
+would result in an infinite probability). Therefore, we are only left
+with the result that the classical model doesn't work.
+
+\section*{Back to the set of events}
+
+How do we know which event occurs when we get an outcome?
+
+Suppose we are rolling a die, and are interested in the following set
+of events:
+
+\[
+\begin{cases}
+\text{Even } = E = \{2, 4, 6\} \\
+\text{Odd } = E' = \{1, 3, 5\} \\
+\text{Prime } = R = \{2, 3, 5\} \\
+\text{Big } = B = \{4, 5, 6\} \\
+\text{Little } = L = \{1, 2, 3\}
+\end{cases}
+\]
+
+Suppose we roll a $3$. How do we know which event happened? We test
+every set of events that we're interested in, and find which events
+contain our outcome.
+
+\begin{tabular}{c|l}
+Event & $3 \in Event$ \\
+\hline
+E & No \\
+E' & Yes \\
+R & Yes \\
+B & No \\
+L & Yes
+\end{tabular}
+
+Now what if we're interested in one of two events happening (e.g. $E$
+or $B$). What we're looking for is, for an outcome $x$, whether
+$x\in{}E$ or $x\in B$, which is the same as $x\in(E\cup B)$.
+
+Similarly, for $E$ and $B$, we would have: $x\in E$ and $x\in B$, or
+$x\in{}(E\cap{}B)$.
+
+This illustrates the reason why we would rather assign probabilities
+to sets and not outcomes. By using sets, we can more easily work with
+the combination of sets by using set operations $\cap$ and $\cup$.
+
+\section*{One problem with the theory}
+
+The theory introduces a couple of problems. For instance, if we can
+talk about an event occurring, then we can also talk about the
+probability of an event not occurring.
+
+For this reason, we have to always include both the probability of an
+event and its complement.
+
+Similarly, if we are allowed to talk about two different sets, we also
+need to know what the probability of their unions and their
+intersection.
+
+This gives us the property that all of the events are closed under
+union, intersection, and complement.
+
+\end{document}
