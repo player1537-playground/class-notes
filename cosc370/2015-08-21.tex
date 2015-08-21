@@ -1,0 +1,99 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{xintexpr}
+\usepackage{booktabs}
+
+\newcommand\T{1}
+\newcommand\F{0}
+\newcommand\TF[1]{\if1#1\T\else\F\fi}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+\pgfkeys{/pgfplots/MyAxisStyle/.style={xmin=-10,xmax=10, ymin=-10,ymax=10,height=6cm,width=6cm}}
+
+\begin{document}
+
+\section*{Section 2.1}
+
+\begin{tabular}{rl}
+Let & p: ``Jill will win the chemistry prize'' \\
+    & q: ``Jack will win the math prize''
+\end{tabular}
+
+Truth values for statements:
+
+\begin{tabular}{rcl}
+0 & : & False \\
+1 & : & True
+\end{tabular}
+
+\[
+\begin{array}{ *{8}{c} }
+p & q & \neg p & p \vee q & \neg p \rightarrow q & p \rightarrow q & p\rightarrow (p\vee q) & p\wedge(\neg p\wedge q) \\
+\midrule
+\xintFor #1 in {1,0}\do {
+  \xintFor #2 in {1,0}\do {
+    #1 &
+    #2 &
+    \xintifboolexpr {not(#1)}{\T}{\F} &
+    \xintifboolexpr {#1 | #2}{\T}{\F} &
+    \xintifboolexpr {not(not(#1)) | #2}{\T}{\F} &
+    \xintifboolexpr {not(#1) | #2}{\T}{\F} &
+    \xintifboolexpr {not(#1) | (#1 | #2)}{\T}{\F} &
+    \xintifboolexpr {#1 & (not(#1) | #2)}{\T}{\F}
+    \\
+  }}
+\end{array}
+\]
+
+A tautology is when all the truth values of an expression are true,
+and can be shortened to $T_0$.
+
+\section*{Preview of ``Valid Argument''}
+
+An argument is essentially an ``if-then'' implication made up of given
+statements to assume and a conclusion statement.
+
+\[
+\underset{\text{``premises''}}{\left(p_1\wedge p_2\wedge\cdots\wedge p_n\right)} \rightarrow \underset{\text{``conclusion''}}{q}
+\]
+
+An argument is valid if true premises drive a true conclusion.
+
+Consider: $\underset{\text{premises}}{\left(\neg p\wedge\neg q\right)} \rightarrow \underset{conclusion}{\left(p\vee q\right)}$
+
+For $p=0$, $q=0$, the premises are true ($\neg p$ and $\neg q$), but
+the conclusion ($p \vee q$) is false, so this is not a valid argument.
+
+We'll revisit this in section 2.3.
+
+Note: If the implication $\left(p_1\wedge p_2\wedge \cdots \wedge p_n\right) \rightarrow q$
+is a tautology, then it is a valid argument.
+
+\section*{2.2}
+
+Definition 2.2: Logically Equivalent Statements (L.E.)
+
+Statements $S_1$ and $S_2$ are L.E. if $S_1\rightarrow S_2$ and
+$S_2\rightarrow S_1$ (i.e. if $S_1\leftrightarrow S_2$ is a $T_0$), or
+if $\neg S_1 \rightarrow \neg S_2$ and $\neg S_2 \rightarrow \neg S_1$
+(i.e. if $\neg S_1 \leftrightarrow \neg S_2$ is a $T_0$).
+
+\[
+\begin{array}{ *{6}{c} }
+p & q & \overset{S_1}{\neg\left(p\vee q\right)} & \overset{S_2}{\neg p\wedge\neg q} & S_1 \leftrightarrow S_2 & \neg S_1\leftrightarrow\neg S_2 \\
+\midrule
+\xintFor #1 in {0,1} \do {
+  \xintFor #2 in {0,1} \do {
+    \TF#1 &
+    \TF#2 &
+    \xintifboolexpr {not(#1 | #2)}{\T}{\F} &
+    \xintifboolexpr {not(#1) & not(#2)}{\T}{\F} &
+    1 &
+    1 \\
+  }}
+\end{array}
+\]
+
+\end{document}
