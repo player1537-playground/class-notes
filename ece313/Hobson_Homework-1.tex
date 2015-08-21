@@ -515,13 +515,109 @@ P(M'\cap Y'\cap A') = (1.0 - 0.45) - 0.21 - 0.15
 \boxed{P(M'\cap Y'\cap A') = 0.19}
 \]
 
-\subsection*{1.4.2}
+\subsection*{1.4.2 (a)}
 
+Givens:
 
+\[
+\begin{cases}
+P(\text{over \$1000}) = 0.42 \\
+P\left(\text{paid with credit card}\mid\text{over \$1000}\right) = 0.63
+\end{cases}
+\]
+
+\[
+(P(\text{over \$1000}))^3 = (0.42)^3
+\]
+
+\[
+\boxed{(P(\text{over \$1000}))^3 = 0.07}
+\]
+
+\subsection*{1.4.2 (b)}
+
+\[
+P\left(\text{not paid with credit card}\mid\text{over \$1000}\right) =
+1 - P\left(\text{paid with credit card}\mid\text{over \$1000}\right)
+\]
+
+\[
+\boxed{P\left(\text{not paid with credit card}\mid\text{over \$1000}\right) = 0.37}
+\]
 
 \subsection*{1.4.10}
 
+\[
+\begin{array}{ccc}
+\underset{0.02}{(S, S)} & \underset{0.06}{(S, P)} & \underset{0.05}{(S, F)} \\
+\underset{0.07}{(P, S)} & \underset{0.14}{(P, P)} & \underset{0.20}{(P, F)} \\
+\underset{0.06}{(F, S)} & \underset{0.21}{(F, P)} & \underset{0.19}{(F, F)}
+\end{array}
+\]
 
+\subsection*{1.4.10 (a)}
+
+\[
+\text{full capacity } = E_{full} = \{(F, F)\}
+\]
+
+\[
+\text{neither shut down } = E_{working} = \{(P, P), (P, F), (F, P), (F, F)\}
+\]
+
+\[
+P\left(E_{full}\mid E_{working}\right) =
+\frac{P(E_{full}\cap E_{working})}{P(E_{working})}
+\]
+
+\[
+P\left(E_{full}\mid E_{working}\right) =
+\frac
+    {P((F, F))}
+    {P((P, P)) + P((P, F)) + P((F, P)) + P((F, F))}
+\]
+
+\[
+P\left(E_{full}\mid E_{working}\right) =
+\frac
+    {0.19}
+    {0.14 + 0.20 + 0.21 + 0.19}
+\]
+
+\[
+\boxed{P\left(E_{full}\mid E_{working}\right) = 0.25675}
+\]
+
+\subsection*{1.4.10 (b)}
+
+\[
+\text{at least one at full capacity } = E_{1+ full} = \{(P, F), (F, P), (F, F)\}
+\]
+
+\[
+P\left(E_{1+ full}\mid E_{working}\right) =
+\frac
+    {P(E_{1+ full}\cap E_{working}}
+    {P(E_{working})}
+\]
+
+\[
+P\left(E_{1+ full}\mid E_{working}\right) =
+\frac
+    {P((P, F)) + P((F, P)) + P((F, F))}
+    {P((P, P)) + P((P, F)) + P((F, P)) + P((F, F))}
+\]
+
+\[
+P\left(E_{1+ full}\mid E_{working}\right) =
+\frac
+    {0.20 + 0.21 + 0.19}
+    {0.14 + 0.20 + 0.21 + 0.19}
+\]
+
+\[
+\boxed{P\left(E_{1+ full}\mid E_{working}\right) = 0.81081}
+\]
 
 \subsection*{1.4.11}
 
