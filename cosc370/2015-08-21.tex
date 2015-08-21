@@ -32,8 +32,8 @@ Truth values for statements:
 \begin{array}{ *{8}{c} }
 p & q & \neg p & p \vee q & \neg p \rightarrow q & p \rightarrow q & p\rightarrow (p\vee q) & p\wedge(\neg p\wedge q) \\
 \midrule
-\xintFor #1 in {1,0}\do {
-  \xintFor #2 in {1,0}\do {
+\xintFor #1 in {0,1}\do {
+  \xintFor #2 in {0,1}\do {
     #1 &
     #2 &
     \xintifboolexpr {not(#1)}{\T}{\F} &
