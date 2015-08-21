@@ -139,33 +139,381 @@ P\left(\textrm{\romannumeral 5}\right) =
 }
 \]
 
-\subsection*{1.2.2}
+\subsection*{1.2.2 (a)}
 
+\[
+P(A) = P(b) + P(c) + P(e)
+\]
 
+\[
+0.27 = P(b) + 0.11 + 0.06
+\]
 
-\subsection*{1.2.5}
+\[
+\boxed{P(b) = 0.10}
+\]
 
+\subsection*{1.2.2 (b)}
 
+\[
+P(A) + P(A') = 1.0
+\]
+
+\[
+P(A') = 1.0 - 0.27
+\]
+
+\[
+\boxed{P(A') = 0.73}
+\]
+
+\subsection*{1.2.2 (c)}
+
+\[
+P(a) + P(f) + P(d) = P(A')
+\]
+
+\[
+0.09 + 0.29 + P(d) = 0.73
+\]
+
+\[
+P(d) = 0.73 - 0.29 - 0.09
+\]
+
+\[
+\boxed{P(d) = 0.35}
+\]
+
+\subsection*{1.2.5 (a)}
+
+\textit{What is the probability that the stock from Company A will increase while the stock from Company B will decrease?}
+
+\[
+\text{Sample Space } S=\left\{
+\left(A\uparrow, B\uparrow\right),
+\left(A\uparrow, B\downarrow\right),
+\left(A\downarrow, B\uparrow\right),
+\left(A\downarrow, B\downarrow\right)
+\right\}
+\]
+
+\[
+\begin{cases}
+P((A\uparrow, B\uparrow)) = 0.38 \\
+P((A\downarrow, B\downarrow)) = 0.11 \\
+P((A\downarrow, B\uparrow)) = 0.16 \\
+\end{cases}
+\]
+
+\[
+P((A\uparrow, B\uparrow)) +
+P((A\uparrow, B\downarrow)) +
+P((A\downarrow, B\uparrow)) +
+P((A\downarrow, B\downarrow)) =
+1.0
+\]
+
+\[
+0.38 + P((A\uparrow, B\downarrow)) + 0.16 + 0.11 = 1.0
+\]
+
+\[
+\boxed{P((A\uparrow, B\downarrow)) = 0.35}
+\]
+
+\subsection*{1.2.5 (b)}
+
+\textit{What is the probability that at least one company will have an increase in the stock price?}
+
+\[
+P((A\uparrow, B\downarrow)) +
+P((A\uparrow, B\uparrow)) +
+P((A\downarrow, B\uparrow)) = P(\text{at least } 1 \text{ }\uparrow)
+\]
+
+\[
+P(\text{at least } 1 \text{ }\uparrow) =
+0.38 + 0.16 + 0.35
+\]
+
+\[
+\boxed{P(\text{at least } 1 \text{ }\uparrow) = 0.89}
+\]
 
 \subsection*{1.2.12}
 
+Sample Space
+
+\begin{center}
+\begin{tabular}{c|c|c}
+Outcome & Probability & In Event \\
+\hline
+(T, T, T) & 1/8 & No \\
+(T, T, H) & 1/8 & No \\
+(T, H, T) & 1/8 & No \\
+(T, H, H) & 1/8 & Yes \\
+(H, T, T) & 1/8 & No \\
+(H, T, H) & 1/8 & No \\
+(H, H, T) & 1/8 & Yes \\
+(H, H, H) & 1/8 & Yes
+\end{tabular}
+\end{center}
+
+\[
+P(2\text{ heads in succession}) =
+P((T, H, H)) +
+P((H, H, T)) +
+P((H, H, H))
+\]
+
+\[
+\boxed{P(2\text{ heads in succession}) = \frac{3}{8}}
+\]
 
 
 \subsection*{1.2.14}
 
+\[
+\begin{cases}
+P(\text{canceled before launch}) = 0.10 \\
+P(\text{launched, canceled early}) = 0.18 \\
+P(\text{launched, full length}) = 0.43 \\
+P(\text{launched, extended}) = 0.29
+\end{cases}
+\]
 
+\[
+P(\text{launched}) =
+P(\text{launched, canceled early}) +
+P(\text{launched, full length}) +
+P(\text{launched, extended})
+\]
 
-\subsection*{1.3.2}
+\[
+P(\text{launched}) = 0.18 + 0.43 + 0.29
+\]
 
+\[
+\boxed{P(\text{launched}) = 0.9}
+\]
 
+\subsection*{1.3.2 (a)}
 
-\subsection*{1.3.5}
+\[
+P(B) = 0.08 + 0.06 + 0.13 + 0.01 + 0.11 + 0.05 + 0.02
+\]
 
+\[
+\boxed{P(B) = 0.46}
+\]
 
+\subsection*{1.3.2 (b)}
+
+\[
+P(B\cap C) = 0.02 + 0.05 + 0.11
+\]
+
+\[
+\boxed{P(B\cap C) = 0.18}
+\]
+
+\subsection*{1.3.2 (c)}
+
+\[
+P(A\cup C) = 0.07 + 0.05 + 0.01 + 0.08 + 0.02 + 0.05 + 0.04 + 0.07 + 0.11 + 0.11
+\]
+
+\[
+\boxed{P(A\cup C) = 0.61}
+\]
+
+\subsection*{1.3.2 (d)}
+
+\[
+P(A\cap B\cap C) = 0.02 + 0.05
+\]
+
+\[
+\boxed{P(A\cap B\cap C) = 0.07}
+\]
+
+\subsection*{1.3.2 (e)}
+
+\[
+P(A\cup B\cup C) = 1.0 - P(A'\cap B'\cap C')
+\]
+
+\[
+P(A\cup B\cup C) = 1.0 - 0.04 - 0.05 - 0.03
+\]
+
+\[
+P(A\cup B\cup C) = 0.88
+\]
+
+\subsection*{1.3.2 (f)}
+
+\[
+P(A'\cap B) = 0.08 + 0.06 + 0.13 + 0.11
+\]
+
+\[
+\boxed{P(A'\cap B) = 0.38}
+\]
+
+\subsection*{1.3.2 (g)}
+
+\[
+P(B'\cup C) = 0.04 + 0.05 + 0.03 + 0.07 + 0.05 + 0.08 + 0.04 + 0.07 + 0.11 + 0.11 + 0.02 + 0.05
+\]
+
+\[
+\boxed{P(B'\cup C) = 0.72}
+\]
+
+\subsection*{1.3.2 (h)}
+
+\[
+P(A\cup (B\cap C)) = 0.07 + 0.05 + 0.08 + 0.04 + 0.02 + 0.05 + 0.01 + 0.11
+\]
+
+\[
+\boxed{P(A\cup (B\cap C)) = 0.43}
+\]
+
+\subsection*{1.3.2 (i)}
+
+\[
+P((A\cup B)\cap C) = 0.08 + 0.04 + 0.02 + 0.05 + 0.11
+\]
+
+\[
+\boxed{P((A\cup B)\cap C) = 0.30}
+\]
+
+\subsection*{1.3.2 (j)}
+
+\[
+P((A'\cup C)') = 0.07 + 0.05 + 0.01
+\]
+
+\[
+\boxed{P((A'\cup C)') = 0.13}
+\]
+
+\subsection*{1.3.5 (a)}
+
+\textit{Are the events that a card from one of the two red suits is chosen and that a card from one of the two black suits is chosen mutually exclusive?}
+
+Yes, these events are mutually exclusive. A card cannot be in both a
+red suit and a black suit at the same time. In this case, the two
+events split the outcomes in half: half are from the black suit and
+the remaining are in the red suit.
+
+\subsection*{1.3.5 (b)}
+
+\textit{What about the events that an ace is chosen and that a heart is chosen?}
+
+These two events are not mutually exclusive. The event that an ace is
+chosen is summarized as
+
+\[
+\text{ace chosen } = A = \{
+\left(\text{A}, \text{spades}\right),
+\left(\text{A}, \text{hearts}\right),
+\left(\text{A}, \text{diamonds}\right),
+\left(\text{A}, \text{clubs}\right)
+\}
+\]
+
+And for a heart chosen
+
+\[
+\text{heart chosen } = H = \{
+\left(\text{A}, \text{hearts}\right),
+\left(1, \text{hearts}\right),
+\left(2, \text{hearts}\right),
+\cdots,
+\left(K, \text{hearts}\right)
+\}
+\]
+
+The intersection of these two events is the non-empty set:
+
+\[
+A\cap H = \{\left(A, \text{hearts}\right)\}
+\]
+
+This means that they are not mutually exclusive.
 
 \subsection*{1.3.13}
 
+Events:
 
+\[
+\begin{cases}
+\text{male } = M \\
+\text{female } = M' \\
+\text{$\le$ 30 years } = Y \\
+\text{$>$ 30 years } = Y' \\
+\text{admitted } = A \\
+\text{not admitted } = A'
+\end{cases}
+\]
+
+Givens:
+
+\[
+\begin{cases}
+P(M) = 0.45 \\
+P(Y) = 0.30 \\
+P(M'\cap Y'\cap A) = 0.15 \\
+P(M'\cap Y) = 0.21
+\end{cases}
+\]
+
+We can start by decomposing $P(M')$ into its different components (all
+the events that combine to make $M'$.
+
+\[
+P(M') = P(M'\cap Y\cap A) + P(M'\cap Y\cap A') + P(M'\cap Y'\cap A) + P(M'\cap Y'\cap A')
+\]
+
+Similarly, we can look at $P(M'\cap Y)$.
+
+\[
+P(M'\cap Y) = P(M'\cap Y\cap A) + P(M'\cap Y\cap A')
+\]
+
+Then we can combine the equations, substituting $P(M'\cap Y)$ for
+$P(M'\cap Y\cap A) + P(M'\cap Y\cap A')$.
+
+\[
+P(M') = P(M'\cap Y) + P(M'\cap Y'\cap A) + P(M'\cap Y'\cap A')
+\]
+
+Then we can solve for the desired probability
+
+\[
+P(M'\cap Y'\cap A') = P(M') - P(M'\cap Y) - P(M'\cap Y'\cap A)
+\]
+
+And substitute $1.0 - P(M)$ for $P(M')$
+
+\[
+P(M'\cap Y'\cap A') = (1.0 - P(M)) - P(M'\cap Y) - P(M'\cap Y'\cap A)
+\]
+
+And substitute the known values for each of the probabilities.
+
+\[
+P(M'\cap Y'\cap A') = (1.0 - 0.45) - 0.21 - 0.15
+\]
+
+\[
+\boxed{P(M'\cap Y'\cap A') = 0.19}
+\]
 
 \subsection*{1.4.2}
 
