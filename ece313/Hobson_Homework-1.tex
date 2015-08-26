@@ -621,6 +621,62 @@ P\left(E_{1+ full}\mid E_{working}\right) =
 
 \subsection*{1.4.11}
 
+Let the following events represent the english equivalents:
+
+\[
+\begin{cases}
+L: \text{length within tolerances} \\
+W: \text{width within tolerances} \\
+H: \text{height within tolerances} \\
+\end{cases}
+\]
+
+The given statements are:
+
+\[
+\begin{cases}
+P(L) = 0.86 \\
+P(L\cap W\cap H) = 0.80 \\
+P(L\cap W\cap H') = 0.02 \\
+P(L'\cap W\cap H) = 0.03 \\
+P(W\cup H) = 0.92 \\
+\end{cases}
+\]
+
+Using these we can also compute the opposite probabilities:
+
+\[
+\begin{cases}
+P(L') = 1 - P(L) = 0.14 \\
+P(L'\cup
+\end{cases}
+\]
+
+\subsection*{1.4.11 (a)}
+
+\textit{If a part is within the specified tolerance limits for height}
+(event = $H$)
+\textit{what is the probability that it will also be within the specified tolerance limits for width?}
+(what is $P(W|H)$?)
+
+From the basic definition of conditional probability, we can rewrite
+this probability as:
+
+\[
+P(W|H) = \frac{P(W\cap H)}{P(H)}
+\]
+
+Then we can use the following equivalences:
+
+\[
+\begin{cases}
+P(W\cap H) = P(L\cap W\cap H) + P(L'\cap W\cap H) \\
+P(H) = P(L\cap W\cap H) + P(L\cap W'\cap H) + P(L'\cap W\cap H) + P(L'\cap W'\cap H)
+\end{cases}
+\]
+
+
+
 
 
 \subsection*{1.4.13}
