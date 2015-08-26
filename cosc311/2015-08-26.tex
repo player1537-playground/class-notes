@@ -1,0 +1,198 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{xintexpr}
+\usepackage{booktabs}
+
+\newcommand\T{1}
+\newcommand\F{0}
+\newcommand\TF[1]{\if1#1\T\else\F\fi}
+\newcommand\xintTF[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+\pgfkeys{/pgfplots/MyAxisStyle/.style={xmin=-10,xmax=10, ymin=-10,ymax=10,height=6cm,width=6cm}}
+
+\begin{document}
+
+\section*{Section 2.2 Continued}
+
+Consider the implication statement (when $x$ is a real number)
+
+\begin{equation}\tag{P}
+\text{``If $x^2>16$, then $x<-4$ or $x>4$.''}
+\end{equation}
+
+Write down the contrapositive, converse, and inverse of $P$.
+
+It might be a good idea to disect the statement into primitive statements:
+
+\[
+\begin{cases}
+p: x^2 > 16 \\
+q: x<-4 \\
+r: x>4
+\end{cases}
+\]
+
+Similarly, it might be important to write the negations of each primitive statement
+
+\[
+\begin{cases}
+\neg p: x^2 \le 16 \\
+\neg q: x \ge -4 \\
+\neg r: x \le 4
+\end{cases}
+\]
+
+Once it's disected, it would also be good to rewrite $P$ using $p$, $q$, and $r$.
+
+``If $p$, then $q$ or $r$'' (note: exclusive or is technically correct, we can ignore it, though).
+
+And then write it using logical connectives
+
+\[
+p\rightarrow (q\vee r)
+\]
+
+Now we can focus on finding the 3 additional statements
+
+\begin{tabular}{cccc}
+What & Expression & Simplified & Relation used \\
+\hline
+Original & $p\rightarrow (q\vee r)$ & & \\
+Contrapositive & $\neg (q\vee r)\rightarrow \neg p$ & $(\neg q\wedge \neg r)\rightarrow \neg p$ & DeMorgan's Law \\
+Converse & $(q \vee r)\rightarrow p$ & & \\
+Inverse & $\neg p \rightarrow \neg(q\vee r$ & $\neg p\rightarrow\neg q\wedge\neg r$ & DeMorgan's Law
+\end{tabular}
+
+Finally, we want to translate back into original context (English).
+
+\begin{tabular}{rl}
+What & English \\
+\hline
+Original & ``If $x^2>16$, then $x<-4$ or $x>4$'' \\
+Contrapositive & ``If $x\ge-4$ and $x\le 4$, then $x^2\le 16$'' \\
+Converse & ``If $x<-4$ or $x>4$, then $x^2>16$'' \\
+Inverse & ``If $x^2\le 16$, then $x\ge-4$ and $x\le 4$''
+\end{tabular}
+
+\section*{Contrapositive and the original statement}
+
+\[
+p\rightarrow q\Leftrightarrow \neg q\rightarrow\neg p
+\]
+
+In other words, the contrapositive of a given implication is logically equivalent to the given implication.
+
+This is very useful for re-expressing a given implication, especially one that contains a lot of negative statements within.
+
+For example, if we have the statement
+$(\neg{}q\wedge\neg{}r)\rightarrow\neg{}p$. Rewriting this in
+contrapositive form gives $p\rightarrow{}q\vee{}r$, which is more
+straightforward.
+
+\section*{Section 2.3 Logical Implication: Rule of Inference}
+
+Recall from the 8/21 lecture, when we introduced an ``argument'':
+
+\[
+\underset{Premises}{(p_1\wedge p_2\wedge \cdots\wedge p_n)} \rightarrow\underset{Conclusion}{q}
+\]
+
+Recall that an argument is ``valid'' if true premises drive a true
+conclusion (ref: page 53 in section 2.1, page 62 in section 2.3).
+
+\subsection*{Example 8.26.1}
+
+Is the following argument valid?
+
+\[
+\underset{p_1}{p}\wedge\underset{p_2}{(p\rightarrow q)}\rightarrow q
+\]
+
+Lets look at a truth table:
+
+\[
+\begin{array}{ cc|cc|c }
+p & q & p_1 & p_2 & q \\
+\midrule
+\xintFor #1 in {0,1} \do {
+  \xintFor #2 in {0,1} \do {
+    \TF#1 &
+    \TF#2 &
+    \TF#1 &
+    \xintifboolexpr {not(#1) | #2}{\T}{\F} &
+    \TF#2 \\
+}}
+\end{array}
+\]
+
+Which rows have all preimises true?
+
+The last row is the only one where all premises are true. Notice that
+the corresponding conclusion is true. Thus, the argument is valid.
+
+\subsection*{Example 8.21.2}
+
+Is the following argument valid?
+
+\[
+\underset{p_1}{\neg p}\wedge \underset{p_2}{\neg q} \rightarrow (p\vee q)
+\]
+
+Construct a truth table for the statement
+
+\[
+\begin{array}{cc|cc|c}
+p & q & \neg p & \neg q & p\vee q \\
+\midrule
+\xintFor #1 in {0,1} \do {
+  \xintFor #2 in {0,1} \do {
+    \TF#1 &
+    \TF#2 &
+    \xintTF {not(#1)} &
+    \xintTF {not(#2)} &
+    \xintTF {#1|#2} \\
+}}
+\end{array}
+\]
+
+The first row is the only one with all true premises. However, the
+conclusion is not true, so the statement is \textbf{not} a valid
+argument.
+
+\subsection*{Valid arguments through tautologies}
+
+Another way to think about a valid argument is that a valid argument
+will be a tautology (Back to example 8.26.1).
+
+\[
+\begin{array}{cc|cc|c}
+p & q & p\rightarrow q & p\wedge (p\rightarrow q) & \lbrack p\wedge (p\rightarrow q)\rbrack\rightarrow q \\
+\midrule
+\xintFor #1 in {0,1} \do {
+  \xintFor #2 in {0,1} \do {
+    \TF #1 &
+    \TF #2 &
+    \xintTF {not(#1) | #2} &
+    \xintTF {#1 & (not(#1) | #2)} &
+    \xintTF {not(#1 & (not(#1) | #2)) | #2} \\
+}}
+\end{array}
+\]
+
+Thus, $\lbrack{}p\wedge(p\rightarrow{}q)\rbrack\rightarrow{}q$ is a
+valid argument, because the rightmost column is all true, and is thus
+a $T_0$.
+
+For further practice, show that example 8.26.2 that the implication is
+not a $T_0$.
+
+This result is for arbitrary, primitive statements; but the rules of
+substitution allow us to extend this result to \textbf{ANY} statements
+$p$ and $q$ (primitive or not).
+
+\textit{Look over page 78, table 2.19 for Friday.}
+
+\end{document}
