@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{amssymb}
+
+\newcommand{\RN}[1]{\textrm{\uppercase\expandafter{\romannumeral #1\relax}}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+\pgfkeys{/pgfplots/MyAxisStyle/.style={xmin=-10,xmax=10, ymin=-10,ymax=10,height=6cm,width=6cm}}
+
+\begin{document}
+
+\section*{Countable Additivity of Mutually Exclusive Events}
+
+If we have a sample space $\Omega$ with
+
+\[
+\Omega=\left\{\RN{1}, \RN{2}, \RN{3}, \RN{4}, \RN{5}, \RN{6}\right\}
+\]
+
+If $\zeta$ is a countable, mutually exclusive collection of events, such as
+
+\[
+\zeta=\left\{
+\{\RN{1}\},
+\{\RN{2}\},
+\{\RN{3}\},
+\{\RN{4}\},
+\{\RN{6}\}
+\right\}
+\]
+
+(Note that element $\{\RN{5}\}$ is missing).
+
+then
+
+\[
+P\left(\bigcup_{A\in{}\zeta} A\right) = \sum\limits_{A\in{}\zeta} P(A)
+\]
+
+Or in other words, the probability of the union of all of the events
+in a set of mutually exclusive events is the sum of the probabilities
+of each event. Which is pretty obvious.
+
+\section*{Elementary Events}
+
+An ``elementary event'' is a set of the form $\{x\}$ where
+$x\in{}\Omega$.
+
+\section*{Automagically Mutually Exclusive}
+
+If our collection $\zeta$ is a set of elementary events, then it is
+automagically mutually exclusive. Think: if the set contained some
+elementary event twice, then the set would take care of squashing them
+together, so that there is only $1$ of those elementary events.
+
+\section*{Not-Automagically Mutually Exclusive}
+
+However, if our collection contained one event that was not
+elementary, then we would have to check each element of the
+collection.
+
+For example, if we had $\zeta=\{\{a\}, A, \{b\}\}$, then we would have
+to check that every combination of two events, intersected, would be
+the empty set. In other words, we would check:
+
+\[
+\forall x\in\zeta\! \forall y\in\zeta\! x\cap y=\varnothing
+\]
+
+\end{document}

@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PDFS :=
 NEXT := $(shell date +'%Y-%m-%d')
 
-all: pdf/all
+all: pdf/all index.org
 
 .PHONY: clean
 clean:
@@ -29,6 +29,10 @@ define pdf_next_rule
 	echo 'Just touching file'; \
 	fi
 endef
+
+.PHONY: index.org
+index.org: pdf/all
+	@find pdf | sed -e 's/[^\/*]*\//*/g; s/\**/*& /; s/[^ ]*\.pdf/[[&]]/' > $@
 
 .PHONY: pdf/cosc311/next cosc311/next
 pdf/cosc311/next: cosc311/next
@@ -89,6 +93,14 @@ pdf/ece313/2015-08-21.pdf: ece313/2015-08-21.tex
 PDFS += pdf/cosc311/2015-08-26.pdf
 pdf/cosc311/2015-08-26.pdf: cosc311/2015-08-26.tex
 	$(call pdf_rule)
+
+PDFS += pdf/ece313/2015-08-26.pdf
+pdf/ece313/2015-08-26.pdf: ece313/2015-08-26.tex
+	$(call pdf_rule)
+
+PDFS += pdf/ece313/2015-08-26-probability-space.pdf
+pdf/ece313/2015-08-26-probability-space.pdf: ece313/2015-08-26-probability-space.pdf
+	cp $< $@
 
 .PHONY: pdf/all
 pdf/all: $(PDFS)
