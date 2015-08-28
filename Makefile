@@ -32,7 +32,17 @@ endef
 
 .PHONY: index.org
 index.org: pdf/all
-	@find pdf | sed -e 's/[^\/*]*\//*/g; s/\**/*& /; s/[^ ]*\.pdf/[[&]]/' > $@
+	@find pdf | \
+	sed \
+	-e 'h' \
+	-e 's/[^\/*]*\//*/g' \
+	-e 's/\**/*&/' \
+	-e 's/[^*][^*]*/ /' \
+	-e 'x' \
+	-e '/.pdf/ { x; s/.*//; x; s/.*/#+BEGIN_HTML\n<iframe src="&" width="100%" height="800px"><\/iframe>\n#+END_HTML\n/; }' \
+	-e 'H' \
+	-e 'x' \
+	-e 's/\n//' > $@
 
 .PHONY: pdf/cosc311/next cosc311/next
 pdf/cosc311/next: cosc311/next
@@ -101,6 +111,14 @@ pdf/ece313/2015-08-26.pdf: ece313/2015-08-26.tex
 PDFS += pdf/ece313/2015-08-26-probability-space.pdf
 pdf/ece313/2015-08-26-probability-space.pdf: ece313/2015-08-26-probability-space.pdf
 	cp $< $@
+
+PDFS += pdf/cosc311/2015-08-26-quiz-0.pdf
+pdf/cosc311/2015-08-26-quiz-0.pdf: cosc311/2015-08-26-quiz-0.pdf
+	cp $< $@
+
+PDFS += pdf/cosc311/2015-08-28.pdf
+pdf/cosc311/2015-08-28.pdf: cosc311/2015-08-28.tex
+	$(call pdf_rule)
 
 .PHONY: pdf/all
 pdf/all: $(PDFS)
