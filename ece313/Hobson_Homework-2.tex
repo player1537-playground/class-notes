@@ -1,0 +1,188 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{empheq}
+
+\setlength\parindent{0pt}
+%\setlength\parskip{1em}
+\pgfkeys{/pgfplots/MyAxisStyle/.style={xmin=-10,xmax=10, ymin=-10,ymax=10,height=6cm,width=6cm}}
+
+\begin{document}
+
+\section*{Homework 2}
+
+
+\subsection*{1.4.2 (a)}
+
+Givens:
+
+\[
+\begin{cases}
+P(\text{over \$1000}) = 0.42 \\
+P\left(\text{paid with credit card}\mid\text{over \$1000}\right) = 0.63
+\end{cases}
+\]
+
+\[
+(P(\text{over \$1000}))^3 = (0.42)^3
+\]
+
+\[
+\boxed{(P(\text{over \$1000}))^3 = 0.07}
+\]
+
+\subsection*{1.4.2 (b)}
+
+\[
+P\left(\text{not paid with credit card}\mid\text{over \$1000}\right) =
+1 - P\left(\text{paid with credit card}\mid\text{over \$1000}\right)
+\]
+
+\[
+\boxed{P\left(\text{not paid with credit card}\mid\text{over \$1000}\right) = 0.37}
+\]
+
+\subsection*{1.4.10}
+
+\[
+\begin{array}{ccc}
+\underset{0.02}{(S, S)} & \underset{0.06}{(S, P)} & \underset{0.05}{(S, F)} \\
+\underset{0.07}{(P, S)} & \underset{0.14}{(P, P)} & \underset{0.20}{(P, F)} \\
+\underset{0.06}{(F, S)} & \underset{0.21}{(F, P)} & \underset{0.19}{(F, F)}
+\end{array}
+\]
+
+\subsection*{1.4.10 (a)}
+
+\[
+\text{full capacity } = E_{full} = \{(F, F)\}
+\]
+
+\[
+\text{neither shut down } = E_{working} = \{(P, P), (P, F), (F, P), (F, F)\}
+\]
+
+\[
+P\left(E_{full}\mid E_{working}\right) =
+\frac{P(E_{full}\cap E_{working})}{P(E_{working})}
+\]
+
+\[
+P\left(E_{full}\mid E_{working}\right) =
+\frac
+    {P((F, F))}
+    {P((P, P)) + P((P, F)) + P((F, P)) + P((F, F))}
+\]
+
+\[
+P\left(E_{full}\mid E_{working}\right) =
+\frac
+    {0.19}
+    {0.14 + 0.20 + 0.21 + 0.19}
+\]
+
+\[
+\boxed{P\left(E_{full}\mid E_{working}\right) = 0.25675}
+\]
+
+\subsection*{1.4.10 (b)}
+
+\[
+\text{at least one at full capacity } = E_{1+ full} = \{(P, F), (F, P), (F, F)\}
+\]
+
+\[
+P\left(E_{1+ full}\mid E_{working}\right) =
+\frac
+    {P(E_{1+ full}\cap E_{working}}
+    {P(E_{working})}
+\]
+
+\[
+P\left(E_{1+ full}\mid E_{working}\right) =
+\frac
+    {P((P, F)) + P((F, P)) + P((F, F))}
+    {P((P, P)) + P((P, F)) + P((F, P)) + P((F, F))}
+\]
+
+\[
+P\left(E_{1+ full}\mid E_{working}\right) =
+\frac
+    {0.20 + 0.21 + 0.19}
+    {0.14 + 0.20 + 0.21 + 0.19}
+\]
+
+\[
+\boxed{P\left(E_{1+ full}\mid E_{working}\right) = 0.81081}
+\]
+
+\subsection*{1.4.11}
+
+Let the following events represent the english equivalents:
+
+\[
+\begin{cases}
+L: \text{length within tolerances} \\
+W: \text{width within tolerances} \\
+H: \text{height within tolerances} \\
+\end{cases}
+\]
+
+The given statements are:
+
+\[
+\begin{cases}
+P(L) = 0.86 \\
+P(L\cap W\cap H) = 0.80 \\
+P(L\cap W\cap H') = 0.02 \\
+P(L'\cap W\cap H) = 0.03 \\
+P(W\cup H) = 0.92 \\
+\end{cases}
+\]
+
+Using these we can also compute the opposite probabilities:
+
+\[
+\begin{cases}
+P(L') = 1 - P(L) = 0.14 \\
+P(L'\cup W'\cup H') = 1 - P(L\cap W\cap H) = 0.20 \\
+P(L'\cup W'\cup H) = 1 - P(L\cap W\cap H') = 0.98 \\
+P(L\cup W'\cup H') = 1 - P(L'\cap W\cap H) = 0.97 \\
+P(W'\cap H') = 1 - P(W\cup H) = 0.08 \\
+\end{cases}
+\]
+
+\subsection*{1.4.11 (a)}
+
+\textit{If a part is within the specified tolerance limits for height}
+(event = $H$)
+\textit{what is the probability that it will also be within the specified tolerance limits for width?}
+(what is $P(W|H)$?)
+
+From the basic definition of conditional probability, we can rewrite
+this probability as:
+
+\[
+P(W|H) = \frac{P(W\cap H)}{P(H)}
+\]
+
+Then we can use the following equivalences:
+
+\[
+\begin{cases}
+P(W\cap H) = P(L\cap W\cap H) + P(L'\cap W\cap H) \\
+P(H) = P(L\cap W\cap H) + P(L\cap W'\cap H) + P(L'\cap W\cap H) + P(L'\cap W'\cap H)
+\end{cases}
+\]
+
+
+
+
+
+\subsection*{1.4.13}
+
+
+
+\subsection*{1.4.16}
+
+\end{document}

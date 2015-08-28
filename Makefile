@@ -124,5 +124,9 @@ PDFS += pdf/ece313/2015-08-28.pdf
 pdf/ece313/2015-08-28.pdf: ece313/2015-08-28.tex
 	$(call pdf_rule)
 
+PDFS += pdf/ece313/Hobson_Homework-2.pdf
+pdf/ece313/Hobson_Homework-2.pdf: ece313/Hobson_Homework-2.tex
+	$(call pdf_rule)
+
 .PHONY: pdf/all
 pdf/all: $(PDFS)
