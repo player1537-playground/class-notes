@@ -7,8 +7,250 @@
 \setlength\parskip{1em}
 \pgfkeys{/pgfplots/MyAxisStyle/.style={xmin=-10,xmax=10, ymin=-10,ymax=10,height=6cm,width=6cm}}
 
+%\newcommand{\checkmark}{✓}
+
 \begin{document}
 
-\section*{TA Hours}
+\section*{Distributive Properties}
+
+\textit{I don't actually know what he was talking about.}
+
+In normal arithmetic, we have
+
+\[
+a\cdot(b+c)\overset{\checkmark}{=}(a\cdot b)+(a\cdot c)
+\]
+
+and
+
+\[
+a+(b\cdot c)\overset{?}{=}(a+b)\cdot(a+c)
+\]
+
+Do these same properties apply to sets? The first one indeed does:
+
+\[
+A\cap(B\cup C)\overset{\checkmark}{=}(A\cap B)\cup(A\cap C)
+\]
+
+The second one we have to look a bit closer to determine if it is
+actually valid.
+
+\[
+\begin{array}{rcl}
+A\cup(B\cap C) & \overset{?}{=} & (A\cup B)\cap(A\cup C) \\
+               & \overset{\checkmark}{=} & ((A\cup B)\cap A)\cup((A\cup B)\cap C) \\
+\end{array}
+\]
+
+\section*{Additional properties}
+
+For $A$, $B$ as members of a sample space $\Omega$.
+
+\[
+\begin{array}{c|c}
+A\cap A=A & A\cup A=A \\
+A\cap B=B\cap A & A\cup\Omega=\Omega \\
+A\cup B=B\cup A & A\cap\Omega=A \\
+(A')' = A & A\cup A'=\Omega \\
+\end{array}
+\]
+
+\[
+\begin{array}{c}
+(A\cup B)\cup C=A\cup(B\cup C) \\
+(A\cap B)\cap C = A\cap (B\cap C) \\
+\end{array}
+\]
+
+\section*{Problems from the book}
+
+Suppose we want to model two swimmers, where each has a mutually
+exclusive outcome: he either sinks or floats. We could model this as:
+
+\[
+\begin{cases}
+S_1:\text{ first sinks} \\
+S_2:\text{ second sinks} \\
+F_1:\text{ first floats} \\
+F_2:\text{ second floats} \\
+\end{cases}
+\]
+
+We then have to model these events with probabilities. One thing we
+have to be careful over is that we can't have a person sink and float
+at the same time. We then have to consult what it means for an event
+to occur: an outcome has to be an element of that event. This means we
+have the following:
+
+\[
+S_1\cap F_1 = \varnothing
+\]
+
+\[
+S_2\cap F_2 = \varnothing
+\]
+
+In order for our model to be all-encompassing, we also have to include
+the union of separate events:
+
+\[
+S_2\cup F_2 = ?
+\]
+
+\[
+S_1\cup F_1 = ?
+\]
+
+We can then start looking at the probabilities assigned to these
+events:
+
+\[
+\begin{cases}
+P(F_1\cap F_2)= 0.24 \\
+P(S_1\cap S_2)=0.16 \\
+P(S_1\cap F_2)=0.31 \\
+P(F_1\cup F_2) = ? \\
+P(F_1\cap S_2) = ? \\
+\end{cases}
+\]
+
+Now we want to acknowledge that the opposite of sinking is floating,
+and vice versa. Symbolically:
+
+\[
+\begin{cases}
+S_2'=F_2 \\
+F_2'=S_2 \\
+S_1'=F_1 \\
+F_1'=S_1 \\
+\end{cases}
+\]
+
+With this knowledge in hand, we can now evaluate some of the previous
+expressions:
+
+\[
+\begin{cases}
+S_2\cup F_2 = \Omega \\
+S_1\cup F_1 = \Omega \\
+\end{cases}
+\]
+
+\subsection*{Computing $P(F_1\cup{}F_2)$}
+
+Now we can start trying to compute the above probability:
+
+\[
+\begin{array}{rcl}
+F_1\cup F_2 & = & ((F_1\cup F_2)')' \\
+            & = & (F_1'\cap F_2')' \\
+            & = & (S_1\cap S_2)' \\
+\end{array}
+\]
+
+And then bring this back to the given probabilities
+
+\[
+\begin{array}{rcl}
+P(F_1\cup F_2) & = & P((S_1\cap S_2)') \\
+               & = & 1 - P(S_1\cap S_2) \\
+               & = & 1 - 0.16 \\
+\end{array}
+\]
+
+\subsection*{Computing $P(F_1\cap{}S_2)$}
+
+To compute this, we go back to our favorite equation:
+
+\[
+P\left(\bigcup_{E\in\zeta} E\right) = \sum\limits_{E\in\zeta} P(E)
+\]
+
+Recall that this equation relies on the mutually exclusiveness of
+$\zeta$. Our particular set of events is the following:
+
+\[
+\zeta=\left\{F_1\cap S_2, F_1\cap F_2, S_1\cap S_2, S_1\cap F_2 \right\}
+\]
+
+Not shown here, but these are actually mutually exclusive. You would
+have to check this.
+
+Then we can look at:
+
+\[
+P(F_1\cap S_2) = P((F_1\cap S_2)\cup (F_1\cap F_2)\cup (S_1\cap S_2)\cup (S_1\cap F_2))
+\]
+
+\[
+P((F_1\cap S_2)\cup (F_1\cap F_2)\cup (S_1\cap S_2)\cup (S_1\cap F_2)) = P(F_1\cap S_2) + 0.24 + 0.16 + 0.31
+\]
+
+Now we want to rewrite the large union using only $F_1$ and $F_2$.
+
+\[
+\underbrace{
+\underbrace{(F_1\cap F_2')\cup(F_1\cap F_2)}_{
+\underbrace{F_1\cap(F_2'\cup F_2)}_{
+\underbrace{F_1\cap\Omega}_{
+F_1
+}
+}
+}\cup\underbrace{(F1'\cap F_2')\cup(F_1'\cap F_2)}_{
+\underbrace{F_1'\cap(F_2'\cup F_2)}_{
+\underbrace{F_1'\cap\Omega}_{
+F_1'
+}
+}
+}
+}_{\Omega}
+\]
+
+And obviously, $P(\Omega)=1.0$, so $P(F_1\cap{}S_2)=1.0$.
+
+\subsection*{Extra Credit: Proving that $S2$ and $F2$ are complements}
+
+Given only the following information
+
+\[
+\begin{cases}
+S_2\cup F_2=\Omega \\
+S_1\cup F_1=\Omega \\
+S_1\cap F_1=\varnothing \\
+S_2\cap F_2=\varnothing \\
+\end{cases}
+\]
+
+We can prove the following:
+
+\[
+\begin{cases}
+S_2'=F_2 \\
+F_2'=S_2 \\
+S_1'=F_1 \\
+F_1'=S_1 \\
+\end{cases}
+\]
+
+\subsection*{Next section}
+
+Suppose we roll 3 dice, with a sample space:
+
+\[
+\Omega=\left\{\left\langle r_1, r_2, r_3\right\rangle\mid 0<r_i<7\quad\forall i\right\}
+\]
+
+The set of all subsets of $\Omega$ is:
+
+\[
+S = 2^\Omega
+\]
+
+I don't really know.
+
+\[
+P(\{\langle r_1, r_2, r_3\rangle\})=
+\]
 
 \end{document}
