@@ -1,0 +1,353 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{c}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Rolling Dice}
+
+Suppose we roll 3 dice, with a sample space:
+
+\[
+\Omega=\left\{\left\langle r_1, r_2, r_3\right\rangle\mid 0<r_i<7\quad\forall i\right\}
+\]
+
+We are also told that the dice are fair. This means we can assign
+probabilities to each tuple of dice rolls trivially. For any outcome,
+$\langle{}r_1,r_2,r_3\rangle$, we can assign a probability to the
+elementary event:
+
+\[
+P(\{\langle r_1,r_2,r_3\rangle\})=p\text{ for all choices of $r_1$, $r_2$, $r_3$}
+\]
+
+We are going to use that weird counting probability formula:
+
+\[
+P\left(\bigcup\limits_{E\in\zeta}E\right)=\sum\limits_{E\in\zeta}P(E)
+\]
+
+With
+
+\[
+\zeta=\left\{\left\{\left\langle r_1,r_2,r_3\right\rangle\right\}\mid 0<r_i<7\forall i\right\}
+\]
+
+These events have to be mutually exclusive to use Weird Formula
+\texttrademark. We can show this symbolically with:
+
+\[
+\{\langle r_1,r_2,r_3\rangle\}\cap\{\langle r_1', r_2', r_3'\rangle\} = \varnothing
+\]
+
+I don't really know how to prove this, but he sure does.
+
+We're going to show lots of steps to calculate everything.
+
+We start with the inside of $P(\dots)$
+
+\[
+\bigcup\limits_{E\in\zeta}E
+\]
+
+This union can be rewritten as:
+
+\[
+\bigcup\limits_{\{\langle r_1,r_2,r_3\rangle\}\in\zeta} \{\langle r_1,r_2,r_3\rangle\}
+\]
+
+But this is the same as:
+
+\[
+\left\{\langle r_1,r_2,r_3\rangle\mid 0<r_i<7\forall i\right\}
+\]
+
+Which is exactly the same as the sample space $\Omega$.
+
+Now we start looking at the summation on the right.
+
+\[
+P\left(\bigcup\limits_{E\in\zeta}E\right) = \sum\limits_{E\in\zeta} P(E)
+\]
+
+The inside of the left is $\Omega$ and $P(\Omega)=1$. Now we have
+
+\[
+1 = \sum\limits_{E\in\zeta} p
+\]
+
+But this is just the number of events in the sample space times $p$, or
+
+\[
+1=216 p
+\]
+
+We can trivially solve this for what the individual probability of
+each elementary event is.
+
+\subsection*{Slightly different problem}
+
+Now we can begin to focus on a different type of problem. We're
+interested in the number of outcomes where there are two fives in a
+row.
+
+This brings up an interesting problem: is it two fives only, or two or
+more fives.
+
+The specific wording is that there are two or more fives in
+succession.
+
+The event we're interested in is:
+
+\[
+E =
+\left\{\langle 5, 5, r_3 \rangle\mid 0<r_3<7\right\}
+\cup
+\left\{\langle r_1, 5, 5 \rangle\mid 0<r_1<7\right\}
+\]
+
+If we were only interested in the case that exactly two fives appeared
+in succession, we would have to add additional restrictions on $r_1$
+and $r_3$.
+
+Our collection of events will be as follows:
+
+\[
+\zeta=\left\{\{e\}\mid e\in E\right\}
+\]
+
+Let's be a little more rigorous and think about what kinds of things
+are in $\zeta$. Firstly, the elements $e$ come from $E$, which is a
+set of tuples. Looking just at the left side of the union, we have
+values like:
+
+\[
+\{\langle 5,5,1\rangle\} \in \zeta
+\]
+
+and
+
+\[
+\{\langle 5,5,2\rangle\} \in \zeta
+\]
+
+and so on.
+
+What happens when we union up all of these individual sets?
+
+\[
+\bigcup\limits_{A\in\zeta}A
+\]
+
+The end result is that we will get a set:
+
+\[
+\{\dots\}
+\]
+
+But these elements are from $E$, which is a set of triples, so we now
+have something like:
+
+\[
+\left\{\langle 5,5,r_3\mid 0<r_3<7\right\}
+\]
+
+But, we also have things from the right side of the union (for $E$),
+so we also have that the union of everything in $\zeta$.
+
+\[
+\left\{\langle r_1,5,5\mid 0<r_1<7\right\}
+\]
+
+Which means our total union is:
+
+\[
+\left\{\langle 5,5,r_3\mid 0<r_3<7\right\}
+\cup
+\left\{\langle r_1,5,5\mid 0<r_1<7\right\}
+\]
+
+Duh.
+
+We notice that when we union everything in $\zeta$, we get $E$ back
+exactly. Let's show why, or something. Now he's confused... Yeah, stop
+using $E$ as your dummy variable and as your event variable. I don't
+think that's a problem.
+
+We did something kind of weird, we took $E$ as a set of tuples, and
+then we constructed $\zeta$ as a set of elementary sets. So when we
+take the union of all of these, we're going to just get $E$ back,
+because we didn't do anything. We just rewrote stuff. Y'know,
+\textbackslash bigcup for days.
+
+Anyways, we have the second side of that Weird Equation
+\texttrademark now.
+
+\[
+\sum\limits_{A\in\zeta}P(A)
+\]
+
+Which is just
+
+\[
+\sum\limits_{A\in\zeta} p
+\]
+
+Which is trivially
+
+\[
+p\left|\zeta\right| = \frac{|E|}{216}
+\]
+
+Now we just need to compute the size of $E$. Easy! Just
+
+\[
+|E| = 12
+\]
+
+But! We've overcounted, because there is the value
+$\langle{}5,5,5\rangle$, which is counted in each one.
+
+Finally,
+
+\[
+P\left(\bigcup\limits_{A\in\zeta} A\right) = \frac{11}{216}
+\]
+
+\section*{Sample spaces are sometimes inconvenient, yo}
+
+Night clubs! We're so hip!
+
+Anyways. Let's say that there is a night club which admits people,
+people with a gender (either male or female, not both, in this
+problem), and with an age (either younger than 30 or older than 30,
+but not both), and that the people that come in are either admitted or
+not admitted (not both wink-y smiley face).
+
+So. By stating that you're either male or female, that means that they
+are complements
+
+\[
+M = F'
+\]
+
+Similarly, young/old
+
+\[
+Y'=\text{ old}
+\]
+
+and admittance (sp?)
+
+\[
+A'=\text{ not admitted}
+\]
+
+Now we can start using what is called ``empirical probability'',
+because we are given percentages of people that come in matching a
+given profile, so we pretend that this is a percentage. I think that's
+what empirical probability is. It's not really clear.
+
+So now we have some givens. The percentage of people that come in and
+are male are:
+
+\[
+P(F')=0.55
+\]
+
+The percentage of young people that come in are:
+
+\[
+P(Y)=0.60
+\]
+
+The percentage of old, female, admitted people are:
+
+\[
+P(Y'\cap F\cap A)=0.25
+\]
+
+The percentage of young, female people are
+
+\[
+P(Y\cap F)=0.20
+\]
+
+What we're interested in is the percentage of people that are old,
+female, and not admitted:
+
+\[
+P(Y'\cap F\cap A') = ?
+\]
+
+\subsection*{Actually solving the thing}
+
+Suppose we have a collection of events $\zeta$ with
+
+\[
+\zeta = \{F', Y, Y'\cap F\cap A, Y\cap F\}
+\]
+
+To use our Weird Formula\texttrademark, we need to have that the
+intersection of each event is mutually exclusive. Unfortunately, it's
+difficult to ensure that these are true. For example, $Y$ and
+$Y\cap{}F$ are not necessarily mutually exclusive.
+
+Suppose we looked at a different set of events. For example, we have
+that
+
+\[
+Y\cup Y'
+\]
+
+Which we know for a fact is the entire sample space, because they are
+complements. Similarly, we can look at:
+
+\[
+\underset{\Omega}{(Y\cup Y')}\cap\underset{\Omega}{(F\cup F')}\cap\underset{\Omega}{(A\cup A')} = \Omega
+\]
+
+Now we can try applying the distributive property to this set,
+pretending that $\cup$ is addition, and $\cap$ is multiplication (I
+think.)
+
+\[
+A_1 = (Y\cap F\cap A)\cup(Y\cap F\cap A')\cup(Y\cap F'\cap A)\cup(Y\cap F'\cap A')
+\]
+
+We also have the following, with $Y'$ instead of $Y$.
+
+\[
+A_2 = (Y'\cap F\cap A)\cup(Y'\cap F\cap A')\cup(Y'\cap F'\cap A)\cup(Y'\cap F'\cap A')
+\]
+
+Since we know that this set of pieces should be mutually exclusive,
+because we built them that way. Furthermore, $A_1\cup A_2$ is still
+the sample space $\Omega$.
+
+We can show that these are mutually exclusive also by taking any two
+sets, for instance
+$(Y\cap{}F\cap{}A)\cap(Y'\cap{}F\cap{}A)=\varnothing$.
+
+\section*{Look at distributive laws}
+
+Or something.
+
+\end{document}
