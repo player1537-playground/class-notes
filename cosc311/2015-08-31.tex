@@ -1,0 +1,200 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xintexpr}
+\usepackage{booktabs}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\numbercircled}[1]{\raisebox{.5pt}{\textcircled{\raisebox{-.9pt} {#1}}}}
+\newcommand{\step}[1]{\text{Step \numbercircled{#1}}}
+
+\newcommand{\onespace}{\text{ }}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{c}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Last class}
+
+Last class, we showed that
+
+\[
+\logicrule{p\rightarrow q \\ q}{p}
+\]
+
+was \textbf{NOT VALID} by providing one example where true premises
+did not force a true conclusion.
+
+\section*{Example 8.31.1 (@48 (A))}
+
+What about $\logicrule{p\rightarrow{}q\\\neg{}p}{\neg{}q}$?
+
+We can assign truth values that will lead true premises to a false
+conclusion. For example, the values $p:0$ and $q:1$, then we find that
+both premises are true ($p\rightarrow{}q:1$ and $\neg{}p:1$). But, we
+see that the conclusion is false ($\neg{}q:0$.
+
+Thus,
+$\underset{true\onespace{}premises}{\left\lbrack(p\rightarrow{}q)\wedge\neg{}p\right\rbrack:1}$
+but $\underset{false\onespace{}conclusion}{\neg{}q:0}$
+
+These particular truth vlaues for $p$ and $q$ demonstrate a
+\textbf{counter example}.
+
+\section*{Example 8.31.2 (@48 (b))}
+
+Is the following argument valid?
+
+``If $x+y=7$, then $x>y$''
+
+\subsection*{Sub-Example 8.31.2 (a)}
+
+Let $x=4$ and $y=3$. Then the premise, $x+y=7$, is true. The
+conclusion, $x>y$, is also true.
+
+\textbf{But} this one example does \textbf{not} mean the implication
+is a $T_0$.
+
+\subsection*{Sub-Example 8.31.2 (b)}
+
+Let $x=3$ and $y=4$. Then the premise, $x+y=7$, is true. The
+conclusion, $x>y$, is now false.
+
+\textbf{Note}: One instance of the implication being true doees
+\textbf{not} make the argument valid.
+
+One \textit{counter example} \textbf{can} show an argument is invalid,
+since it shows an instance where true premises did not lead to a true
+conclusion.
+
+\section*{Comments on The Rule of Contradiction (\#6)}
+
+Firstly, a contradiction can be shortened to $F_0$.
+
+The Rule of Contradiction is as follows:
+
+\[
+\logicrule{\neg p\rightarrow F_0}{p}
+\]
+
+In fact,
+
+\[
+\begin{array}{rcl|l}
+\neg p\rightarrow F_0 & \Leftrightarrow & \neg(\neg p)\vee F_0 & \text{Conditional Law} \\
+                      & \Leftrightarrow & p\vee F_0& \text{Double Negation Law} \\
+                      & \Leftrightarrow & p & \text{Identity Law} \\
+\end{array}
+\]
+
+Thus,
+$(\neg{}p\rightarrow{}F_0)\underset{biconditional}{\leftrightarrow}p$
+is a $T_0$. \textbf{Note}: This is not the case for all the rules of
+inference.
+
+$(\neg{}p\rightarrow{}F_0)\rightarrow{}p$ is a $T_0$ (Rule \#6).
+
+\subsection*{Now consider}
+
+Now consider (from Table 2.18)
+
+\[
+(p\rightarrow q)\Leftrightarrow\left\lbrack(p\wedge\neg q)\rightarrow F_0\right\rbrack
+\]
+
+The logical equivalence means that establishing the validity of the
+R.H.S. implication is the same as if we established validity for the
+L.H.S. implication.
+
+The R.H.S. is taking the original premise of $p\rightarrow{}q$ (which
+is $p$) and conjoin with the negation of the original premise (which
+is $\neg{}q$), as an additional premise.
+
+If these premises being true lead to a $F_0$, then we can conclude
+that the ``new premise'' (which is $\neg{}q$) was \textbf{not} true
+after all. i.e. that $\neg(\neg{}q)$ \textbf{is} true.
+
+Using substitution rules, we have that for \textbf{any} statements
+$p_1,p_2,\dots,p_n$, and $q$ and any $F_0$:
+
+\[
+\left(\left(p_1\wedge p_2\wedge\dots\wedge p_n\right)\rightarrow q\right)
+\Leftrightarrow
+\left\lbrack\left(p_1\wedge p_2\wedge\dots\wedge p_n\wedge\neg q\right)\rightarrow F_0\right\rbrack
+\]
+
+One way to think about this is:
+
+We have a goal (show $p\rightarrow{}q$ is a valid argument).
+
+We have an alternative goal (show $(p\wedge\neg{}q)\rightarrow{}F_0$
+is valid, then conclude that $p\rightarrow{}q$ is valid).
+
+\section*{Example 8.31.3}
+
+Show $(p\wedge{}q)\rightarrow{}p$ is a valid argument.
+
+Alternatively, based on the Rule of Contradiction, we can instead show
+$\left\lbrack(p\wedge{}q)\wedge\neg{}p\right\rbrack\rightarrow{}F_0$
+is valid.
+
+\[
+\begin{array}{cll}
+\step{1} & (p\wedge q)\wedge\neg p & \text{premises and stragegy of Rule of Contradiction} \\
+\step{2} & p\wedge (q\wedge\neg p) & \text{\step{1} and Associative Law of $\wedge$} \\
+\step{3} & p\wedge(\neg p\wedge q) & \text{\step{2} and Commutative Law of $\wedge$} \\
+\step{4} & (p\wedge\neg p)\wedge q & \text{\step{3} and Associative Law of $\wedge$} \\
+\step{5} & F_0\wedge q & \text{\step{4} and Inverse Law} \\
+\step{6} & F_0 & \text{\step{5} and Domination Law} \\
+\step{7} & \lbrack(p\wedge q)\wedge\neg p\rbrack\rightarrow F_0 & \text{\step{1} and \step{6} and Rule of Contradiction} \\
+\end{array}
+\]
+
+Thus, $(p\wedge{}q)\rightarrow{}p$ is a valid argument.
+
+\section*{Section 2.4: Quantifiers}
+
+\subsection*{Definition 2.5: Open Statements}
+
+A declarative statement that
+
+\begin{enumerate}
+\item contains one or more variable
+\item is not a statement \textbf{but}
+\item becomes a statement when the variables are assigned allowable
+  values.
+\end{enumerate}
+
+Some examples are: ``$x=2$'', ``$x+y=7$'', ``$x>y$'', ``If $x+y=7$,
+then $x>y$''
+
+Variables bring up the question: ``In what ``Universe of Discourse''
+are the variables''. In other words, what are the allowable values for
+each variable?
+
+The notation for open statements looks like:
+
+\[
+\begin{array}{rcl}
+p(x) & : & x=2 \\
+p(x,y) & : & x+y=7 \\
+q(x,y) & : & x>y \\
+r(x,y) & : & \lbrack(x+y)=7)\rightarrow(x>y) \\
+g(x,y) & : & p(x,y)\rightarrow{}q(x,y) \\
+\end{array}
+\]
+
+\end{document}
