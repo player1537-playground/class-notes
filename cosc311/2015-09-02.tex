@@ -1,0 +1,265 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{c}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Last class}
+
+Last class we discussed the idea of open statements.
+
+\section*{Example 9.02.1}
+
+Using the following open statements:
+
+\[
+\begin{array}{rcl}
+p(x,y) & : & x+y=7 \\
+q(x,y) & : & x>y \\
+r(x,y) & : & p(x,y)\rightarrow q(x,y) \\
+\end{array}
+\]
+
+\subsection*{Example 9.02.1 (a)}
+
+Is $p(3,4)$ true or false? $3+4=7$ is true, therefore $p(3,4)$ is
+true.
+
+Is $q(3,4)$ true or false? $3>4$ is false, therefore $q(3,4)$ is
+false.
+
+Then $r(3,4):p(3,4)\rightarrow{}q(3,4)$ has a truth value of false. Thus, the argument is invalid.
+
+\subsection*{Example 9.02.1 (b)}
+
+Is $p(4,3)$ true or false? True.
+
+Is $q(4,3)$ true or false? True.
+
+In this one case, $r(4,3):p(4,3)\rightarrow{}q(4,3)$ has a truth value
+of true. \textbf{But} recall: that doesn't imply the argument is
+valid. Part A gave us a counter example!
+
+\subsection*{Example 9.02.1 (conclusion)}
+
+Through this, based on part A and part B, we have the following true
+statements:
+
+``For some $(x,y)$, $r(x,y)$''
+
+``For some $(x,y)$, $\neg{}r(x,y)$''
+
+The ``for some'' part quantifies the open statement, $r(x,y)$, and
+allows a truth value to be determined.
+
+\section*{Example 9.02.2}
+
+Using the universe of the real numbers: Let $s_1$ be the open statement:
+
+\[
+s_1 : x>0
+\]
+
+Where $x$ is a ``free variable''. Note that we cannot determine the
+truth value of $s_1$.
+
+Now consider the statement $s_2$: ``There exists an $x$ such that
+$x>0$''.
+
+Even though this statement still contains the variable $x$, the use of
+``there exists'' quantifies the expression and allows us to assign a
+truth value to it. Now $x$ is a ``bound variable''.
+
+$s_2$ has a definite truth value, given a universe: true, because the
+value of $x=1$ is a real number, and $1>0$. So, we found a real number
+that meets the criteria of $x>0$, so at least one exists.
+
+\section*{Existential Quantifier}
+
+Some \textbf{existential quantifiers} are: ``there exists'', ``for
+some'', ``for at least one''.
+
+The notation used is $\exists$, for example:
+
+\[
+s_2: \exists x (x>0)
+\]
+
+which reads as ``$s_2$ is a statement that there exists an $x$ such
+that $x>0$.''
+
+\section*{Universal Quantifier}
+
+Now suppose we have a statement $s_3$: ``For all $x$, $x>0$''.
+
+Is $s_3$ true or false in our universe? False because the real numbers
+(our universe here) include $0$ and negative numbers, all of which are
+less than zero, not greater than.
+
+For a statement $s_4$: ``For all $x$, $x+1>x$''.
+
+Is $s_4$ true or false in our universe? True.
+
+Some \textbf{universal quantifiers} are: ``for all'', ``for any'',
+``for every''.
+
+The notation used is: $\forall$.
+
+The previous statements can be written:
+
+\[
+\begin{array}{rcl}
+s_3 & : & \forall x (x>0) \\
+s_4 & : & \forall x (x+1>x) \\
+\end{array}
+\]
+
+\section*{Example 9.02.3}
+
+Consider the universe of positive integers:
+
+\[
+\mathbb{Z}^+ = \{1,2,3,4,\dots\}
+\]
+
+And now for $\mathbb{Z}^+$, is $s_3:\forall{}x(x>0)$ true or false? True.
+
+\textbf{Key idea}: The truth value of a quantified statement may be
+dependant on the universe of discourse.
+
+\section*{Logical Equivalence and Logically Infers}
+
+\textit{Definition 2.6 (page 92)}: ``Logical Equivalence'' and
+``Logically Infers'' definitions for open statements, $p(x)$, and
+$q(x)$:
+
+We have that the definition of logical equivalence (which uses
+$\Leftrightarrow$):
+
+\[
+p(x)\Leftrightarrow q(x)\text{ means } \forall x(p(x)\leftrightarrow q(x))
+\]
+
+In other words, the bicondition is true for every value of $x$ in the
+universe.
+
+Similarly, we have that the definition of logically infers (which uses
+$\Rightarrow$).
+
+\[
+p(x)\Rightarrow q(x)\text{ means }\forall x(p(x)\rightarrow q(x))
+\]
+
+In other words, the implication is true for every value of $x$ in the universe.
+
+\textbf{Note}: We can also expand these to 2 or more variables.
+
+\section*{Contrapositive, Converse, and Inverse}
+
+\textit{Definition 2.7 (page 92)}: Contrapositive, Converse, and
+Inverse of universally quantified statements:
+$forall{x}\lbrack{}p(x)\rightarrow{}q(x)\rbrack$.
+
+For example, the statement: $\forall{}x\left((\text{$x$ is even})\rightarrow(\text{$31x+12$ is even})\right)$,
+we have the the following statements:
+
+\begin{itemize}
+\item Contrapositive: $\forall x\left((\text{$31x+12$ is not even})\rightarrow (\text{$x$ is not even})\right)$
+\item Converse: $\forall x\left((\text{$31x+12$ is even})\rightarrow (\text{$x$ is even})\right)$
+\item Inverse: $\forall{}x\left((\text{$x$ is not even})\rightarrow(\text{$31x+12$ is not even})\right)$
+\end{itemize}
+
+What if we had general open statements $p(x)$ and $q(x)$?
+
+We would see that the following statement is true:
+
+\[
+\forall x (p(x)) \Rightarrow \exists x (p(x))
+\]
+
+If, for all $x$, the statement $p(x)$ is true, then we know that there
+exists at least one $x$ such that $p(x)$ is true. \textbf{Note}: This
+only goes in one direction. We can't go from ``there exists one'' to
+``for all''.
+
+We can also look at the following logical equivalence:
+
+\[
+\exists x \lbrack p(x)\vee q(x)\rbrack \Leftrightarrow \lbrack \exists x(p(x))\vee \exists x(q(x))\rbrack
+\]
+
+However, the following is only a logical implication:
+
+\[
+\exists x\lbrack p(x)\wedge q(x)\rbrack \Rightarrow \lbrack \exists x(p(x))\wedge \exists x(q(x))\rbrack
+\]
+
+\textbf{Note}: This is only a logical equivalence. Think about it this
+way: The statement on the left is about one particular $x$ that
+satisfies both $p(x)$ and $q(x)$, however the one on the right means
+that there's one $x$ that satisfies $p(x)$, but it could be a
+different $x$ that satisfies $q(x)$. They need not be the same person,
+so we can't infer the left side from the right side.
+
+Now the following logical equivalence:
+
+\[
+\forall x\lbrack p(x)\wedge q(x)\rbrack \Leftrightarrow\lbrack \forall x(p(x))\wedge \forall x(q(x))\rbrack
+\]
+
+However, the following is only a logical inference:
+
+\[
+\lbrack\forall x(p(x))\vee \forall x(q(x))\rbrack \Rightarrow \forall x\lbrack p(x)\vee q(x)\rbrack
+\]
+
+We can think about this in the following way: the left hand side is
+saying that either ``for every $x$, $p(x)$ is true'' or ``for every
+$x$, $q(x)$ is true''. The right hand side, on the other hand, says
+that ``for every $x$, $p(x)$ or $q(x)$ is true.'' In other words, the
+left is ``every student in the class is wearing flip flops'' or
+``every student is wearing shoes'', whereas the right side is ``every
+student is wearing flip flops or shoes''.
+
+\section*{Example 2.4 (3)}
+
+The following logical equivalences show that we can manipulate the
+inside of a ``for all'' statement.
+
+\[
+\forall x (\neg\neg p(x)) \Leftrightarrow \forall x(p(x))
+\]
+
+\[
+\forall x(\neg\lbrack p(x)\wedge q(x)\rbrack) \Leftrightarrow \forall x(\lbrack\neg p(x)\vee \neg q(x)\rbrack)
+\]
+
+From Table 2.23, we can see that you can also negate quantifiers:
+
+\[
+\begin{array}{rcl}
+\neg\lbrack\forall x(p(x))\rbrack & \Leftrightarrow & \exists x(\neg p(x)) \\
+\neg\lbrack\exists x(p(x))\rbrack & \Leftrightarrow & \forall x(\neg p(x)) \\
+\neg\lbrack\exists x(\neg p(x))\rbrack & \Leftrightarrow & \exists x(\neg\neg p(x)) \\
+                                       & \Leftrightarrow & \exists x(p(x)) \\
+\end{array}
+\]
+
+
+\end{document}
