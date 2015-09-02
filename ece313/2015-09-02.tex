@@ -1,0 +1,293 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{booktabs}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{c}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Back to the past!}
+
+So, if we have our events from last class (not retyping them), we can
+construct mutually exclusive events through the following process.
+
+First, we try to construct the total sample space using different sets
+unioned with their complements, and taking the intersection of all of
+them (remember: each part should be the sample space, and
+$\Omega\cap\Omega=\Omega$).
+
+\[
+\Omega=
+\underbrace{(F\cup F')}_{\Omega}
+\cap
+\underbrace{(Y\cup Y')}_{\Omega}
+\cap
+\underbrace{(A\cup A')}_{\Omega}
+\]
+
+Then we can apply the distributive property to each part, to
+eventually get the sets:
+
+\[
+\Omega = Q_1 \cup Q_2
+\]
+
+\[
+Q_1 = (Y\cap F\cap A)\cup(Y\cap F\cap A')\cup(Y\cap F'\cap A)\cup(Y\cap F'\cap A')
+\]
+
+\[
+Q_2 = (Y'\cap F\cap A)\cup(Y'\cap F\cap A')\cup(Y'\cap F'\cap A)\cup(Y'\cap F'\cap A')
+\]
+
+Thus, we can say the following
+
+\[
+\begin{array}{rcl}
+1.0 & = & P(\Omega) \\
+    & = & P(Q_1\cup Q_2) \\
+\end{array}
+\]
+
+Or:
+
+\[
+\begin{array}{rcl}
+1.0 & = &
+P(Y\cap F\cap A) +
+P(Y\cap F\cap A') +
+P(Y\cap F'\cap A) +
+P(Y\cap F'\cap A') \\
+    & + &
+P(Y'\cap F\cap A) +
+P(Y'\cap F\cap A') +
+P(Y'\cap F'\cap A) +
+P(Y'\cap F'\cap A') \\
+\end{array}
+\]
+
+Unfortunately, we don't know most of these values. The already known
+values are:
+
+\[
+\begin{array}{rcl}
+1.0 & = &
+P(Y\cap F\cap A) +
+P(Y\cap F\cap A') +
+P(Y\cap F'\cap A) +
+P(Y\cap F'\cap A') \\
+    & + &
+\underbrace{P(Y'\cap F\cap A)}_{0.25} +
+P(Y'\cap F\cap A') +
+P(Y'\cap F'\cap A) +
+P(Y'\cap F'\cap A') \\
+\end{array}
+\]
+
+We also know what $P(F\cap{}Y)$ is, and we can construct that using
+$(F\cap{}Y\cap{}A)\cup(F\cap{}Y\cap{}A')$. This can be shown with the
+following:
+
+\[
+\begin{array}{rcl}
+(F\cap{}Y\cap{}A)\cup(F\cap{}Y\cap{}A') & = & F\cap Y\cap (A\cup A') \\
+                                        & = & F\cap Y\cap\Omega \\
+                                        & = & F\cap Y \\
+\end{array}
+\]
+
+So now we can combine those in the above equation:
+
+\[
+\begin{array}{rcl}
+1.0 & = &
+\overbrace{P(Y\cap F\cap A) + P(Y\cap F\cap A')}^{P(Y\cap F)=0.20} +
+P(Y\cap F'\cap A) +
+P(Y\cap F'\cap A') \\
+    & + &
+\underbrace{P(Y'\cap F\cap A)}_{0.25} +
+P(Y'\cap F\cap A') +
+P(Y'\cap F'\cap A) +
+P(Y'\cap F'\cap A') \\
+\end{array}
+\]
+
+Without proof, we can also combine the latter terms into:
+
+\[
+\begin{array}{rcl}
+1.0 & = &
+\overbrace{P(Y\cap F\cap A) + P(Y\cap F\cap A')}^{P(Y\cap F)=0.20} +
+P(Y\cap F'\cap A) +
+P(Y\cap F'\cap A') \\
+    & + &
+\underbrace{\underbrace{P(Y'\cap F\cap A)}_{0.25} +
+\underbrace{P(Y'\cap F\cap A')}_{\text{desired probability}} +
+P(Y'\cap F'\cap A) +
+P(Y'\cap F'\cap A')}_{P(F')=0.55} \\
+\end{array}
+\]
+
+I don't really know. I got confused, because I used the order
+$Y\cap{}F\cap{}A$ but he used $F\cap{}Y\cap{}A$.
+
+\section*{An alternative approach}
+
+We were given:
+
+\[
+\begin{array}{rcl}
+P(F) & = & 0.55 \\
+P(Y) & = & 0.60 \\
+P(F\cap Y'\cap A) & = & 0.25 \\
+P(F\cap Y) & = & 0.20
+\end{array}
+\]
+
+We could look at $F$ as:
+
+\[
+F=(F\cap Y)\cup(F\cap Y'\cap A)\cup(F\cap Y'\cap A')
+\]
+
+And $P(F)$:
+
+\[
+\underbrace{P(F)}_{0.55}=\underbrace{P(F\cap Y)}_{0.25}+\underbrace{P(F\cap Y'\cap A)}_{0.20}+\underbrace{P(F\cap Y'\cap A')}_{\text{desired}}
+\]
+
+And we can trivially see that the desired probability is:
+
+\[
+P(F\cap Y'\cap A) = 0
+\]
+
+\section*{Weird Formula}
+
+``Union of Mutually Exclusive Events''
+
+\section*{Union of 3 Events}
+
+Page 29
+
+Suppose we have a union of sets:
+
+\[
+\bigcup\limits_i A_i
+\]
+
+and we want to know its probability:
+
+\[
+P\left(\bigcup\limits_i A_i\right)
+\]
+
+We can begin to look at individual cases of these unions. For two
+cases:
+
+\[
+P(A_1\cup A_2) = P(A_1)+P(A_2)-P(A_1\cap A_2)
+\]
+
+For three cases:
+
+\[
+\begin{array}{rcl}
+P(A_1\cup A_2\cup A_3) & = & P(A_1) + P(A_2) + P(A_3) \\
+                       & - & P(A_1\cap A_2) - P(A_2\cap A_3) - P(A_1\cap A_3) \\
+                       & + & P(A_1\cap A_2\cap A_3) \\
+\end{array}
+\]
+
+The general formula has a similar shape to these: adding probabilities
+of each individual event, and then subtracting an error term, and then
+adding a new error term, and so on.
+
+Now we can look at the general formula:
+
+\[
+P\left(\bigcup\limits_i^n A_i\right)
+=
+\sum\limits_{\varnothing\ne x\subset\{1,\dots,n\}}
+(-1)^{|x|+1}
+P\left(\bigcap\limits_{i\in x} A_i\right)
+\]
+
+We can show that this is valid by testing various values of $n$.
+
+\[
+\begin{array}{r|rcl}
+n & Equation &  \\
+\midrule
+1 & P(A_1) & = &
+\sum\limits_{\varnothing\ne x\subset\{1\}}
+(-1)^{|x|+1}
+P\left(\bigcap\limits_{i\in x} A_i\right) \\
+&& = &
+(-1)^{|\{1\}|+1}
+P\left(\bigcap\limits_{i\in \{1\}} A_i\right) \\
+&& = &
+P(A_1) \\
+
+2 & P(A_1\cup A_2) & = &
+\sum\limits_{\varnothing\ne x\subset\{1,2\}}
+(-1)^{|x|+1}
+P\left(\bigcap\limits_{i\in x} A_i\right) \\
+&& = &
+(-1)^{|\{1\}|+1}
+P\left(\bigcap\limits_{i\in \{1\}} A_i\right)
++
+(-1)^{|\{2\}|+1}
+P\left(\bigcap\limits_{i\in \{2\}} A_i\right)
++
+(-1)^{|\{1,2\}|+1}
+P\left(\bigcap\limits_{i\in \{1,2\}} A_i\right) \\
+&& = &
+P\left(A_1\right)
++
+P\left(A_2\right)
+-
+P\left(A_1\cap A_2\right) \\
+\end{array}
+\]
+
+\section*{What about a formula for an intersection?}
+
+We could start by taking
+
+\[
+P\left(\bigcup\limits_{i=1}^n A_i\right)
+\]
+
+And taking the complement twice:
+
+\[
+P\left(\left(\bigcup\limits_{i=1}^n\right)'\right)'
+\]
+
+And rewriting as
+
+\[
+1 - P\left(\bigcap\limits_{i=1}^n A_i'\right)
+\]
+
+And then we could rename $A_i'$ as $B_i$ and apply DeMorgan's Law, and
+brute force our way to an answer. Kind of sucks, though.
+
+\end{document}
