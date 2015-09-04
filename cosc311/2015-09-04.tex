@@ -1,0 +1,209 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{c}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Last class}
+
+Last class, we were working on a table of quantified statements and
+their negations. The table (2.23 from the book) is as follows:
+
+\[
+\begin{array}{rcl}
+\neg\lbrack\forall x(p(x))\rbrack & \Leftrightarrow & \exists x(\neg p(x)) \\
+\neg\lbrack\exists x(p(x))\rbrack & \Leftrightarrow & \forall x(\neg p(x)) \\
+\neg\lbrack\forall x(\neg p(x))\rbrack & \Leftrightarrow & \exists x(p(x)) \\
+\neg\lbrack\exists x(\neg p(x))\rbrack & \Leftrightarrow & \forall x(p(x)) \\
+\end{array}
+\]
+
+\section*{Mutliple Quantifiers}
+
+\subsection*{Example 9.04.1}
+
+Suppose we let $p_1:\forall{}x\forall{}y(x+y>x)$, or equivalently
+$\forall{}x,y(x+y>x)$.
+
+Is $p_1$ true or false in the universe of $\mathbb{R}$? False. We can
+show that this is so, by finding one counter example: any time where
+$y<0$.
+
+Is $p_1$ true or false in the universe of $\mathbb{R}^+$?
+True. Because we have now removed the all the negative numbers. We
+should also notice that
+$x+y>x\Rightarrow{}-x+x+y>-x+x\Rightarrow{}y>0$.
+
+Is $p_1$ true or false in the universe of $\mathbb{N}=\{0,1,\dots\}$?
+False. One counter example is letting $y=0$, which means that
+$y\not>0$.
+
+\subsection*{Example 9.04.2}
+
+Suppose we let $p_2:\exists{}x\exists{}y(x+y>x)$.
+
+\begin{tabular}{ll}
+Universe & True or False in universe \\
+\hline
+$\mathbb{R}$ & True \\
+$\mathbb{Z}^+$ & True \\
+$\mathbb{N}$ & True \\
+\end{tabular}
+
+This is true in all of these universes, because we are only interested
+in \textbf{one} instance of $y>0$.
+
+\subsection*{Example 9.04.3}
+
+Suppose we let $p_3:\forall{}x\exists{}y(x+y>x)$. In other words, ``For
+every $x$ there is a corresponding $y$ such that $x+y>x$.
+
+\begin{tabular}{ll}
+Universe & True or False in universe \\
+\hline
+$\mathbb{R}$ & True \\
+$\mathbb{Z}^+$ & True \\
+$\mathbb{N}$ & True \\
+\end{tabular}
+
+\subsection*{Example 9.04.4}
+
+Suppose we let $p_4:\exists{}y\forall{}x(x+y>x)$. This statement is
+subtly different from the previous one. In this, we are saying:
+``There exists a (single) $y$ value \textbf{for every} $x$ such that
+$x+y>x$.''
+
+\begin{tabular}{ll}
+Universe & True or False in universe \\
+\hline
+$\mathbb{R}$ & True \\
+$\mathbb{Z}^+$ & True \\
+$\mathbb{N}$ & True \\
+\end{tabular}
+
+These are kind of bad examples, because it doesn't depend on $x$.
+
+\subsection*{Example 9.04.3 (a)}
+
+Instead, let's look at a different statement:
+$\forall{}x\exists{}y(x+y=0)$. We should also note that
+$x+y=0\Rightarrow{}x=-y$.
+
+\begin{tabular}{ll}
+Universe & True or False in universe \\
+\hline
+$\mathbb{R}$ & True \\
+$\mathbb{Z}^+$ & False \\
+$\mathbb{N}$ & False \\
+\end{tabular}
+
+This is false in the $\mathbb{Z}+$ and $\mathbb{N}$ cases, because
+there are no negative numbers in them.
+
+\subsection*{Example 9.04.4 (a)}
+
+Again, let's look at: $\exists{}y\forall{}x(x+y=0)$.
+
+\begin{tabular}{ll}
+Universe & True or False in universe \\
+\hline
+$\mathbb{R}$ & False \\
+$\mathbb{Z}^+$ & False \\
+$\mathbb{N}$ & False \\
+\end{tabular}
+
+In the first case, we can think about setting $y$ to arbitrary values
+and determining if we can apply all $x$ values to that value of
+$y$. For example, let's try $y=4$, then we can attempt $x=-4$ and see
+that it's true for one statement. But, that hasn't proved its
+correctness, because we have to prove it for every $x$. So now let's
+try $x=0$, and we see that the statement no longer holds. Therefore,
+it is false for $\mathbb{R}$.
+
+\textbf{Note}: We showed that $\forall{}x\exists{}y(x+y=0)$ is false
+in $\mathbb{Z}^+$. Therefore $\neg\forall{}x\exists{}y(x+y=0)$ is true
+in $\mathbb{Z}^+$. The negated statement is equivalent to:
+$\exists{}x\neg\lbrack\exists{}y(x+y=0)\rbrack$ and
+$\exists{}x\forall{}y\neg(x+y=0)$ and
+$\exists{}x\forall{}y(x+y\neq{}0)$.
+
+\section*{Changing the order of quantifiers}
+
+Note that in the previous examples, we could not exchange
+$\forall{}x\exists{}y$ and $\exists{}y\forall{}x$. However, we can
+exchange $\forall{}x\forall{}y$ and $\forall{}y\forall{}x$. Similarly,
+$\exists{}x\exists{}y$ and $\exists{}y\exists{}x$.
+
+\section*{Negation of multiple quantifiers}
+
+Suppose we were looking at the negation of multiple quantifiers. We
+can show how to reason about those negations and the changing of
+quantifiers.
+
+\[
+\begin{array}{cll}
+ & \neg\lbrack\forall{}x\forall{}y(p(x,y)) & \\
+\Leftrightarrow & \neg\forall x\lbrack\forall y(p(x,y))\rbrack & \text{``not $\forall{}x$ ``something happens''} \\
+\Leftrightarrow & \exists x\neg\lbrack\forall y(p(x,y))\rbrack & \text{If for every $x$, something doesn't happen, then for some $x$ it doesn't happen} \\
+\Leftrightarrow & \exists x\exists y (\neg p(x,y)) & \text{By the same logic} \\
+\end{array}
+\]
+
+Similarly, we can look at the following example:
+
+\[
+\begin{array}{cll}
+ & \neg\lbrack\exists x\forall y(p(x,y))\rbrack & \\
+\Leftrightarrow & \neg\exists x\lbrack\forall y(p(x,y)) & \text{``there doesn't exists an $x$, such that something happens for all $y$''} \\
+\end{array}
+\]
+
+I didn't finish that table. But by similar steps as before, we can
+determine what the resulting expression is.
+
+\section*{Section 2.5: More formal proof writing}
+
+A note on some notation we'll be using: ``$\in$'' to denote ``in'' or
+``element of''. For example, $x\in\mathbb{R}$ for ``$x$ is in
+$\mathbb{R}$''.
+
+\subsection*{Mathematical Definitions}
+
+Usually stated like ``if-then" statements, but can be
+interpretted/used as a biconditional.
+
+\subsection*{Example 9.04.5: Definition 2.8}
+
+``Let $n$ be an integer. We say $n$ is \textbf{even} if there exists
+an integer, $r$, such that $n=2r$.''
+
+We can go from ``$n$ is even'' to $n=2r$ for some particular
+$r$. Similarly, we can go from $n=2r$ for some particular $r$ and
+determine that $n$ is even. Mathematical definitions go both ways.
+
+For example, we might be told that $m,k\in\mathbb{Z}$ and to assume
+that $m=2k$. Without being explictly told, we can conclude that $m$ is
+even.
+
+We can also be presented with $z,l\in\mathbb{Z}$, and
+$z=2(l+2l+l^2)$. We can assign a new name to the right side, such as
+$r=l+2l+l^2$, and then rewrite $z$ as $z=2r$, and conclude that $z$ is
+even.
+
+\end{document}
