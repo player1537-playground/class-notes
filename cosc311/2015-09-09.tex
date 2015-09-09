@@ -1,0 +1,190 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Last class}
+
+Last class we were talking about mathematical definitions, how they're
+stated, and how they're used. Previously we used the definition of the
+even and odd integers. Check post @70 for a list of mathematical
+definitions.
+
+Remember, when we're talking about mathematical definitions, then we
+usually treat it as a biconditional. For example, the definition of
+even is:
+
+\[
+\forall n\in\mathbb{Z}\left(\text{$n$ is even}\leftrightarrow\exists r\in\mathbb{Z}\left(n=2r\right)\right)
+\]
+
+\section*{The Rule of Universal Specification (R.U.S.)}
+
+If we know that
+$\forall{}x\in\mathbb{Z}(x\ge{}0\rightarrow{}x^2{}\ge{}0)$ is true,
+then R.U.S. allows us to use this statement to conclude that for a
+given $c\in\mathbb{Z}$ where $c\ge{}0$, then $c^2\ge{}0$ sinc ethe
+implication under the given premise applies to \textbf{all} members of
+$\mathbb{Z}$ that meet the criteria of the premise.
+
+In general, when given a \textbf{premise} of the form
+$\forall{}x(p(x))$, then any value, $c$, in the unvierse can be
+substituted for $x$, and we can conclude $p(c)$ is true.
+
+\section*{Example 9.09.1}
+
+Consider for universe $U$ and $c\in{}U$ and statements $p(x)$ and $q(x)$ defined in $U$:
+
+$\logicrule{\forall{}x(p(x)\rightarrow{}q(x)) \\ p(c)}{q(c)}$
+
+Also:
+
+$\logicrule{\forall{}x(p(x)\rightarrow{}q(x)) \\ \neg{}q(c)}{\neg{}p(c)}$
+
+Remember that $p(x)\rightarrow{}q(x)\Leftrightarrow\neg{}q(x)\rightarrow\neg{}p(x)$
+
+We can also generalize with
+$\forall{}x\forall{}y\forall{}z(p(x,y,z)\rightarrow{}q(x,y,z)$.
+
+\section*{The Rule of Universal Generalization (page 110)}
+
+When given a conclusion to prove of the form
+
+\[
+\forall x(p(x))
+\]
+
+(or more generally, $\forall{x}\forall{}y(p(x,y))$ or more variables).
+
+\begin{enumerate}
+\item Let $x$ (or $x$, $y$, $z$, etc) be a specific but arbitrarily
+  chosen element of the universe.
+\item Prove the statement $p(x)$ (or $p(x,y,z,\dots)$) to be true for
+  this arbitrary element $x$.
+\item Conclude that $p(x)$ is true \textbf{for all} $x$ because,
+  although $x$ was specific, it was arbitrarily chosen.
+\end{enumerate}
+
+\subsection*{Example 9.09.2}
+
+Let $U=\mathbb{R}^+$.
+
+Prove: $\forall{}x\forall{}y(x^2+y^2>0)$
+
+Remember: even though this doesn't have an implication, we can still
+prove it.
+
+\[
+\begin{array}{@{}|l|@{}}
+\text{Scratch Work} \\
+\midrule
+\text{What are my premises: $x,y\in\mathbb{R}^+$} \\
+\text{Goal: show $\forall{}x\forall{}y(x^2+y^2>0)$} \\
+\text{$x,y\in\mathbb{R}^+$ arbitrary} \\
+\text{Look at $x^2+y^2>0$} \\
+\text{Key question: } \\
+\text{How could I show $a+b>0$, $a,b\in\mathbb{R}^+$} \\
+\text{1. Show $a>0$ and $b>0$} \\
+\text{2. Show $a>-b$} \\
+\text{3. Show $b>-a$} \\
+\text{Using 1:} \\
+\text{$x\in\mathbb{R}^+\Rightarrow{}x>0$} \\
+\text{$\Rightarrow{}x\cdot{}x>0\cdot{}x$} \\
+\text{because $x>0$ the $>$ sign doesn't change} \\
+\text{$\Rightarrow{}x^2>0$} \\
+\text{Similarly, $y^2>0$} \\
+\text{So, $x^2+y^2>0+y^2>0$} \\
+\text{$x^2+y^2>0$} \\
+\end{array}
+\]
+
+Now, let's write the actual proof.
+
+Let $x,y\in\mathbb{R}^+$ be arbitrarily chosen. Then $x>0$. Since
+multiplying both sides of an inequality by a positive number does not
+change the direction of the inequality and $x>0$, we have:
+
+\[
+\begin{array}{rcl}
+x>0 & \Leftrightarrow & x \cdot x>x\cdot 0 \\
+    & \Leftrightarrow & x^2 > 0 \\
+\end{array}
+\]
+
+Similarly, since $y\in\mathbb{R}^+$, $y>0$, and we have $y^2>0$. Then
+since $x^2>0$ and $y^2>0$
+
+\[
+x^2+y^2 > 0+y^2 > 0
+\]
+
+And thus, $x^2+y^2>0$.
+
+Since $x$ and $y$ were arbitrary in $\mathbb{R}^+$, the above holds
+for any $x,y\in\mathbb{R}^+$. Thus, for all $x$ and for all $y$,
+$x^2+y^2>0$.
+
+\section*{Different Proof Methods}
+
+Let the universe $U=\mathbb{Z}$.
+
+Prove: If $n$ is odd, then $n+11$ is even.
+
+\subsection*{Direct Proof}
+
+\[
+\begin{array}{l|l}
+\text{Given/Premises} & \text{Goal/Conclusion} \\
+\midrule
+\text{$n$ is odd} & \text{$n+11$ is even} \\
+\end{array}
+\]
+
+Let $n$ be an odd integer. Then by definition of odd,
+$\exists{}k(n=2k+1)$. Thus, $n+11=(2k+1)+11=2k+12=2(k+6)=2l$, where we
+define $l=k+6$, $l\in\mathbb{Z}$. By definition of even,
+$\exists{}l(n+11=2l)$, thus $n+11$ is even.
+
+\subsection*{Contrapositive Proof}
+
+\[
+\begin{array}{l|l}
+\text{Given/Premises} & \text{Goal/Conclusion} \\
+\midrule
+\text{$n+11$ is $\underbrace{\text{not even}}_{\text{odd}}$} & \text{$n$ is $\underbrace{\text{not odd}}_{\text{even}}$} \\
+\end{array}
+\]
+
+\subsection*{Proof by Contradiction}
+
+\[
+\begin{array}{l|l}
+\text{Given/Premises} & \text{Goal/Conclusion} \\
+\midrule
+\text{$n$ is odd} & F_0 \\
+\text{$n+11$ is $\underbrace{\text{not even}}_{\text{odd}}$} & \\
+\end{array}
+\]
+
+
+
+
+\end{document}

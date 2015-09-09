@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
 
 \newcommand{\T}{1}
 \newcommand{\F}{0}
@@ -8,7 +10,7 @@
 \newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
 
 \newcommand{\logicrule}[2]{
-\begin{array}{c}
+\begin{array}{l}
 #1 \\
 \midrule
 \therefore #2 \\
