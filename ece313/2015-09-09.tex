@@ -1,0 +1,146 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+\usepackage{forest}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Last class}
+
+Apparently, last class, we covered this formula or something:
+
+\[
+P\left(\bigcap\limits_{i=1}^n A_i\right)
+=
+\prod\limits_{j=1}^n P\left(A_j \middle| \bigcap\limits_{k=j+1}^n A_k\right)
+\]
+
+To see if this is even remotely correct, let's try different input
+values. For $n=1$:
+
+\[
+\begin{array}{rcl}
+P(A_1) & \overset{?}{=} & P\left(A_i\middle|\Omega\right) \\
+       & \overset{?}{=} & \dfrac{P(A_1\cap\Omega)}{P(\Omega)} \\
+       & = & P(A_1) \\
+\end{array}
+\]
+
+Now let's try $n=2$.
+
+\[
+\begin{array}{rcl}
+P(A_1\cap A_2) & \overset{?}{=} & P\left(A_1\middle|A_2\right) P\left(A_2\middle|\Omega\right) \\
+               & \overset{?}{=} & \dfrac{P(A_1\cap A_2)}{P(A_2)}\cdot\dfrac{P(A_2\cap\Omega)}{P(\Omega)} \\
+               & = & \dfrac{P(A_2\cap A_2)}{P(\Omega)} \\
+\end{array}
+\]
+
+How about $n=3$:
+
+\[
+P(A_1\cap A_2\cap A_3) = P(A_1\mid A_2\cap A_3) \cdot P(A_2\mid A_3)\cdot P(A_3\mid\Omega)
+\]
+
+Yadda yadda, it works, yo.
+
+\section*{Probability Tree}
+
+A probability tree is a means to describe the probability of a certain
+set of outcomes. For example, if we are looking at a factory that
+produces chips that can be either good or bad. If we pick out 3 chips
+at random, say $x_1$, $x_2$, $x_3$. We can form this as a tuple in the
+form $(x_1,x_2,x_3)$. Note: we are sampling without replacement.
+
+Now we are told that 9 out of 500 chips are defective. We want to
+produce a tree that shows what the probability of the first chip being
+defective, and then based on that, what the probability of the second
+chip being defective, and so on.
+
+Note in the following, going to the right means picking out a good
+chip, but to the left means a bad chip.
+
+\begin{forest}
+  [\text{.}
+    [$\dfrac{491}{500}$
+      [$\dfrac{490}{499}$
+        [$\dfrac{489}{498}$]
+        [$\dfrac{9}{498}$]
+      ]
+      [$\dfrac{9}{499}$
+        [$\dfrac{490}{498}$]
+        [$\dfrac{8}{498}$]
+      ]
+    ]
+    [$\dfrac{9}{500}$
+      [$\dfrac{491}{499}$
+        [$\dfrac{490}{498}$]
+        [$\dfrac{8}{498}$]
+      ]
+      [$\dfrac{8}{499}$
+        [$\dfrac{491}{498}$]
+        [$\dfrac{7}{498}$]
+      ]
+    ]
+  ]
+\end{forest}
+
+Now that that hell is over, we can tie it back to that other
+formula. First we define the events $G_i\forall{}i\in\{1,2,3\}$ to be
+the event that the $i$'th chip is good. With this in mind, we can
+label the events in our tree as follows:
+
+\begin{forest}
+  [\text{.}
+    [$\dfrac{491}{500}$
+      [$\dfrac{490}{499}$
+        [$\dfrac{489}{498}$ [$G_1\cap{}G_2\cap{}G_3$, rotate=90]]
+        [$\dfrac{9}{498}$ [$G_1\cap{}G_2\cap{}G_3'$, rotate=90]]
+      ]
+      [$\dfrac{9}{499}$
+        [$\dfrac{490}{498}$ [$G_1\cap{}G_2'\cap{}G_3$, rotate=90]]
+        [$\dfrac{8}{498}$ [$G_1\cap{}G_2'\cap{}G_3'$, rotate=90]]
+      ]
+    ]
+    [$\dfrac{9}{500}$
+      [$\dfrac{491}{499}$
+        [$\dfrac{490}{498}$ [$G_1'\cap{}G_2\cap{}G_3$, rotate=90]]
+        [$\dfrac{8}{498}$ [$G_1'\cap{}G_2\cap{}G_3'$, rotate=90]]
+      ]
+      [$\dfrac{8}{499}$
+        [$\dfrac{491}{498}$ [$G_1'\cap{}G_2'\cap{}G_3$, rotate=90]]
+        [$\dfrac{7}{498}$ [$G_1'\cap{}G_2'\cap{}G_3'$, rotate=90]]
+      ]
+    ]
+  ]
+\end{forest}
+
+Suppose we were interested in the event that $(x_1,x_2,x_3)=(1,1,0)$,
+or in other words, $P(G_1\cap{}G_2\cap{}G_3')$.
+
+We can see that, if we follow this path on the tree, that if we
+multiply the values along the tree, it's the same as this
+probability. For example, the first node to the right on the tree is
+the value of $P(G_1\mid\Omega)$. Going right and then right, we have
+$P(G_2\mid{}G_1)$. And finally, right, right, left,
+$P(G_3\mid{}G_1\cap{}G_2)$.
+
+\end{document}
