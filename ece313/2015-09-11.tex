@@ -1,0 +1,238 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Independence}
+
+We know that events $A$ and $B$ are \textbf{independent} if and only
+if $P(A\cap{}B)=P(A)P(B)$.
+
+For example, suppose we had a 6 sided die, where event $A$ is the
+event of rolling a prime number, and $B$ is the event of rolling an
+even.
+
+Sometimes you don't want to compute things, and that's cool. I think
+if you don't want to, that means you more easily know what
+$P(A\cap{}B)$ is, than what both $P(A)$ and $P(B)$ are. Occaisionally,
+you do actually know what $P(A)$ and $P(B)$ are, so you can just use
+them directly to compute $P(A\cap{}B)$.
+
+Specifically, we have:
+
+\[
+A=\text{rolling prime} = \{2,3,5\}
+\] \[
+B =\text{rolling even} = \{2,4,6\}
+\]
+
+In this case, it's easier to go from $P(A)$ and $P(B)$ to
+$P(A\cap{}B)$.
+
+Now we're interested in whether events $A$ and $B$ are independent. To
+do that, we need both $P(A\cap{}B)$, $P(A)$, $P(B)$.
+
+\[
+P(A\cap B)=\dfrac{|A\cap B|}{|\Omega|} = \dfrac{1}{6}
+\] \[
+P(A)=\dfrac{|A|}{|\Omega|}=\dfrac{3}{6}=\dfrac{1}{2}
+\] \[
+P(B)=\dfrac{|B|}{|\Omega|}=\dfrac{3}{6}=\dfrac{1}{2}
+\]
+
+However, we note that
+
+\[
+\left(P(A)P(B) = \dfrac{1}{2}\cdot\dfrac{1}{2}\right) \ne \left(\dfrac{1}{6}=P(A\cap B)\right)
+\]
+
+Therefore we know that events $A$ and $B$ aren't independent.
+
+\subsection*{Take Two}
+
+Now let's look at
+
+\[
+A=\text{rolling prime}=\{2,3,5\}
+\] \[
+B=\text{rolling greater than $4$}=\{5,6\}
+\] \[
+A\cap B=\{5\}
+\]
+
+And the probabilities:
+
+\[
+P(A\cap B)=\dfrac{1}{6}
+\] \[
+P(A) = \dfrac{1}{2}
+\] \[
+P(B) = \dfrac{1}{3}
+\]
+
+Therefore, applying the formula:
+
+\[
+\left(P(A)P(B) = \dfrac{1}{2}\cdot\dfrac{1}{3}\right) = \left(\dfrac{1}{6}=P(A\cap B)\right)
+\]
+
+This surprising result is that $A$ and $B$ are independent
+events. This might not match our intuition, but that's okay, it just
+has to match the definition. And it does! Hooray.
+
+\section*{Extending Independence to many sets}
+
+Let $\zeta$ be a collection of events.
+
+$\zeta$ is said to be a collection of independent events iff
+
+\[
+\forall \{E_1,E_2,\cdots,E_k\}\subset\zeta\Rightarrow P(E_1\cap E_2\cdots E_k)=P(E_1)P(E_2)\cdots P(E_k)
+\]
+
+\section*{Ranting about people not using independence}
+
+Apparently people like to just assume independence without going to
+the definition. He has some choice words for people who don't use the
+definition $>:($
+
+\section*{Page 51: Law of Total Probability}
+
+The definition is:
+
+\[
+P(B)=P(A_1)P(B|A_1) + P(A_2)P(B|A_2) + \cdots + P(A_n)P(B|A_n)
+\]
+
+Or similarly,
+
+\[
+P(B)=\sum\limits_{i=1}^n P(A_i)P(B|A_i)
+\]
+
+\subsection*{Example}
+
+Suppose we have events $A_i$:
+
+\[
+\forall i\in\{1,2,3,4\}(A_i\equiv\text{car assembled in plant $i$})
+\]
+
+and event $B$, that a claim is made for the car.
+
+Using empirical probabilities for the plants, we have:
+
+\[
+\begin{array}{lll}
+i & P(A_i) & P(B|A_i) \\
+\midrule
+1 & 0.20 & 0.05\\
+2 & 0.24 & 0.11 \\
+3 & 0.25 & 0.03 \\
+4 & 0.31 & 0.08
+\end{array}
+\]
+
+We're going on our own now! We don't need no book telling us problems,
+we'll make our own, with blackjack and hookers.
+
+Suppose we have a claim filed. What is the probability that it came
+from the second plant? Mathematically speaking, we're interested in
+the value of
+
+\[
+P(A_2|B)
+\]
+
+Now. We \textit{could} just use Bayes' Formula, but that's too
+easy. Let's try to make our own Bayes' Formula! Too bad we're out of
+hookers, but we still have blackjack.
+
+If we expand the above expression using the definition of conditional
+probability, we get
+
+\[
+P(A_2|B)=\dfrac{P(A_2\cap B)}{P(B)}
+\]
+
+Using the Law of Total Probability, with $n=4$, we have
+
+\[
+P(B)
+=
+P(A_1)P(B|A_1) +
+P(A_2)P(B|A_2) +
+P(A_3)P(B|A_3) +
+P(A_4)P(B|A_4)
+\]
+
+Luckily, we know all of these values, from the table above. So we can
+calculate $P(B)$, which is what we want to know from the expansion of
+$P(A_2|B)$.
+
+Let's multiply! Ultimately, we will get:
+
+\[
+P(B)=0.0684
+\]
+
+So now we have the denomitator of $P(A_2|B)$, so let's calculate
+$P(A_2\cap B)$. To do this, we look at $P(B|A_2)$, which expands to:
+
+\[
+P(B|A_2)=\dfrac{P(B\cap A_2)}{P(A_2)}
+\]
+
+And we know the left side and the denominator of the right side, so we
+can calculate:
+
+\[
+P(B\cap A_2)=P(B|A_2)P(A_2)
+\] \[
+P(B\cap A_2)=0.0264
+\]
+
+And can calculate the final thing:
+
+\[
+P(A_2|B)=0.3859=38.59\%
+\]
+
+\section*{Whatever. I don't know}
+
+Assume $A$ and $B$ are independent. In other words,
+$P(A\cap{}B)=P(A)P(B)$.
+
+Now let's look at the value of $P(A|B)$ to see if we can gain some
+insights.
+
+\[
+P(A|B)\overset{def}{=}\dfrac{P(A\cap B)}{P(B)}\overset{indep}{=}\dfrac{P(A)P(B)}{P(B)}=P(A)
+\]
+
+Isn't that cool? It's so cool.
+
+I'm tired.
+
+My eyes hurt.
+
+\end{document}
