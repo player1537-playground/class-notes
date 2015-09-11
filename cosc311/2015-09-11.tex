@@ -1,0 +1,113 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Last class}
+
+Last class, we were looking at different ways to prove that
+$\forall{}n((\text{$n$ is odd})\rightarrow(\text{$n+11$ is even}))$.
+
+There were 3 different ways to prove this: direct proof,
+contrapositive proof, and proof by contradiction.
+
+Suppose we are interested in the generic proof of
+$\forall{}x(p(x)\rightarrow{}q(x))$.
+
+A direct proof would attempt to show directly whether
+$p(x)\rightarrow{}q(x)$. A contrapositive proof would try to show that
+$\neg{}q(x)\rightarrow\neg{}p(x)$. A proof by contradiction would show
+that $(p(x)\wedge\neg{}q(x))\rightarrow{}F_0$.
+
+\section*{Contrapositive Proof}
+
+Remember that we are trying to show whether
+$(\text{$n+11$ is odd})\rightarrow(\text{$n$ is even})$.
+
+Note that the conclusion can be restated as
+$\exists{}k\in\mathbb{Z}(n=2k)$. It is sometimes useful to restate the
+conclusion so we have a better idea of how to get there.
+
+It is also sometimes useful to do scratch work first, and then do the
+formal write-up at the end. Our scratch work follows:
+
+\begin{itemize}
+\item I know I need to find a $k\in\mathbb{Z}$ such that $n=2k$.
+\item Premise/Given: $n+11$ is odd $\Leftrightarrow$
+  $\exists{}l\in\mathbb{Z}(n+11=2l+1)$ (from the definition of odd
+  numbers).
+\item We would really desire having another equation with
+  $n=\text{something}$. We can convert our other equation into this
+  form, to get $n=(2l+1)-11$.
+\item Now we are interested in whether we can rewrite the
+  $n=\text{something}$ equation into the form $n=2k$. We can write
+  $n=2l-10$, and then $n=2(l-5)$.
+\item If we let $k=l-5$, we have found a $k$ such that $n=2k$,
+  therefore we have shown that $n+11$ is even.
+\item Finally, we should tie this back to the original statement:
+  Thus, if $n+11$ is odd, then $n$ is even. By the contrapositive we
+  have that if $n$ is odd then $n+11$ is even.
+\end{itemize}
+
+\section*{Proof By Contradiction}
+
+Here, we take our premises as $n$ is odd and $n+11$ is odd, and the
+conclusion as $F_0$.
+
+Again, we'll do scratch work:
+
+\begin{itemize}
+\item $n$ is odd $\Leftrightarrow$ $\exists{}k\in\mathbb{Z}(n=2k+1)$
+\item $n+11$ is odd $\Leftrightarrow$ $\exists{}l\in\mathbb{Z}(n+11=2l+1)$
+\item We can compute $n+11$ using $n$, to find that $n+11=(2k+1)+11$,
+  and distribute to get $n+11=2k+12$.
+\item We notice that we can rewrite $2k+12$ as $2(k+6)$. If we
+  introduce a new variable, $m=k+6$, we can have $n+11=2m$.
+\item However, we note that $\exists{}m(n+11=2m)$ $\Leftrightarrow$
+  $n+11$ is even, but we already assumed $n+11$ is odd.
+\item Therefore, we have reached a contradiction, so our original
+  premise that $n+11$ is odd must be false. Thus, we see that $n$ is
+  odd and $n+11$ is odd leads to a false conclusion. Therefore, $n+11$
+  must not be odd, so $n+11$ is even if $n$ is odd.
+\end{itemize}
+
+\section*{Example 9.11.1}
+
+Let $n\in\mathbb{Z}$. Prove that if $n$ is odd, then $7n+8$ is odd.
+
+\subsection*{Proof By Contradiction}
+
+\begin{itemize}
+\item $n$ is odd $\Leftrightarrow$ $\exists{}k(n=2k+1)$
+\item $7n+8$ is even $\Leftrightarrow$ $\exists{}l(7n+8=2l)$
+\item $7(n)+8=7(2k+1)+8=14k+9$
+\item If we introduce a variable $m=7k+4$, we have that $7n+8=2m+1$,
+  which by the definition of odd, means that $7n+8$ is odd.
+\item However, we previously assumed that $7n+8$ is even, and we can't
+  have it be both odd and even, so our new assumption that $7n+8$ is
+  even must be false.
+\item Because we just showed that we can't have both $n$ odd and
+  $7n+8$ even, it must be the case that $n$ is odd leads to $7n+8$ is
+  odd.
+\end{itemize}
+
+\end{document}

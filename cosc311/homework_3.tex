@@ -221,7 +221,46 @@ have reached the same contradiction as before. Therefore
 \boxed{\exists x(p(x)\wedge\neg q(x))}
 \]
 
-\subproblem{d}
+\subproblem{d} \[
+\neg\lbrack\exists x((p(x)\vee q(x))\rightarrow r(x))\rbrack
+\] \[
+\forall x(\neg((p(x)\vee q(x))\rightarrow r(x)))
+\] \[
+\forall x(\neg(\neg(p(x)\vee q(x))\vee r(x)))
+\] \[
+\forall x(\neg\neg(p(x)\vee q(x))\wedge\neg r(x))
+\] \[
+\boxed{\forall x((p(x)\vee q(x))\wedge\neg r(x))}
+\]
+
+%
+
+\problem{2.4}{22}
+
+\subproblem{a} $\exists x\exists y(xy=1) = \boxed{\T}$
+
+\subproblem{b} $\exists x\forall y(xy=1) = \boxed{\F}$
+
+\subproblem{c} $\forall x\exists y(xy=1) = \boxed{\T}$
+
+\subproblem{d} $\exists x\exists y\lbrack(2x+y=5)\wedge(x-3y=-8)\rbrack = \boxed{\T}$
+
+\subproblem{e} $\exists x\exists y\lbrack(3x-y=7)\wedge(2x+4y=3)\rbrack = \boxed{\T}$
+
+%
+
+\problem{2.4}{24}
+
+Let $p:\forall x\in U_x\exists y\in U_y(x+y=17)$ for some universes
+$U_x$ and $U_y$.
+
+\subproblem{a} For $U_x=U_y=\mathbb{Z}$, $p=\boxed{\T}$.
+
+\subproblem{b} For $U_x=U_y=\mathbb{Z}^+$, $p=\boxed{\F}$.
+
+\subproblem{c} For $U_x=\mathbb{Z}$ and $U_y=\mathbb{Z}^+$, $p=\boxed{\F}$.
+
+\subproblem{d} For $U_x=\mathbb{Z}^+$ and $U_y=\mathbb{Z}$, $p=\boxed{\T}$.
 
 \end{multicols*}
 \end{document}
