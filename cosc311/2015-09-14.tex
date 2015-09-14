@@ -1,0 +1,101 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Examples 9.09.14}
+
+For the following, identify all premises and conclusions.
+
+For all $x\in\mathbb{R}$, if $x^2-3x+2\le{}0$, then $1\le{}x\le{}2$.
+
+\[
+\begin{array}{l|l}
+\text{Premises} & \text{Conclusions} \\
+\midrule
+x\in\mathbb{R} & 1\le x\le 2 \\
+x^2-3x+2\le 0 & \\
+\end{array}
+\]
+
+If $n$ is an even integer and $m$ is an odd integer, then either $mn$
+is divisible by $4$ or $n$ is not divisible by $4$.
+
+\[
+\begin{array}{l|l}
+\text{Premises} & \text{Conclusions} \\
+\midrule
+\exists k\in\mathbb{Z}(n=2k) & (4|mn)\vee(4\not|n) \\
+\exists l\in\mathbb{Z}(m=2l+1) & \\
+\end{array}
+\]
+
+If $m$ and $n$ are odd integers, then there is no rational root for
+the equation $x^2+2mx+2n=0$.
+
+\[
+\begin{array}{l|l}
+\text{Premises} & \text{Conclusions} \\
+\midrule
+\exists k\in\mathbb{Z}(m=2k+1) & \exists{}x(x^2+2mx+2n=0)\rightarrow(\nexists r\in\mathbb{Z}\nexists q\in\mathbb{Z}(x=\frac{r}{q})) \\
+\exists l\in\mathbb{Z}(n=2l+1) & \\
+\end{array}
+\]
+
+Suppose that $p,q\in\mathbb{R}^+$. If $\sqrt{pq}\ne\frac{p+q}{2}$,
+then $p\ne{}q$.
+
+\[
+\begin{array}{l|l}
+\text{Premises} & \text{Conclusions} \\
+\midrule
+p,q\in\mathbb{R}^+ & p\ne q \\
+\sqrt{pq}\ne\frac{p+q}{2} & \\
+\end{array}
+\]
+
+Prove that for all real numbers $x$ and $y$, if $x+y\ge{}100$, then
+$x\ge{}50$ or $y\ge{}50$.
+
+\[
+\begin{array}{l|l}
+\text{Premises} & \text{Conclusions} \\
+\midrule
+x\in\mathbb{R} & (x\ge 50)\vee(y\ge 50) \\
+y\in\mathbb{R} & \\
+x+y\ge 100 & \\
+\end{array}
+\]
+
+Let $n$ be an integer. Prove that $n$ is even iff $31n+12$ is even.
+
+\[
+\begin{array}{l|l}
+\text{Premises} & \text{Conclusions} \\
+\midrule
+n\in\mathbb{Z} & T_0 \\
+\exists k\in\mathbb{Z}(n=2k) & \\
+\exists l\in\mathbb{Z}(31n+12=2l) & \\
+\end{array}
+\]
+
+\end{document}
