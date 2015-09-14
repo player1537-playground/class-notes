@@ -1,0 +1,281 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Who even knows}
+
+Two things he wanted to say about Law of Total Probability and Bayes'
+Theorem.
+
+\subsection*{Law of Total Probability}
+
+If $A_1$, $\cdots$, $A_n$ is a partition of $\Omega$, then
+
+\[
+P(B)=\sum\limits_{i=1}^n P(A_i)P(B|A_i)
+\]
+
+Remember: A partition means that
+$\forall{}i\forall{}j(i\ne{}j\rightarrow{}A_i\cap A_j=\varnothing)$
+and similarly that $\bigcup\limits_{i=1}^nA_i=\Omega$.
+
+So you might look at this and say that it's not particularly useful,
+because it's pretty rare that you'll have a partition of the sample
+space. We'll investigate when it's possible to use this law.
+
+The first step is to expand $P(B|A_i)$:
+
+\[
+P(B)=\sum\limits_{i=1}^nP(A_i)\dfrac{P(B\cap A_i)}{P(A_i)}
+\]
+
+We should make note of the implicit assumptions in this statement, in
+particular that $P(A_i)\ne{}0$.
+
+We might, at this point, relate this to the union of mutually
+exclusive events, which is:
+
+\[
+P\left(\bigcup\limits_{E\in\zeta}E\right)=\sum\limits_{E\in\zeta}P(E)
+\]
+
+If we relate this using a particular value of $\zeta$:
+
+\[
+\zeta=\{B\cap A_1, B\cap A_2,\cdots, B\cap A_n\}
+\]
+
+We should first check that these events are mutually exclusive:
+
+\[
+(B\cap A_i)\cap (B\cap A_j)
+\] \[
+(A_i\cap A_j)\cap(B\cap B)
+\] \[
+\varnothing\cap\cdots
+\] \[
+\varnothing
+\]
+
+So, indeed, they are mutually exclusive.
+
+So no we we have:
+
+\[
+P\left(\bigcup\limits_{E\in\zeta}E\right)=\sum_{i=1}^nP(B\cap A_i)
+\]
+
+Which is exactly what we had from the Law of Total Probability.
+
+I dunno, some other stuff. I was typing.
+
+\section*{Restating the Law of Total Probability}
+
+Let $\zeta=\{A_1,A_2,\cdots,A_n\}$ be a mutually exclusive collection
+of events, then:
+
+\[
+B\subset\left(\bigcup\limits_{i=1}^nA_i\right)\Rightarrow P(B)=\sum\limits_{i=1}^nP(A_i)P(B|A_i)
+\]
+
+Which is a much easier definition, because now we don't need to worry
+about whether it is a partition or not.
+
+\section*{Memorize These}
+
+Page 51, near the bottom: 1.6.2. ``Calculation of Posterior
+Probabilities.''
+
+Prior: $P(A_1),\cdots,P(A_n)$
+
+Posterior: $P(A_1|B),\cdots,P(A_n|B)$
+
+\section*{Bayes' Theorem}
+
+Page 52.
+
+The formula is as follows:
+
+If $A_1,\cdots,A_n$ is a partition of $\Omega$, then:
+
+\[
+P(A_i|B)=\dfrac{P(A_i)P(B|A_i)}{\sum\limits_{j=1}^nP(A_j)P(B|A_j)}
+\]
+
+Yeah. We get it. They're dummy variables, we don't care. Just make it
+unambiguous.
+
+\subsection*{Understanding and Simplifying}
+
+We might want to look at the value of $P(A_i)P(B|A_i)$
+
+\[
+P(A_i)P(B|A_i)
+\] \[
+P(A_i)\dfrac{P(B\cap A_i)}{P(A_i)}
+\] \[
+P(B\cap A_i)
+\]
+
+So now we can take the formula and rewrite it as:
+
+\[
+P(A_i||B)=\dfrac{P(B\cap A_i)}{\sum\limits_{j=1}^nP(B\cap A_j)}
+\]
+
+With a new $\zeta'=\{B\cap{}A_1,\cdots,B\cap{}A_n\}$, we can determine
+that these events are also mutually exclusive because $\zeta$ is
+mutually exclusive.
+
+Now we can look at that sum of mutually exclusive events, and
+determine that
+
+\[
+P(A_i|B)=\dfrac{P(B\cap A_i)}{P\left(\bigcup\limits_{j=1}^nB\cap A_i\right)}
+\]
+
+Now we can introduce another premise, that
+$B\subset\left(\bigcup\limits_{i=1}^nA_i\right)$. Therefore, the
+probability of the union is the same as $P(B)$. So what we finally get
+is that
+
+\[
+P(A_i|B)=\dfrac{P(B\cap A_i)}{P(B)}
+\]
+
+Which is what we would expect from a conditional
+probability. Therefore, we've derived a more simple rule for Bayes'
+Theorem.
+
+\subsection*{Bayes' Theorem: Take Two}
+
+If we have $\zeta=\{A_1,\cdots,A_n\}$ is a mutually exclusive
+collection of events, then:
+
+\[
+B\subset\left(\bigcup\limits_{i=1}^nA_i\right)\Rightarrow P(A_i|B)=\dfrac{P(A_i)P(B|A_i)}{\sum\limits_{j=1}^nP(A_j)P(B|A_j)}
+\]
+
+\section*{Example Thing}
+
+If we have some form of factory thing that produces things that can
+have impurities, then we can ascribe the event $H$ to the case where
+the impurity levels are too high. We are told that $P(H)=0.01$.
+
+One thing we note while reading the problem is that there are two
+different things that can happen: we have both the actual impurity
+levels and a level told by a measuring device, which sometimes
+produces false positives.
+
+So let's try again.
+
+Now we have two different events: $B$ is that the device says the
+impurity levels are too high, and $H$ that the levels are actually too
+high.
+
+We are told that the impurity levels are high 1\% of the time:
+
+\[
+P(H)=0.01
+\]
+
+We are also told that it produces false positives at a rate of 5\%:
+
+\[
+P(B|H')=0.05
+\]
+
+Similarly, we are told the it produces false negatives, where it tells
+us we have low impurity levels but we actually have high impurity
+levels, at a rate of 2\%:
+
+\[
+P(B'|H)=0.02
+\]
+
+\subsection*{Question 1}
+
+Suppose we are interested in the probability that the impurity level
+is really too high when the device says it is. In other words, we want
+$P(H|B)$.
+
+We first note the definition of conditional probability:
+
+\[
+P(H|B)=\dfrac{P(H\cap B)}{P(B)}
+\]
+
+Now we might look again at our givens:
+
+\[
+P(B|H')=\dfrac{P(B\cap H')}{P(H')}
+\] \[
+P(B'|H)=\dfrac{P(B'\cap H)}{P(H)}
+\]
+
+And basically, we discover that we don't know anything from this
+information. When problems are this small, we might be interested in
+actually drawing a picture to gain a more intuitive understanding of
+the data.
+
+\[
+\begin{array}{@{}|c|c|c|@{}}
+\toprule
+   & B & B' \\
+\midrule
+0.01 = H  & H\cap B & \underset{(0.02)(0.01)}{H\cap B'} \\
+\midrule
+0.99 = H' & \underset{(0.05)(0.99)}{H'\cap B} & H'\cap B' \\
+\bottomrule
+\end{array}
+\]
+
+We calculate the value of $P(H\cap{}B')$ and $P(H'\cap{}B)$ using the following:
+
+\[
+0.05=\dfrac{P(B\cap H')}{P(H')}=\dfrac{P(B\cap H')}{1-P(H)}=\dfrac{P(B\cap H')}{0.99}
+\] \[
+P(B\cap H')=(0.05)(0.99)
+\]
+
+and similarly for $P(H\cap{}B')$.
+
+From here, we can calculate the value of $P(H\cap{}B)$ by taking note
+that the first row should sum to $0.01$, so we can solve for that one,
+and eventually fill the table:
+
+\[
+\begin{array}{@{}|c|c|c|@{}}
+\toprule
+   & B & B' \\
+\midrule
+0.01 = H  & \underset{0.01-(0.02)(0.01)}{H\cap B} & \underset{(0.02)(0.01)}{H\cap B'} \\
+\midrule
+0.99 = H' & \underset{(0.05)(0.99)}{H'\cap B} & \underset{0.99-(0.05)(0.99)}{H'\cap B'} \\
+\bottomrule
+\end{array}
+\]
+
+
+
+\end{document}
