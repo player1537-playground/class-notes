@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+\usepackage{multicol}
+
+\setlength{\columnsep}{0.5cm}
+\setlength{\columnseprule}{1pt}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\problem}[2]{$\boxed{\begin{array}{l}\text{#1} \\ \text{\##2}\end{array}}$}
+\newcommand{\subproblem}[1]{(#1)}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+\begin{multicols*}{2}
+
+\problem{2.5}{6}
+
+\subproblem{a} Valid. Let \[
+p(x):\text{``$x$ is a mail carrier''}
+\] \[
+q(x):\text{``$x$ carries mace''}
+\], so we can rewrite the statements as: \[
+\forall x(p(x)\rightarrow q(x))
+\] \[
+\exists y(p(y)
+\]
+ $p(x):\text{``$x$ carries mace''}$, and
+$q(x):\text{``$x$ is a mail carrier''}$, then the first statement is
+$\forall{}x(q(x)\rightarrow{}p(x))$, the second is $\exists{}y(q(y))$,
+and the last is $p(y)$. Because $q(y)$ is true, and we know that
+$\forall{}x(q(x)\rightarrow{}p(x))$ then $q(y)\rightarrow{}p(y)$,
+therefore $p(y)$.
+
+%
+
+\problem{2.5}{12}
+
+%
+
+\problem{2.5}{14}
+
+%
+
+\problem{2.5}{16}
+
+\end{multicols*}
+\end{document}
