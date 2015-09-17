@@ -22,8 +22,9 @@
 \end{array}
 }
 
-\newcommand{\problem}[2]{$\boxed{\begin{array}{l}\text{#1} \\ \text{\##2}\end{array}}$}
+\newcommand{\problem}[2]{$\boxed{\text{#1 \##2}}$}
 \newcommand{\subproblem}[1]{(#1)}
+\newcommand{\RUS}{Rule of Universal Specification}
 
 \setlength\parindent{0pt}
 \setlength\parskip{1em}
@@ -33,33 +34,108 @@
 
 \problem{2.5}{6}
 
-\subproblem{a} Valid. Let \[
+\subproblem{a} $\boxed{\text{Valid}}$ Let \[
 p(x):\text{``$x$ is a mail carrier''}
 \] \[
 q(x):\text{``$x$ carries mace''}
-\], so we can rewrite the statements as: \[
+\] so we can rewrite the statements as: \[
 \forall x(p(x)\rightarrow q(x))
 \] \[
-\exists y(p(y)
-\]
- $p(x):\text{``$x$ carries mace''}$, and
-$q(x):\text{``$x$ is a mail carrier''}$, then the first statement is
-$\forall{}x(q(x)\rightarrow{}p(x))$, the second is $\exists{}y(q(y))$,
-and the last is $p(y)$. Because $q(y)$ is true, and we know that
-$\forall{}x(q(x)\rightarrow{}p(x))$ then $q(y)\rightarrow{}p(y)$,
-therefore $p(y)$.
+\exists y(p(y))
+\] and the conclusion we want to determine is \[
+q(y)
+\] By the \RUS, we know that because $y$ is a member of our universe,
+then $p(y)\rightarrow{}q(y)$. One of our givens is $p(y)$, therefore
+we have $q(y)$ by the Rule of Detachment.
+
+\subproblem{b} $\boxed{\text{Invalid}}$ Let \[
+p(x):\text{``$x$ is a law abiding citizen''}
+\] \[
+q(x):\text{``$x$ pays their taxes''}
+\] so we can rewrite the given statements as \[
+\forall x(p(x)\rightarrow q(x))
+\] \[
+\exists y(q(y))
+\] and the conclusion \[
+p(y)
+\] By the \RUS, we know that since $y$ is an element of our universe,
+then $p(y)\rightarrow{}q(y)$. However, we are told that $q(y)$ is
+true, and it is not true in general that
+$(p(y)\rightarrow{}q(y))\rightarrow(q(y)\rightarrow{}p(y))$ therefore
+we can not conclude that $p(y)$ is true.
+
+\subproblem{c} $\boxed{\text{Invalid}}$ Let \[
+p(x):\text{``$x$ is concerned about the environment''}
+\] \[
+q(x):\text{``$x$ recycles plastic containers''}
+\] and we can rewrite the statements as \[
+\forall x(p(x)\rightarrow q(x))
+\] \[
+\exists y(\neg p(y))
+\] and the conclusion is \[
+\neg q(y)
+\] By the \RUS, we know that because $y$ is in our universe, then
+$p(y)\rightarrow{}q(y)$. However, it is not necessarily true that the
+inverse $\neg{}p(y)\rightarrow\neg{}q(y)$ is true if the original
+statement is true. Therefore, we can not conclude that $\neg{}q(y)$ is
+true.
+
 
 %
 
 \problem{2.5}{12}
 
+\subproblem{a} By the definition of even, we know that
+$\exists{}a(k=2a)$ and $\exists{}b(l=2b)$. From there, we can
+substitute in these new values into the sum $k+l=2a+2b$, and then
+factor out the $2$ to get $k+l=2(a+b)$. Because the integers are
+closed under addition, we know that $a+b\in\mathbb{Z}$ as well, so we
+can assign a new name for this sum: $c=a+b$. This means that the sum
+$k+l$ now has the form $2c$ for some $c\in\mathbb{Z}$, which is the
+definition of even, therefore $k+l$ is even.
+
+\subproblem{b} By the definition of even, we know that
+$\exists{}a(k=2a)$ and $\exists{}b(l=2b)$. From there, we can
+substitute in these new values into the product $kl=(2a)(2b)$. We can
+expand the parentheses to get $kl=2\cdot{}2ab$, and then factor out
+the $2$ to get $kl=2(2ab)$. Because the integers are closed under
+multiplication, we know that $2ab\in\mathbb{Z}$, so we can assign a
+new name for them: $c=2ab$. This means that the product $kl$ now has
+the form $2c$ for some $c\in\mathbb{Z}$, which is the definition of
+even, therefore $kl$ is even.
+
 %
 
 \problem{2.5}{14}
 
+By the definition of odd, we know that $\exists{}a(n=2a+1)$. We can
+then substitute this new value for $n$ into the power $n^2$ to get
+$n^2=(2a+1)^2$. By expanding the power, we get
+$n^2=2\cdot{}2a^2+2\cdot{}2a+1$. We can then factor out the $2$ in the
+first two summands to get $n^2=2\cdot{}(2a^2+2a)+1$. Because the
+integers are closed under addition and multiplication, we know that
+the sum $2a^2+2a\in\mathbb{Z}$, and can assign a new name for this
+value: $b=2a^2+2a$. This means that the power can now be written as
+$n^2=2b+1$ for some $b\in\mathbb{Z}$, and by the definition of odd,
+this means that $n^2$ is odd.
+
 %
 
 \problem{2.5}{16}
+
+To prove whether $n^2$ is even iff $n$ is even, we split the problem
+into two parts: if $n^2$ is even, then $n$ is even, and if $n$ is
+even, then $n^2$ is even. Parts (a) and (b) respectively.
+
+\subproblem{a} To tackle this proof, we will instead focus on the
+contrapositive: if $n$ is not even (odd), then $n^2$ is not even
+(odd). We just proved this statement in 2.5 \#14, so the proof will not
+be repeated.
+
+\subproblem{b} To simplify this proof, we rely on the results of 2.5
+\#12 (b), which states that if $k$, $l$ are even, then $kl$ is even. If
+we let $k=n$ (which is even, by our premise) and $l=n$ (still even),
+then $kl=n^2$ must also be even.
 
 \end{multicols*}
 \end{document}
