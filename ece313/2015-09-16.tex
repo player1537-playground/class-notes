@@ -1,0 +1,286 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Example 1.5.7}
+
+Suppose we have a network split in two halves, top and bottom, and has
+three switches $\{S_1,S_2,S_3\}$. $S_1$ connects to $S_2$ and makes up
+the top half. $S_3$ makes up the bottom half.
+
+Each switch has an associated probability of success for the message
+going through, $P(S_i)=p_i$. Each switch operates independently of
+each other.
+
+\[
+\begin{array}{cc}
+i & p_i \\
+\midrule
+1 & 0.88 \\
+2 & 0.92 \\
+3 & 0.90 \\
+\end{array}
+\]
+
+We are interested in what the probability that the message gets
+through at all. In other words, we want to know:
+
+\[
+P(T\cup B)
+\]
+
+Where \[
+T=S_1\cap S_2
+\] \[
+B=S_3
+\]
+
+We can apply the basic rule of unions of events, to get:
+
+\[
+P(T\cup B)=P(T)+P(B)-P(T\cap B)
+\]
+
+By substituting $T$ and $B$, we have:
+
+\[
+P(T\cup B)=\underbrace{P(S_1\cap S_2)}_{P(T)}+\underbrace{P(S_3)}_{P(B)}-\underbrace{P((S_1\cap S_2)\cap S_3)}_{P(T\cap B)}
+\]
+
+Because we were told that the switches operate independently, we can
+just multiply each of the intersected events, to get:
+
+\[
+P(T\cup B)=
+\underbrace{P(S_1)P(S_2)}_{P(S_1\cap S_2)}
++
+P(S_3)
+-
+\underbrace{P(S_1)P(S_2)P(S_3)}_{P((S_1\cap S_2)\cap S_3)}
+\]
+
+We know all of these, so we're good.
+
+\subsection*{Alternative Way}
+
+Now suppose we want to look directly at
+
+\[
+P(T\cup B)=P((S_1\cap S_2)\cup S_3)
+\]
+
+From there, we might go immediately to:
+
+\[
+P(T\cup B)=P(S_1)P(S_2)+P(S_3)
+\]
+
+But that's kind of sneaky. It'd be better if we could depend on the
+formulas to do these calculations. In this way, we'd want to go from:
+
+\[
+P((S_1\cap S_2)\cup S_3)
+\] \[
+P(S_1\cap S_2)+P(S_3)
+\] \[
+P(S_1)P(S_2)+P(S_3)
+\]
+
+But who knows if that's correct. Let's derive!
+
+\subsection*{Union of Independent Events}
+
+Assume $A$ and $B$ are independent. We want to know if:
+
+\[
+P(A\cup B)\overset{?}{=}P(A)+P(B)
+\]
+
+We always know that:
+
+\[
+P(A\cup B)=P(A)+P(B)-P(A\cap B)
+\]
+
+The question is whether, for independent events:
+
+\[
+P(A\cap B)\overset{?}{=} 0
+\]
+
+To illustrate this, we can look at rolling a die, and the events that
+we roll a prime and rolling a large number. More directly, we have:
+
+\[
+\Omega=\{1,2,3,4,5,6\}
+\] \[
+\rho=\{2,3,5\}
+\] \[
+L=\{5,6\}
+\]
+
+We want to know whether these are independent, i.e.:
+
+\[
+P(\rho\cap L)\overset{?}{=}P(\rho)P(L)
+\]
+
+\[
+\underbrace{\frac{1}{6}}_{P(\rho\cap L)}=\underbrace{\frac{1}{2}}_{P(\rho)}\underbrace{\frac{1}{3}}_{P(L)}
+\]
+
+Therefore, these are independent events. We can try applying our
+desired equality:
+
+\[
+P(\rho\cup L)
+\] \[
+P(\{2,3,5,6\})
+\] \[
+\frac{2}{3} \ne 0
+\]
+
+Counter-example!
+
+\section*{Example 1.4.41}
+
+Suppose we have a factory which creates parts that must be within
+specified tolerances for height, length, and width. The events
+describing these are $T_h$, $T_l$, and $T_w$.
+
+We are told that 86\% of parts are within the tolerances for width, so:
+
+\[
+P(T_w)=0.86
+\]
+
+Similarly, 80\% are within all three tolerances:
+
+\[
+P(T_hT_lT_w)=0.80
+\]
+
+\textbf{Note}: We are using a shorthand where, for events $A$ and $B$,
+$AB$ is the same as $A\cap{}B$.
+
+We are also told that 2\% are within tolerances for width and length,
+but not height:
+
+\[
+P(T_wT_lT_h')=0.02
+\]
+
+And 3\% within tolerances for width and height, but not length:
+
+\[
+P(T_wT_hT_l')=0.03
+\]
+
+Similarly, we have that 92\% are within tolerances for width or height:
+
+\[
+P(T_w+T_h)=0.92
+\]
+
+\textbf{Note}: We are using a notation that for events $A$ and $B$,
+$A+B$ is the same as $A\cup{}B$.
+
+Now suppose we are asked what the probability that a part is within
+tolerances for width, given that it's within tolerances for height. In
+other words, we want to know:
+
+\[
+P(T_w|T_h)=?
+\]
+
+We also want to know what the probability that a part is within
+tolerances for height, width, and length, given that it's within
+tolerances for length and width. In other words, we want to know:
+
+\[
+P(T_lT_wT_h|T_lT_w)=
+?
+\]
+
+Our first step will be to use definitions to get:
+
+\[
+P(T_w|T_h)=
+\dfrac{P(T_wT_h)}{P(T_h)}
+\]
+
+And similarly:
+
+\[
+P(T_lT_wT_h|T_lT_w)=
+\dfrac{P(T_lT_wT_hT_lT_w)}{P(T_lT_w)}
+\]
+
+Now we want to figure out what $T_lT_w$ is, so we can figure out the
+denominator of the second question. Our process is:
+
+\[
+T_lT_w
+\] \[
+T_lT_w\Omega
+\] \[
+T_lT_w(T_h+T_h')
+\] \[
+T_lT_wT_h+T_lT_wT_h
+\]
+
+\textbf{Note}: This new notation makes it simple to distribute across
+parentheses. Also note that $+$ now distributes as well.
+
+Now suppose we have a collection of mutually exclusive events $\zeta$:
+
+\[
+\zeta=\{T_lT_wT_h,T_lT_wT_h'\}
+\]
+
+Using the union of mutually exclusive events formula, we have:
+
+\[
+P(T_lT_w)=P(T_lT_wT_h)+P(T_lT_wT_h')
+\]
+
+So now we have the numerator of the second problem. Now to look at the
+numerator.
+
+Because the intersection of a set with itself is that same set, we can
+cancel out the remaining intersections, to get:
+
+\[
+P(T_lT_wT_hT_lT_w)=P(T_lT_wT_h)
+\]
+
+Which we know. Therefore, the final probability for problem 2 is:
+
+\[
+P(T_lT_wT_h|T_lT_w)=\dfrac{P(T_lT_wT_h)}{P(T_lT_wT_h)+P(T_lT_wT_h')}
+\]
+
+My fingers hurt. I think I'm not going to type the rest of the first
+problem.
+
+\end{document}
