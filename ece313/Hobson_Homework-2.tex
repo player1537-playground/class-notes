@@ -1,5 +1,5 @@
 \documentclass{article}
-\usepackage[margin=0.75in]{geometry}
+%\usepackage[margin=0.75in]{geometry}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{xintexpr}
@@ -22,188 +22,677 @@
 \end{array}
 }
 
-\newcommand{\problem}[2]{$\boxed{\text{#1 \##2}}$}
-\newcommand{\subproblem}[1]{(#1)}
+\newcommand{\problem}[2]{$\boxed{\text{#1.#2}}$}
+\newcommand{\subproblem}[3]{$\boxed{\text{(#3)}}$}
+\newcommand{\solution}[1]{\boxed{#1}}
+\newcommand{\subsolution}[4]{\boxed{#4\quad(\text{#1.#2#3})}}
 
 \setlength\parindent{0pt}
-\setlength\parskip{1em}
+\setlength\parskip{0em}
 
 \begin{document}
 
 \section*{Homework 2}
 
+%
+\problem{1.4}{2}
 
-\subsection*{1.4.2 (a)}
-
-Givens:
+This scenario can be described by two events:
 
 \[
-\begin{cases}
-P(\text{over \$1000}) = 0.42 \\
-P\left(\text{paid with credit card}\mid\text{over \$1000}\right) = 0.63
-\end{cases}
+A:\text{``order is over \$1000''}
+\] \[
+B:\text{``person pays with credit card''}
 \]
 
+We are given the following information:
+
 \[
-(P(\text{over \$1000}))^3 = (0.42)^3
+P(A)=0.42
+\] \[
+P(B|A)=0.63
 \]
 
+%
+\subproblem{1.4}{2}{a} We can further extend our previous events with
+$A_i:\text{``order $i$ is over \$1000''}$ for $i\in\{1,2,3\}$, and
+probabilities $P(A_i)=P(A)$. We are then looking for the value of
+$P(A_1A_2A_3)$.
+
+Furthermore, we are told that events $A_1$, $A_2$, and $A_3$ are
+indepedent, which means that we can use the following equivalence:
+
 \[
-\boxed{(P(\text{over \$1000}))^3 = 0.07}
+P(A_1A_2A_3)=P(A_1)P(A_2)P(A_3)
 \]
 
-\subsection*{1.4.2 (b)}
+And then substitute the known probabilities to get:
 
 \[
-P\left(\text{not paid with credit card}\mid\text{over \$1000}\right) =
-1 - P\left(\text{paid with credit card}\mid\text{over \$1000}\right)
+\subsolution{1.4}{2}{a}{P(A_1A_2A_3)=0.07}
 \]
 
+%
+\subproblem{1.4}{2}{b} For the next part, we are interested in the value of
+$P(AB')$. We also know that for any events $P(X|Y)$, we have
+$P(X'|Y)=1-P(X|Y)$, so we can use this to rewrite our second given as:
+
 \[
-\boxed{P\left(\text{not paid with credit card}\mid\text{over \$1000}\right) = 0.37}
+P(B|A)=1-P(B'|A)
 \]
 
-\subsection*{1.4.10}
+And then using the definition of conditional probability, we can
+rewrite this as
 
 \[
-\begin{array}{ccc}
+P(B|A)=1 - \dfrac{P(B'A)}{P(A)}
+\]
+
+And we can then solve for $P(B'A)$ (which is equal to $P(AB')$):
+
+\[
+\dfrac{P(B'A)}{P(A)}=1-P(B|A)
+\] \[
+P(B'A)=P(A)-P(A)P(B|A)
+\] \[
+\subsolution{1.4}{2}{b}{P(B'A)=0.1554}
+\]
+
+%
+\problem{1.4}{10}
+
+We are given that there are two assembly lines, each with an event
+that the line is shut down, running at partial capacity, or running at
+full capacity. We can organize this as a 2-tuple $(X,Y)$ where
+$X,Y\in\{S,P,F\}$. We are then told the probabilities, as follows:
+
+\[
+\boxed{\begin{array}{ccc}
 \underset{0.02}{(S, S)} & \underset{0.06}{(S, P)} & \underset{0.05}{(S, F)} \\
 \underset{0.07}{(P, S)} & \underset{0.14}{(P, P)} & \underset{0.20}{(P, F)} \\
-\underset{0.06}{(F, S)} & \underset{0.21}{(F, P)} & \underset{0.19}{(F, F)}
-\end{array}
+\underset{0.06}{(F, S)} & \underset{0.21}{(F, P)} & \underset{0.19}{(F, F)} \\
+\end{array}}
 \]
 
-\subsection*{1.4.10 (a)}
+%
+\subproblem{1.4}{10}{a} For this problem, we're interested in the event that
+both lines are at full capacity:
 
 \[
-\text{full capacity } = E_{full} = \{(F, F)\}
+E_{full}=\{(F,F)\}
 \]
+
+given that neither line is shut down:
 
 \[
-\text{neither shut down } = E_{working} = \{(P, P), (P, F), (F, P), (F, F)\}
+E_{working}=\{(P,P),(P,F),(F,P),(F,F)\}
 \]
+
+or in other words, $P(E_{full}|E_{working})$, which by application of
+the definition of conditional probability is:
 
 \[
-P\left(E_{full}\mid E_{working}\right) =
-\frac{P(E_{full}\cap E_{working})}{P(E_{working})}
+P(E_{full}|E_{working})=
+\dfrac{P(E_{full}E_{working})}{P(E_{working})}
 \]
+
+We know that each of the elementary events that make up $E_{working}$
+are mutually exclusive, so we can apply the union of mutually
+exclusive events definition to get:
 
 \[
-P\left(E_{full}\mid E_{working}\right) =
-\frac
-    {P((F, F))}
-    {P((P, P)) + P((P, F)) + P((F, P)) + P((F, F))}
+P(E_{full}|E_{working})=
+\dfrac{P(E_{full}E_{working})}{P((P,P))+P((P,F))+P((F,P))+P((F,F))}
 \]
+
+And we can also trivially find the value of $E_{full}E_{working}$, to get:
 
 \[
-P\left(E_{full}\mid E_{working}\right) =
-\frac
-    {0.19}
-    {0.14 + 0.20 + 0.21 + 0.19}
+P(E_{full}|E_{working})=
+\dfrac{P((F,F))}{P((P,P))+P((P,F))+P((F,P))+P((F,F))}
 \]
+
+And then substituing known values, we get the final answer:
 
 \[
-\boxed{P\left(E_{full}\mid E_{working}\right) = 0.25675}
+\subsolution{1.4}{10}{a}{P(E_{full}|E_{working})=0.25675}
 \]
 
-\subsection*{1.4.10 (b)}
+%
+\subproblem{1.4}{10}{b} In addition to the previous events, we now
+have the event that at least one line is at full capacity:
 
 \[
-\text{at least one at full capacity } = E_{1+ full} = \{(P, F), (F, P), (F, F)\}
+E_{1+ full}=\{(S,F),(P,F),(F,P),(F,S),(F,F)\}
 \]
+
+and we are interested in the value of $P(E_{1+ full}|E_{working})$.
+Through the same steps as before, we get:
 
 \[
-P\left(E_{1+ full}\mid E_{working}\right) =
-\frac
-    {P(E_{1+ full}\cap E_{working}}
-    {P(E_{working})}
+P(E_{1+ full}|E_{working})=
+\dfrac{P(E_{1+full}E_{working})}{P(E_{working})}
+\] \[
+P(E_{1+full}|E_{working})=
+\dfrac{P(E_{1+full}E_{working})}{P((P,P))+P((P,F))+P((F,P))+P((F,F))}
+\] \[
+P(E_{1+full}|E_{working})=
+\dfrac{P(\{(P,F),(F,P),(F,F)\})}
+{P((P,P))+P((P,F))+P((F,P))+P((F,F))}
+\] \[
+P(E_{1+full}|E_{working})=
+\dfrac{P((P,F))+P((F,P))+P((F,F))}
+{P((P,P))+P((P,F))+P((F,P))+P((F,F))}
+\] \[
+\subsolution{1.4}{10}{b}{P(E_{1+full}|E_{working})=0.81081}
 \]
+
+%
+\subproblem{1.4}{10}{c} We introduce a new event for when exactly one
+line is shut down:
 
 \[
-P\left(E_{1+ full}\mid E_{working}\right) =
-\frac
-    {P((P, F)) + P((F, P)) + P((F, F))}
-    {P((P, P)) + P((P, F)) + P((F, P)) + P((F, F))}
+E_{1shutdown} = \{(S,P),(S,F),(P,S),(F,S))\}
 \]
+
+and where one line is at full capacity:
 
 \[
-P\left(E_{1+ full}\mid E_{working}\right) =
-\frac
-    {0.20 + 0.21 + 0.19}
-    {0.14 + 0.20 + 0.21 + 0.19}
+E_{1full}=\{(S,F),(P,F),(F,S),(F,P)\}
 \]
+
+and we are interested in the value of
+$P(E_{1full}|E_{1shutdown})$. The steps are the same as the previous
+problems:
 
 \[
-\boxed{P\left(E_{1+ full}\mid E_{working}\right) = 0.81081}
+P(E_{1full}|E_{1shutdown})=
+\dfrac{P(E_{1full}E_{1shutdown})}{P(E_{1shutdown})}
+\] \[
+P(E_{1full}|E_{1shutdown})=
+\dfrac{P(E_{1full}E_{1shutdown})}
+{P((S,P))+P((S,F))+P((P,S))+P((F,S))}
+\] \[
+P(E_{1full}|E_{1shutdown})=
+\dfrac{P(\{(S,F),(F,S)\})}
+{P((S,P))+P((S,F))+P((P,S))+P((F,S))}
+\] \[
+P(E_{1full}|E_{1shutdown})=
+\dfrac{P((S,F))+P((F,S))}
+{P((S,P))+P((S,F))+P((P,S))+P((F,S))}
+\] \[
+\subsolution{1.4}{10}{c}{P(E_{1full}|E_{1shutdown})=0.45833}
 \]
 
-\subsection*{1.4.11}
-
-Let the following events represent the english equivalents:
+%
+\subproblem{1.4}{10}{d} For the last one, we introduce two new events:
+neither line is at full capacity:
 
 \[
-\begin{cases}
-L: \text{length within tolerances} \\
-W: \text{width within tolerances} \\
-H: \text{height within tolerances} \\
-\end{cases}
+E_{0full}=E_{1+full}'=\{(S,S),(S,P),(P,S),(P,P)\}
 \]
 
-The given statements are:
+and where at least one line is at partial capacity:
 
 \[
-\begin{cases}
-P(L) = 0.86 \\
-P(L\cap W\cap H) = 0.80 \\
-P(L\cap W\cap H') = 0.02 \\
-P(L'\cap W\cap H) = 0.03 \\
-P(W\cup H) = 0.92 \\
-\end{cases}
+E_{1+partial}=\{(S,P),(P,P),(F,P),(P,S),(P,F)\}
 \]
 
-Using these we can also compute the opposite probabilities:
+and we are interested in the value of $P(E_{0full}|E_{1+partial})$. The steps we follow are:
 
 \[
-\begin{cases}
-P(L') = 1 - P(L) = 0.14 \\
-P(L'\cup W'\cup H') = 1 - P(L\cap W\cap H) = 0.20 \\
-P(L'\cup W'\cup H) = 1 - P(L\cap W\cap H') = 0.98 \\
-P(L\cup W'\cup H') = 1 - P(L'\cap W\cap H) = 0.97 \\
-P(W'\cap H') = 1 - P(W\cup H) = 0.08 \\
-\end{cases}
+P(E_{0full}|E_{1+partial})=
+\dfrac{P(E_{0full}E_{1+partial})}
+{P(E_{1+partial})}
+\] \[
+P(E_{0full}|E_{1+partial})=
+\dfrac{P(E_{0full}E_{1+partial})}
+{P((S,P))+P((P,P))+P((F,P))+P((P,S))+P((P,F))}
+\] \[
+P(E_{0full}|E_{1+partial})=
+\dfrac{P(\{(S,P),(P,S),(P,P)\})}
+{P((S,P))+P((P,P))+P((F,P))+P((P,S))+P((P,F))}
+\] \[
+P(E_{0full}|E_{1+partial})=
+\dfrac{P((S,P))+P((P,S))+P((P,P))}
+{P((S,P))+P((P,P))+P((F,P))+P((P,S))+P((P,F))}
+\] \[
+\subsolution{1.4}{10}{d}{P(E_{0full}|E_{1+partial})=0.39705}
 \]
 
-\subsection*{1.4.11 (a)}
+%
+\problem{1.4}{11}
 
-\textit{If a part is within the specified tolerance limits for height}
-(event = $H$)
-\textit{what is the probability that it will also be within the specified tolerance limits for width?}
-(what is $P(W|H)$?)
-
-From the basic definition of conditional probability, we can rewrite
-this probability as:
+We have 3 events that describe the probability space:
 
 \[
-P(W|H) = \frac{P(W\cap H)}{P(H)}
+W:\text{``width is within tolerance''}
+\] \[
+H:\text{``height is within tolerance''}
+\] \[
+L:\text{``length is within tolerance''}
 \]
 
-Then we can use the following equivalences:
+We are given the following information:
 
 \[
-\begin{cases}
-P(W\cap H) = P(L\cap W\cap H) + P(L'\cap W\cap H) \\
-P(H) = P(L\cap W\cap H) + P(L\cap W'\cap H) + P(L'\cap W\cap H) + P(L'\cap W'\cap H)
-\end{cases}
+P(W)=0.86
+\] \[
+P(WHL)=0.86
+\] \[
+P(WH'L)=0.02
+\] \[
+P(WHL')=0.03
+\] \[
+P(W+H)=0.92
 \]
 
+%
+\subproblem{1.4}{11}{a} We are interested in the value of
+$P(W|H)$. Our first step is to expand this based on the definition of
+conditional probability:
+
+\[
+P(W|H)=\dfrac{P(WH)}{P(H)}
+\]
+
+We can then take our last given value and rewrite it and solve for
+$P(H)$ to get a quantity for the denominator:
+
+\[
+P(W+H)=P(W)+P(H)-P(WH)
+\] \[
+P(H)=P(W+H)+P(WH)-P(W)
+\]
+
+Then to get the numerator $P(WH)$, we can look at the collection of
+events:
+
+\[
+\zeta=\{WHL, WHL'\}
+\]
+
+We can show that these are mutually exclusive:
+
+\[
+(WHL)(WHL')
+\] \[
+WHLWHL'
+\] \[
+(WW)(HH)(LL')
+\] \[
+(WW)(HH)(\varnothing)
+\] \[
+\varnothing
+\]
+
+Therefore we can use the definition for the union of mutually
+exclusive events:
+
+\[
+P\left(\bigcup\limits_{E\in\zeta}E\right)=\sum\limits_{E\in\zeta}P(E)
+\]
+
+We then need to determine the union of the inside of the left side:
+
+\[
+WHL+WHL'
+\] \[
+WH(L+L')
+\] \[
+WH(\Omega)
+\] \[
+WH
+\]
+
+So now we have:
+
+\[
+P(WH)=P(WHL)+P(WHL')
+\]
+
+and we can substitute this into the earlier expression:
+
+\[
+P(W|H)=\dfrac{P(WHL)+P(WHL')}{P(W+H)+P(WHL)+P(WHL')-P(W)}
+\] \[
+\subsolution{1.4}{11}{a}{P(W|H)=0.93684}
+\]
+
+%
+\subproblem{1.4}{11}{b} For this problem, we want to find the value of
+$P(WHL|WL)$. By applying the definition of conditional probability, we
+get:
+
+\[
+P(WHL|WL)=\dfrac{P(WHLWL)}{P(WL)}
+\] \[
+P(WHL|WL)=\dfrac{P(WHL)}{P(WL)}
+\]
+
+We already know the value of the numerator, so we only need to compute
+the denominator. We can again select a set of mutually exclusive
+events:
+
+\[
+\zeta=\{WH'L, WHL\}
+\]
+
+Which we could show to be mutually exclusive in the same way as the
+previous problem. We can then apply the definition of the union of
+mutually exclusive events:
+
+\[
+P\left(\bigcup\limits_{E\in\zeta}E\right)=\sum\limits_{E\in\zeta}P(E)
+\]
+
+The union on the left will evaluate to $WL$ by the same logic as the
+previous problem. Now we have:
+
+\[
+P(WL)=P(WHL)+P(WH'L)
+\]
+
+and we can substitute this into our previous expression:
+
+\[
+P(WHL|WL)=\dfrac{P(WHL)}{P(WHL)+P(WH'L)}
+\] \[
+\subsolution{1.4}{11}{b}{P(WHL|WL)=0.97727}
+\]
+
+%
+\problem{1.4}{13}
+
+In this problem, we have 3 events:
+
+\[
+R:\text{``performance passes''}
+\] \[
+A:\text{``appearance passes''}
+\] \[
+C:\text{``cost passes''}
+\]
+
+and the following givens:
+
+\[
+P(AC)=0.40
+\] \[
+P(RAC)=0.31
+\] \[
+P(R)=0.64
+\] \[
+P(R'A'C')=0.19
+\] \[
+P(R'AC')=0.06
+\]
+
+%
+\subproblem{1.4}{13}{a} We are interested in the value of
+$P(R'A'C)$. Equivalently, we can look for the value of:
+
+\[
+P(R'A'C)=1-P((R'A'C)')
+\] \[
+P(R'A'C)=1-P(R+A+C')
+\]
+
+By applying the definition for the union of events, we have:
+
+\[
+P(R+A+C')=P(R)+P(A)+P(C')-P(RA)-P(AC')-P(RC')+P(RAC')
+\]
+
+%If we construct a mutually exclusive set of events:
+%
+%\[
+%\zeta=\{R'A'C', R'AC'\}
+%\]
+%
+%then we can apply the definition of the union of mutually exclusive
+%events:
+%
+%\[
+%P\left(\bigcup\limits_{E\in\zeta}E\right)=\sum\limits_{E\in\zeta}P(E)
+%\]
+%
+%The union on the left evaluates to:
+%
+%\[
+%\bigcup\limits_{E\in\zeta}E=R'C'
+%\]
+%
+%so that we have:
+%
+%\[
+%P(R'C')=P(R'A'C')+P(R'AC')
+%\]
+%
+%We can then look at the value of the expression:
+%
+%\[
+%P(R'C') = 1 - P((R'C')')
+%\] \[
+%P(R'C') = 1 - P(R+C)
+%\]
+%
+%From here, we can apply the definition for the union of events to find
+%the value of $P(R+C)$:
+%
+%\[
+%P(R+C)=P(R)+P(C)-P(RC)
+%\]
+%
+%
+
+
+\problem{1.4}{16}
 
 
 
 
-\subsection*{1.4.13}
+\problem{1.5}{6}
 
 
 
-\subsection*{1.4.16}
+
+\problem{1.5}{7}
+
+
+
+
+\problem{1.5}{9}
+
+
+
+
+\problem{1.5}{16}
+
+
+
+
+\problem{1.6}{1}
+
+
+
+
+\problem{1.6}{5}
+
+
+
+
+\problem{1.6}{7}
+
+%Givens:
+%
+%\[
+%\begin{cases}
+%P(\text{over \$1000}) = 0.42 \\
+%P\left(\text{paid with credit card}\mid\text{over \$1000}\right) = 0.63
+%\end{cases}
+%\]
+%
+%\[
+%(P(\text{over \$1000}))^3 = (0.42)^3
+%\]
+%
+%\[
+%\boxed{(P(\text{over \$1000}))^3 = 0.07}
+%\]
+%
+%\subsection*{1.4.2 (b)}
+%
+%\[
+%P\left(\text{not paid with credit card}\mid\text{over \$1000}\right) =
+%1 - P\left(\text{paid with credit card}\mid\text{over \$1000}\right)
+%\]
+%
+%\[
+%\boxed{P\left(\text{not paid with credit card}\mid\text{over \$1000}\right) = 0.37}
+%\]
+%
+%\subsection*{1.4.10}
+%
+%\[
+%\begin{array}{ccc}
+%\underset{0.02}{(S, S)} & \underset{0.06}{(S, P)} & \underset{0.05}{(S, F)} \\
+%\underset{0.07}{(P, S)} & \underset{0.14}{(P, P)} & \underset{0.20}{(P, F)} \\
+%\underset{0.06}{(F, S)} & \underset{0.21}{(F, P)} & \underset{0.19}{(F, F)}
+%\end{array}
+%\]
+%
+%\subsection*{1.4.10 (a)}
+%
+%\[
+%\text{full capacity } = E_{full} = \{(F, F)\}
+%\]
+%
+%\[
+%\text{neither shut down } = E_{working} = \{(P, P), (P, F), (F, P), (F, F)\}
+%\]
+%
+%\[
+%P\left(E_{full}\mid E_{working}\right) =
+%\frac{P(E_{full}\cap E_{working})}{P(E_{working})}
+%\]
+%
+%\[
+%P\left(E_{full}\mid E_{working}\right) =
+%\frac
+%    {P((F, F))}
+%    {P((P, P)) + P((P, F)) + P((F, P)) + P((F, F))}
+%\]
+%
+%\[
+%P\left(E_{full}\mid E_{working}\right) =
+%\frac
+%    {0.19}
+%    {0.14 + 0.20 + 0.21 + 0.19}
+%\]
+%
+%\[
+%\boxed{P\left(E_{full}\mid E_{working}\right) = 0.25675}
+%\]
+%
+%\subsection*{1.4.10 (b)}
+%
+%\[
+%\text{at least one at full capacity } = E_{1+ full} = \{(P, F), (F, P), (F, F)\}
+%\]
+%
+%\[
+%P\left(E_{1+ full}\mid E_{working}\right) =
+%\frac
+%    {P(E_{1+ full}\cap E_{working}}
+%    {P(E_{working})}
+%\]
+%
+%\[
+%P\left(E_{1+ full}\mid E_{working}\right) =
+%\frac
+%    {P((P, F)) + P((F, P)) + P((F, F))}
+%    {P((P, P)) + P((P, F)) + P((F, P)) + P((F, F))}
+%\]
+%
+%\[
+%P\left(E_{1+ full}\mid E_{working}\right) =
+%\frac
+%    {0.20 + 0.21 + 0.19}
+%    {0.14 + 0.20 + 0.21 + 0.19}
+%\]
+%
+%\[
+%\boxed{P\left(E_{1+ full}\mid E_{working}\right) = 0.81081}
+%\]
+%
+%\subsection*{1.4.11}
+%
+%Let the following events represent the english equivalents:
+%
+%\[
+%\begin{cases}
+%L: \text{length within tolerances} \\
+%W: \text{width within tolerances} \\
+%H: \text{height within tolerances} \\
+%\end{cases}
+%\]
+%
+%The given statements are:
+%
+%\[
+%\begin{cases}
+%P(L) = 0.86 \\
+%P(L\cap W\cap H) = 0.80 \\
+%P(L\cap W\cap H') = 0.02 \\
+%P(L'\cap W\cap H) = 0.03 \\
+%P(W\cup H) = 0.92 \\
+%\end{cases}
+%\]
+%
+%Using these we can also compute the opposite probabilities:
+%
+%\[
+%\begin{cases}
+%P(L') = 1 - P(L) = 0.14 \\
+%P(L'\cup W'\cup H') = 1 - P(L\cap W\cap H) = 0.20 \\
+%P(L'\cup W'\cup H) = 1 - P(L\cap W\cap H') = 0.98 \\
+%P(L\cup W'\cup H') = 1 - P(L'\cap W\cap H) = 0.97 \\
+%P(W'\cap H') = 1 - P(W\cup H) = 0.08 \\
+%\end{cases}
+%\]
+%
+%\subsection*{1.4.11 (a)}
+%
+%\textit{If a part is within the specified tolerance limits for height}
+%(event = $H$)
+%\textit{what is the probability that it will also be within the specified tolerance limits for width?}
+%(what is $P(W|H)$?)
+%
+%From the basic definition of conditional probability, we can rewrite
+%this probability as:
+%
+%\[
+%P(W|H) = \frac{P(W\cap H)}{P(H)}
+%\]
+%
+%Then we can use the following equivalences:
+%
+%\[
+%\begin{cases}
+%P(W\cap H) = P(L\cap W\cap H) + P(L'\cap W\cap H) \\
+%P(H) = P(L\cap W\cap H) + P(L\cap W'\cap H) + P(L'\cap W\cap H) + P(L'\cap W'\cap H)
+%\end{cases}
+%\]
+%
+%
+%
+%
+%
+%\subsection*{1.4.13}
+%
+%
+%
+%\subsection*{1.4.16}
 
 \end{document}
