@@ -24,7 +24,7 @@
 
 \newcommand{\problem}[2]{$\boxed{\text{#1.#2}}$}
 \newcommand{\subproblem}[3]{$\boxed{\text{(#3)}}$}
-\newcommand{\solution}[1]{\boxed{#1}}
+\newcommand{\solution}[3]{\boxed{#3\quad(\text{#1.#2})}}
 \newcommand{\subsolution}[4]{\boxed{#4\quad(\text{#1.#2#3})}}
 
 \setlength\parindent{0pt}
@@ -444,54 +444,72 @@ By applying the definition for the union of events, we have:
 P(R+A+C')=P(R)+P(A)+P(C')-P(RA)-P(AC')-P(RC')+P(RAC')
 \]
 
-%If we construct a mutually exclusive set of events:
 %
-%\[
-%\zeta=\{R'A'C', R'AC'\}
-%\]
-%
-%then we can apply the definition of the union of mutually exclusive
-%events:
-%
-%\[
-%P\left(\bigcup\limits_{E\in\zeta}E\right)=\sum\limits_{E\in\zeta}P(E)
-%\]
-%
-%The union on the left evaluates to:
-%
-%\[
-%\bigcup\limits_{E\in\zeta}E=R'C'
-%\]
-%
-%so that we have:
-%
-%\[
-%P(R'C')=P(R'A'C')+P(R'AC')
-%\]
-%
-%We can then look at the value of the expression:
-%
-%\[
-%P(R'C') = 1 - P((R'C')')
-%\] \[
-%P(R'C') = 1 - P(R+C)
-%\]
-%
-%From here, we can apply the definition for the union of events to find
-%the value of $P(R+C)$:
-%
-%\[
-%P(R+C)=P(R)+P(C)-P(RC)
-%\]
-%
-%
+\subproblem{1.4}{13}{b} We are looking for the value of the expression
+$P(RAC|AC)$. We can apply the definition of conditional probability to
+get:
 
+\[
+P(RAC|AC)=\dfrac{P(RACAC)}{P(AC)}
+\] \[
+P(RAC|AC)=\dfrac{P(RAC)}{P(AC)}
+\]
 
+Luckily, we know all of these, so we can just substitute the known
+values and we're done.
+
+\[
+\subsolution{1.4}{13}{b}{P(RAC|AC)=0.775}
+\]
+
+%
 \problem{1.4}{16}
 
+There are two events:
 
+\[
+T:\text{``chip does survive 500 cycles''}
+\] \[
+A:\text{``chip is from company A''}
+\]
 
+We have the following givens:
 
+\[
+P(T)=0.42
+\] \[
+P(A|T')=0.73
+\]
+
+We are looking for the probability $P(T'A')$. We can apply the
+following relation between probabilities and their complements:
+
+\[
+P(A'|T')=1-P(A|T')
+\] \[
+P(T')=1-P(T)
+\]
+
+and then, by applying the definition for conditional probability, we
+get:
+
+\[
+P(A'|T')=\dfrac{P(A'T')}{P(T')}
+\]
+
+Where the numerator is the value we're solving for, and the
+denominator is already known. We can substitute known values and solve
+for $P(A'T')$ to get the solution:
+
+\[
+1-P(A|T')=\dfrac{P(A'T')}{1-P(T)}
+\] \[
+P(A'T')=(1-P(T))(1-P(A|T'))
+\] \[
+\solution{1.4}{16}{P(A'T')=0.1566}
+\]
+
+%
 \problem{1.5}{6}
 
 
