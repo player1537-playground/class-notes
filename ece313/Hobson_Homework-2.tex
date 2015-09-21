@@ -6,6 +6,7 @@
 \usepackage{multicol}
 \usepackage{empheq}
 \usepackage{forest}
+\usepackage{booktabs}
 
 \setlength{\columnsep}{0.5cm}
 \setlength{\columnseprule}{1pt}
@@ -724,11 +725,158 @@ P(E)=
 \subsolution{1.5}{9}{b}{P(E)=0.92599}
 \]
 
-
+%
 \problem{1.5}{16}
 
+Let there be $n$ components and associated indepedent events, where
+each $E_i$ is defined as:
 
+\[
+E_i:\text{``$i$th component operates correctly''}
+\]
 
+And the probability of each event defined as:
+
+\[
+\forall i\in\{1,2,\cdots,n\}(P(E_i)=0.90)
+\]
+
+We are looking for the value of $n$ where:
+
+\[
+P\left(\bigcup\limits_{i=1}^n E_i\right)\ge 0.995
+\]
+
+We can begin to think about this problem by looking at successive
+expansions of this expression for values of $n$. Starting with the
+trivial case of $n=1$, we have:
+
+\[
+P(E_1)=P(E_1)
+\]
+
+For $n=2$:
+
+\[
+P(E_1+E_2)=P(E_1+E_2)
+\]
+
+From here, we can expand the expression using the principles of the
+unions of events to get:
+
+\[
+P(E_1+E_2)=P(E_1)+P(E_2)-P(E_1E_2)
+\]
+
+And then because we have indepedent events, we can expand $P(E_1E_2)$:
+
+\[
+P(E_1+E_2)=P(E_1)+P(E_2)-P(E_1)P(E_2)
+\]
+
+We can further simplify this to:
+
+\[
+P(E_1+E_2)=P(E_1)(1-P(E_2))+P(E_2)
+\]
+
+For $n=3$, we start with:
+
+\[
+P(E_1+E_2+E_3)=P(E_1+E_2+E_3)
+\]
+
+We can factor out a new event that we'll call $A=E_1+E_2$, so we
+simplify the problem to:
+
+\[
+P(E_1+E_2+E_3)=P(A+E_3)
+\]
+
+Again, we can simplify using the definition for the union of events:
+
+\[
+P(E_1+E_2+E_3)=P(A)+P(E_3)-P(AE_3)
+\]
+
+Now the question is whether $A$ and $E_3$ are independent events as
+well. For them to be independent, we would have to know that:
+
+\[
+P(A)P(E_3)\overset{?}{=}P(AE_3)
+\]
+
+which we can show, using our previous results
+\[
+\begin{array}{rl}
+P(E_1+E_2)P(E_3)\overset{?}{=} &
+P((E_1+E_2)E_3) \\
+P(E_1+E_2)P(E_3)\overset{?}{=} &
+P(E_1E_3+E_2E_3) \\
+P(E_1+E_2)P(E_3)\overset{?}{=} &
+P(E_1E_3)+P(E_2E_3)-P(E_1E_3E_2E_3) \\
+P(E_1+E_2)P(E_3)\overset{?}{=} &
+P(E_1)P(E_3)+P(E_2)P(E_3)-P(E_1)P(E_2)P(E_3) \\
+P(E_1+E_2)P(E_3)\overset{?}{=} &
+(P(E_1)+P(E_2)-P(E_1)P(E_2))P(E_3) \\
+P(E_1+E_2)P(E_3)\overset{\checkmark}{=} &
+P(E_1+E_2)P(E_3) \\
+\end{array}
+\]
+
+This result means that we can substitute the previous result into the
+current expression, so that we can transform:
+
+\[
+P(E_1+E_2+E_3)=P(A)+P(E_3)-P(AE_3)
+\]
+
+into
+
+\[
+P(E_1+E_2+E_3)=P(A)+P(E_3)-P(A)P(E_3)
+\]
+
+And we can factor out the $P(A)$ term, to get:
+
+\[
+P(E_1+E_2+E_3)=P(A)(1-P(E_3))+P(E_3)
+\] \[
+P(E_1+E_2+E_3)=P(E_1+E_2)(1-P(E_3))+P(E_3)
+\]
+
+If we introduce a new event $S_i$, where:
+
+\[
+S_k=\bigcup\limits_{i=1}^kE_i
+\]
+
+Then the associated probabilities are:
+
+\[
+\begin{array}{rl}
+P(S_1)= & P(E_1)\\
+P(S_k)= & P(S_{k-1})(1-P(E_k))+P(E_k) \\
+\end{array}
+\]
+
+We can then begin to fill out a table to find the appropriate $n$:
+
+\[
+\begin{array}{l|l|l}
+k & \text{Expression for $P(S_k)$} & P(S_k) \\
+\midrule
+1 & P(E_1) & 0.90 \\
+2 & P(S_1)(1-P(E_2))+P(E_2) & 0.99 \\
+3 & P(S_2)(1-P(E_3))+P(E_3) & 0.999 \\
+\end{array}
+\]
+
+Therefore we have found that the number of components needed is:
+
+\[
+\solution{1.5}{16}{n=3}
+\]
 
 \problem{1.6}{1}
 
@@ -742,175 +890,5 @@ P(E)=
 
 \problem{1.6}{7}
 
-%Givens:
-%
-%\[
-%\begin{cases}
-%P(\text{over \$1000}) = 0.42 \\
-%P\left(\text{paid with credit card}\mid\text{over \$1000}\right) = 0.63
-%\end{cases}
-%\]
-%
-%\[
-%(P(\text{over \$1000}))^3 = (0.42)^3
-%\]
-%
-%\[
-%\boxed{(P(\text{over \$1000}))^3 = 0.07}
-%\]
-%
-%\subsection*{1.4.2 (b)}
-%
-%\[
-%P\left(\text{not paid with credit card}\mid\text{over \$1000}\right) =
-%1 - P\left(\text{paid with credit card}\mid\text{over \$1000}\right)
-%\]
-%
-%\[
-%\boxed{P\left(\text{not paid with credit card}\mid\text{over \$1000}\right) = 0.37}
-%\]
-%
-%\subsection*{1.4.10}
-%
-%\[
-%\begin{array}{ccc}
-%\underset{0.02}{(S, S)} & \underset{0.06}{(S, P)} & \underset{0.05}{(S, F)} \\
-%\underset{0.07}{(P, S)} & \underset{0.14}{(P, P)} & \underset{0.20}{(P, F)} \\
-%\underset{0.06}{(F, S)} & \underset{0.21}{(F, P)} & \underset{0.19}{(F, F)}
-%\end{array}
-%\]
-%
-%\subsection*{1.4.10 (a)}
-%
-%\[
-%\text{full capacity } = E_{full} = \{(F, F)\}
-%\]
-%
-%\[
-%\text{neither shut down } = E_{working} = \{(P, P), (P, F), (F, P), (F, F)\}
-%\]
-%
-%\[
-%P\left(E_{full}\mid E_{working}\right) =
-%\frac{P(E_{full}\cap E_{working})}{P(E_{working})}
-%\]
-%
-%\[
-%P\left(E_{full}\mid E_{working}\right) =
-%\frac
-%    {P((F, F))}
-%    {P((P, P)) + P((P, F)) + P((F, P)) + P((F, F))}
-%\]
-%
-%\[
-%P\left(E_{full}\mid E_{working}\right) =
-%\frac
-%    {0.19}
-%    {0.14 + 0.20 + 0.21 + 0.19}
-%\]
-%
-%\[
-%\boxed{P\left(E_{full}\mid E_{working}\right) = 0.25675}
-%\]
-%
-%\subsection*{1.4.10 (b)}
-%
-%\[
-%\text{at least one at full capacity } = E_{1+ full} = \{(P, F), (F, P), (F, F)\}
-%\]
-%
-%\[
-%P\left(E_{1+ full}\mid E_{working}\right) =
-%\frac
-%    {P(E_{1+ full}\cap E_{working}}
-%    {P(E_{working})}
-%\]
-%
-%\[
-%P\left(E_{1+ full}\mid E_{working}\right) =
-%\frac
-%    {P((P, F)) + P((F, P)) + P((F, F))}
-%    {P((P, P)) + P((P, F)) + P((F, P)) + P((F, F))}
-%\]
-%
-%\[
-%P\left(E_{1+ full}\mid E_{working}\right) =
-%\frac
-%    {0.20 + 0.21 + 0.19}
-%    {0.14 + 0.20 + 0.21 + 0.19}
-%\]
-%
-%\[
-%\boxed{P\left(E_{1+ full}\mid E_{working}\right) = 0.81081}
-%\]
-%
-%\subsection*{1.4.11}
-%
-%Let the following events represent the english equivalents:
-%
-%\[
-%\begin{cases}
-%L: \text{length within tolerances} \\
-%W: \text{width within tolerances} \\
-%H: \text{height within tolerances} \\
-%\end{cases}
-%\]
-%
-%The given statements are:
-%
-%\[
-%\begin{cases}
-%P(L) = 0.86 \\
-%P(L\cap W\cap H) = 0.80 \\
-%P(L\cap W\cap H') = 0.02 \\
-%P(L'\cap W\cap H) = 0.03 \\
-%P(W\cup H) = 0.92 \\
-%\end{cases}
-%\]
-%
-%Using these we can also compute the opposite probabilities:
-%
-%\[
-%\begin{cases}
-%P(L') = 1 - P(L) = 0.14 \\
-%P(L'\cup W'\cup H') = 1 - P(L\cap W\cap H) = 0.20 \\
-%P(L'\cup W'\cup H) = 1 - P(L\cap W\cap H') = 0.98 \\
-%P(L\cup W'\cup H') = 1 - P(L'\cap W\cap H) = 0.97 \\
-%P(W'\cap H') = 1 - P(W\cup H) = 0.08 \\
-%\end{cases}
-%\]
-%
-%\subsection*{1.4.11 (a)}
-%
-%\textit{If a part is within the specified tolerance limits for height}
-%(event = $H$)
-%\textit{what is the probability that it will also be within the specified tolerance limits for width?}
-%(what is $P(W|H)$?)
-%
-%From the basic definition of conditional probability, we can rewrite
-%this probability as:
-%
-%\[
-%P(W|H) = \frac{P(W\cap H)}{P(H)}
-%\]
-%
-%Then we can use the following equivalences:
-%
-%\[
-%\begin{cases}
-%P(W\cap H) = P(L\cap W\cap H) + P(L'\cap W\cap H) \\
-%P(H) = P(L\cap W\cap H) + P(L\cap W'\cap H) + P(L'\cap W\cap H) + P(L'\cap W'\cap H)
-%\end{cases}
-%\]
-%
-%
-%
-%
-%
-%\subsection*{1.4.13}
-%
-%
-%
-%\subsection*{1.4.16}
 
 \end{document}
