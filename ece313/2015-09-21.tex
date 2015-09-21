@@ -1,0 +1,207 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Types of Random Variables}
+
+We have two different types: discrete and continuous.
+
+A random variable, $f$, is \textbf{discrete} if the range of the $f$
+is countable.
+
+A random variable, $f$, is \textbf{continuous} if $f$ is not discrete.
+
+\subsection*{Example}
+
+How do we show if the range is countable? Suppose we took $f$ to be
+$f:\Omega\rightarrow\mathbb{R}$, defined as:
+
+\[
+f(x)=x^2
+\]
+
+We can create a probability space $(\omega,S,P)$, with:
+
+\[
+\Omega=\lbrack -1, 1\rbrack
+\] \[
+S=\text{Borels (smallest $\sigma$-algebra containing every open interval)}
+\]
+
+To define $P$, we introduce some new notation:
+
+\[
+\lbrack\text{expression}\rbrack=\begin{cases}
+1\text{ if expression is true} \\
+0\text{ otherwise} \\
+\end{cases}
+\]
+
+With this notion, we might define $P$ as:
+
+\[
+P(A)=\int\limits_{-1}^1\lbrack x\in A\rbrack |x| dx
+\] \[
+P(\varnothing)=0
+\] \[
+P(\Omega)=1
+\]
+
+With that all defined, we can look back at our function $f$. We have,
+in particular, that:
+
+\[
+f:\lbrack-1,1\rbrack\rightarrow\mathbb{R}
+\] \[
+f:\Omega\rightarrow\mathbb{R}
+\]
+
+Therefore, the range of $f$ is the interval $\lbrack{}0,1\rbrack$,
+which is uncountable, and $f$ is a continuous random variable.
+
+\subsection*{What this means for us}
+
+lol, no continuous brah. Just discrete.
+
+\section*{Discrete Random Variables}
+
+One cool property of discrete random variables is that we have neat
+things with the inverse images. Some of thos properties are:
+
+\[
+f^{-1}(\cap S_i)=\cap f^{-1}(S_i)
+\] \[
+f^{-1}(\cup S_i)=\cup f^{-1}(S_i)
+\] \[
+AB=\varnothing \Rightarrow f^{-1}A\cap\inv{f}B=\varnothing
+\]
+
+\textbf{Note}: We now use the notation $\inv{f}A$ to be the inverse
+image of $A$, rather than $\inf{f}(A)$. We do this so we don't get
+confused about inverse functions rather than inverse images.
+
+One key idea of countable values is that we can store them in an array
+(or a tuple, in this case). In other words, for a discrete random
+variable $f$:
+
+\[
+f:\Omega\Rightarrow\{e_1,e_2,\cdots,e_n\}
+\]
+
+\textbf{Note}: We can also let $n=\infty$, and we'll be fine yo.
+
+\subsection*{Probability Mass Function}
+
+The probability mass function (or $PMF$) is defined as:
+
+\[
+P_f(x)=P(\inv{f}\{x\})
+\]
+
+We use this notation $P_f(x)$ to mean ``the probability mass function
+of the discrete random variable $f$''.
+
+\subsection*{Example}
+
+We want to know what the probability that the random variable $f$ is
+greater than $4$. Luckily, we only need to know the probability mass
+function.
+
+We first write the expression mathematically:
+
+\[
+P(f>4)=?
+\]
+
+But we want to rewrite this using set notation:
+
+\[
+P(f\in(4,\infty))=?
+\]
+
+And again, we rewrite this as:
+
+\[
+P(\inv{f}(4,\infty))=?
+\]
+
+But what the hell does that mean? I dunno, but let's try something
+that might not work, he says.
+
+We start with the inverse image, and intersect it with another inverse
+image:
+
+\[
+\inv{f}(4,\infty)
+\] \[
+\inv{f}((4,\infty)\cap\Omega)
+\] \[
+\inv{f}(4,\infty)\cap\inv{f}\{e_1,e_2,\cdots\}
+\] \[
+\inv{f}((4,\infty)\cap\{e_1,e_2,\cdots\})
+\] \[
+\inv{f}\{e_i\mid e_i>4\}
+\]
+
+Then we look back at $P(\inv{f}(4,\infty))$:
+
+\[
+P(\inv{f}(4,\infty))
+\] \[
+P(\inv{f}\{e_i\mid e_i>4\})
+\]
+
+We can introduce a new notation:
+
+\[
+G=\{e_i\mid e_i>4\}
+\] \[
+G=\{g_1,g_2,\cdots\}
+\]
+
+Then we have:
+
+\[
+P\left(\inv{f}\bigcup\limits_i \{g_i\}\right)
+\] \[
+P\left(\bigcup\limits_i\inv{f}\{g_i\}\right)
+\]
+
+But each of these $\inv{f}\{g_i\}$ are mutually exclusive, so we can
+separate them with countable additivity.
+
+\[
+\sum\limits_i P(\inv{f}\{g_i\})
+\]
+
+But these are just sums of the probability mass function:
+
+\[
+\sum\limits_i P_f(g_i)
+\]
+
+Yay!
+
+\end{document}
