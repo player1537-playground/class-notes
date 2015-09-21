@@ -747,135 +747,26 @@ We are looking for the value of $n$ where:
 P\left(\bigcup\limits_{i=1}^n E_i\right)\ge 0.995
 \]
 
-We can begin to think about this problem by looking at successive
-expansions of this expression for values of $n$. Starting with the
-trivial case of $n=1$, we have:
+We can look at the value of the complement, defined as:
 
 \[
-P(E_1)=P(E_1)
+P\left(\bigcup\limits_{i=1}^n E_i\right)=
+1 - P\left(\left(\bigcup\limits_{i=1}^nE_i\right)'\right)
 \]
 
-For $n=2$:
+By applying DeMorgan's Law, we have:
 
 \[
-P(E_1+E_2)=P(E_1+E_2)
+P\left(\bigcup\limits_{i=1}^n E_i\right)=
+1 - P\left(\bigcap\limits_{i=1}^nE_i'\right)
 \]
 
-From here, we can expand the expression using the principles of the
-unions of events to get:
+Because each $E_i$ is independent, so is each $E_i'$. Therefore, we
+can take the intersection and rewrite it as:
 
 \[
-P(E_1+E_2)=P(E_1)+P(E_2)-P(E_1E_2)
-\]
-
-And then because we have indepedent events, we can expand $P(E_1E_2)$:
-
-\[
-P(E_1+E_2)=P(E_1)+P(E_2)-P(E_1)P(E_2)
-\]
-
-We can further simplify this to:
-
-\[
-P(E_1+E_2)=P(E_1)(1-P(E_2))+P(E_2)
-\]
-
-For $n=3$, we start with:
-
-\[
-P(E_1+E_2+E_3)=P(E_1+E_2+E_3)
-\]
-
-We can factor out a new event that we'll call $A=E_1+E_2$, so we
-simplify the problem to:
-
-\[
-P(E_1+E_2+E_3)=P(A+E_3)
-\]
-
-Again, we can simplify using the definition for the union of events:
-
-\[
-P(E_1+E_2+E_3)=P(A)+P(E_3)-P(AE_3)
-\]
-
-Now the question is whether $A$ and $E_3$ are independent events as
-well. For them to be independent, we would have to know that:
-
-\[
-P(A)P(E_3)\overset{?}{=}P(AE_3)
-\]
-
-which we can show, using our previous results
-\[
-\begin{array}{rl}
-P(E_1+E_2)P(E_3)\overset{?}{=} &
-P((E_1+E_2)E_3) \\
-P(E_1+E_2)P(E_3)\overset{?}{=} &
-P(E_1E_3+E_2E_3) \\
-P(E_1+E_2)P(E_3)\overset{?}{=} &
-P(E_1E_3)+P(E_2E_3)-P(E_1E_3E_2E_3) \\
-P(E_1+E_2)P(E_3)\overset{?}{=} &
-P(E_1)P(E_3)+P(E_2)P(E_3)-P(E_1)P(E_2)P(E_3) \\
-P(E_1+E_2)P(E_3)\overset{?}{=} &
-(P(E_1)+P(E_2)-P(E_1)P(E_2))P(E_3) \\
-P(E_1+E_2)P(E_3)\overset{\checkmark}{=} &
-P(E_1+E_2)P(E_3) \\
-\end{array}
-\]
-
-This result means that we can substitute the previous result into the
-current expression, so that we can transform:
-
-\[
-P(E_1+E_2+E_3)=P(A)+P(E_3)-P(AE_3)
-\]
-
-into
-
-\[
-P(E_1+E_2+E_3)=P(A)+P(E_3)-P(A)P(E_3)
-\]
-
-And we can factor out the $P(A)$ term, to get:
-
-\[
-P(E_1+E_2+E_3)=P(A)(1-P(E_3))+P(E_3)
-\] \[
-P(E_1+E_2+E_3)=P(E_1+E_2)(1-P(E_3))+P(E_3)
-\]
-
-If we introduce a new event $S_i$, where:
-
-\[
-S_k=\bigcup\limits_{i=1}^kE_i
-\]
-
-Then the associated probabilities are:
-
-\[
-\begin{array}{rl}
-P(S_1)= & P(E_1)\\
-P(S_k)= & P(S_{k-1})(1-P(E_k))+P(E_k) \\
-\end{array}
-\]
-
-We can then begin to fill out a table to find the appropriate $n$:
-
-\[
-\begin{array}{l|l|l}
-k & \text{Expression for $P(S_k)$} & P(S_k) \\
-\midrule
-1 & P(E_1) & 0.90 \\
-2 & P(S_1)(1-P(E_2))+P(E_2) & 0.99 \\
-3 & P(S_2)(1-P(E_3))+P(E_3) & 0.999 \\
-\end{array}
-\]
-
-Therefore we have found that the number of components needed is:
-
-\[
-\solution{1.5}{16}{n=3}
+P\left(\bigcup\limits_{i=1}^n E_i\right)=
+1 - \prod\limits_{i=1}^nP(E_i')
 \]
 
 \problem{1.6}{1}
