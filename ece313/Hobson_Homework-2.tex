@@ -5,6 +5,7 @@
 \usepackage{xintexpr}
 \usepackage{multicol}
 \usepackage{empheq}
+\usepackage{forest}
 
 \setlength{\columnsep}{0.5cm}
 \setlength{\columnseprule}{1pt}
@@ -429,7 +430,7 @@ P(R'AC')=0.06
 \]
 
 %
-\subproblem{1.4}{13}{a} We are interested in the value of
+\subproblem{1.4}{13}{a\dag} We are interested in the value of
 $P(R'A'C)$. Equivalently, we can look for the value of:
 
 \[
@@ -512,17 +513,216 @@ P(A'T')=(1-P(T))(1-P(A|T'))
 %
 \problem{1.5}{6}
 
+Let $A$ and $B$ be indepedent events. Therefore:
 
+\[
+P(AB)=P(A)P(B)
+\]
 
+and similarly, we have:
 
+\[
+P(A|B)=P(A)
+\] \[
+P(B|A)=P(B)
+\]
+
+%
+\subproblem{1.5}{6}{a} We want to see whether $A$ and $B'$ are
+independent. In other words:
+
+\[
+P(AB')\overset{?}{=}P(A)P(B')
+\]
+
+We know based on the complement of conditional probabilities that:
+
+\[
+P(B'|A)=1-P(B|A)
+\]
+
+But we can apply what we found earlier, that $P(B|A)=P(B)$ to
+simplify the expression and get:
+
+\[
+P(B'|A)=1-P(B)
+\]
+
+But $1-P(B)$ is the same as $P(B')$, therefore:
+
+\[
+P(B'|A)=P(B')
+\]
+
+which means that $A$ and $B'$ are indepedent events.
+
+%
+\subproblem{1.5}{6}{b} We can apply the exact same reasoning as the
+previous problem, swapping every $A$ for $B$ and vice versa.
+
+%
+\subproblem{1.5}{6}{c} Working from the knowledge that $A$ and $B$ are
+indepedent, and $A$ and $B'$ are indepedent, we can start with the
+true statement:
+
+\[
+P(A|B')=P(A)
+\]
+
+And apply what we know about the complement of conditional
+probabilities, to get:
+
+\[
+P(A'|B')=1-P(A|B')
+\]
+
+But we already know what $P(A|B')$ is:
+
+\[
+P(A'|B')=1-P(A)
+\]
+
+We know that $1-P(A)$ is the same thing as $P(A')$, so we can write:
+
+\[
+P(A'|B')=P(A')
+\]
+
+which means that $A'$ and $B'$ are indepedent.
+
+%
 \problem{1.5}{7}
 
+There are 3 switches which operate indepedently of each other, with
+appropriate events:
 
+\[
+S_i:\text{``switch $i$ allows message through''}
+\]
 
+Each switch has an associated probability:
 
+\[
+P(S_1)=0.88
+\] \[
+P(S_2) = 0.92
+\] \[
+P(S_3) = 0.90
+\]
+
+We also have aggregate events for if the switch makes it through the
+top portion of the network (which has $S_1$ going to $S_2$), and the
+bottom portion is just $S_3$.
+
+\[
+T=S_1S_2
+\] \[
+B=S_3
+\]
+
+We want to find the probability $P(T+B)$. We can apply the definition
+for the union of events to get:
+
+\[
+P(T+B)=P(T)+P(B)-P(TB)
+\]
+
+We can then substitute the known values for $T$ and $B$ to get:
+
+\[
+P(T+B)=P(S_1S_2)+P(S_3)-P(S_1S_2S_3)
+\]
+
+Because we know that these are indepedent events, we can simply
+multiply the probabilities of each part of the intersection, to get:
+
+\[
+P(T+B)=P(S_1)P(S_2)+P(S_3)-P(S_1)P(S_2)P(S_3)
+\]
+
+And then by substituting known values for each of these probabilities,
+we get the final answer:
+
+\[
+\solution{1.5}{7}{P(T+B)=0.98096}
+\]
+
+%
 \problem{1.5}{9}
 
+The original probability that a broken lightbulb is chosen is:
 
+\[
+P(B)=\frac{17}{100}
+\]
+
+The probability tree follows. Selecting a broken light bulb is the
+path to the left, whereas selecting a non-broken light bulb is to the
+right.
+
+\begin{center}
+\begin{forest}
+  [\text{.}
+    [$\dfrac{17}{100}$
+      [$\dfrac{16}{99}$
+        [$\dfrac{15}{98}$]
+        [$\dfrac{83}{98}$]
+      ]
+      [$\dfrac{83}{99}$
+        [$\dfrac{16}{98}$]
+        [$\dfrac{82}{98}$]
+      ]
+    ]
+    [$\dfrac{83}{100}$
+      [$\dfrac{17}{99}$
+        [$\dfrac{16}{98}$]
+        [$\dfrac{82}{98}$]
+      ]
+      [$\dfrac{82}{99}$
+        [$\dfrac{17}{98}$]
+        [$\dfrac{81}{98}$]
+      ]
+    ]
+  ]
+\end{forest}
+\end{center}
+
+\subproblem{1.5}{9}{a} To find the probability that there are no
+broken light bulbs chosen, we simply multiply the fractions we get by
+following the path to the right each time. In other words, we do:
+
+\[
+P(\text{no broken bulbs})=\dfrac{83}{100}\cdot\dfrac{82}{99}\cdot\dfrac{81}{98}
+\] \[
+\subsolution{1.5}{9}{a}{P(\text{no broken bulbs})=0.56821}
+\]
+
+\subproblem{1.5}{9}{b} To find this probability, we follow these
+paths: LRR, RLR, RRL, RRR. We multiply across each path and then sum
+up the products to find the final probability:
+
+\[
+P(E)=
+\left(\dfrac{17}{100}\cdot
+\dfrac{83}{99}\cdot
+\dfrac{82}{98}\right)
++
+\left(\dfrac{83}{100}\cdot
+\dfrac{17}{99}\cdot
+\dfrac{82}{98}\right)
++
+\left(\dfrac{83}{100}\cdot
+\dfrac{82}{99}\cdot
+\dfrac{17}{98}\right)
++
+\left(\dfrac{83}{100}\cdot
+\dfrac{82}{99}\cdot
+\dfrac{81}{98}\right)
+\]
+
+\[
+\subsolution{1.5}{9}{b}{P(E)=0.92599}
+\]
 
 
 \problem{1.5}{16}

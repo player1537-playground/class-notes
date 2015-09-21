@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Schedule}
+
+\begin{tabular}{r|l}
+Wed 9/23 & Exam \\
+Fri 9/25 & Class ``on your own'' - Use class time to work on \\
+         & HW \#5 - will hand out on wed 9/23 \\
+Mon 9/28 & Guest lecturer to assist w/HW \#5 questions \\
+Fri 10/02 & HW \#5 \\
+\end{tabular}
+
+
+\end{document}
