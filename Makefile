@@ -108,14 +108,6 @@ PDFS += pdf/ece313/2015-08-26.pdf
 pdf/ece313/2015-08-26.pdf: ece313/2015-08-26.tex
 	$(call pdf_rule)
 
-PDFS += pdf/ece313/2015-08-26-probability-space.pdf
-pdf/ece313/2015-08-26-probability-space.pdf: ece313/2015-08-26-probability-space.pdf
-	cp $< $@
-
-PDFS += pdf/cosc311/2015-08-26-quiz-0.pdf
-pdf/cosc311/2015-08-26-quiz-0.pdf: cosc311/2015-08-26-quiz-0.pdf
-	cp $< $@
-
 PDFS += pdf/cosc311/2015-08-28.pdf
 pdf/cosc311/2015-08-28.pdf: cosc311/2015-08-28.tex
 	$(call pdf_rule)
@@ -190,6 +182,10 @@ pdf/cosc311/2015-09-21.pdf: cosc311/2015-09-21.tex
 
 PDFS += pdf/ece313/2015-09-21.pdf
 pdf/ece313/2015-09-21.pdf: ece313/2015-09-21.tex
+	$(call pdf_rule)
+
+PDFS += pdf/ece313/2015-09-23.pdf
+pdf/ece313/2015-09-23.pdf: ece313/2015-09-23.tex
 	$(call pdf_rule)
 
 .PHONY: pdf/all
