@@ -738,7 +738,7 @@ E_i:\text{``$i$th component operates correctly''}
 And the probability of each event defined as:
 
 \[
-\forall i\in\{1,2,\cdots,n\}(P(E_i)=0.90)
+\forall i\in\{1,2,\cdots,n\}(P(E_i)=\rho=0.90)
 \]
 
 We are looking for the value of $n$ where:
@@ -769,17 +769,348 @@ P\left(\bigcup\limits_{i=1}^n E_i\right)=
 1 - \prod\limits_{i=1}^nP(E_i')
 \]
 
+Then we can rewrite $P(E_i')$ to get:
+
+\[
+P\left(\bigcup\limits_{i=1}^n E_i\right)=
+1 - \prod\limits_{i=1}^n(1-P(E_i))
+\]
+
+Finally, since every event has the same probability, we can simplify
+the expression:
+
+\[
+P\left(\bigcup\limits_{i=1}^n E_i\right)=
+1 - (1-\rho)^n
+\]
+
+Now we just need to solve the given problem, which is:
+
+\[
+P\left(\bigcup\limits_{i=1}^n E_i\right)\ge 0.995
+\] \[
+1-(1-\rho)^n\ge 0.995
+\] \[
+\solution{1.5}{16}{\lceil n\rceil=3}
+\]
+
+%
 \problem{1.6}{1}
 
+The events used in this problem are:
 
+\[
+A:\text{``People who actually have disease''}
+\] \[
+T:\text{``Test says person has disease''}
+\]
 
+And associated probabilities:
 
+\[
+P(A)=0.01
+\] \[
+P(T|A)=0.97
+\] \[
+P(T|A')=0.06
+\]
+
+%
+\subproblem{1.6}{1}{a} We are looking for the value of $P(T)$. We
+start with the definition of conditional probability to get:
+
+\[
+P(T|A)=\dfrac{P(TA)}{P(A)}
+\]
+
+and
+
+\[
+P(T|A')=\dfrac{P(TA')}{P(A')}
+\]
+
+We can solve these for $P(TA)$ and $P(TA')$ respectively:
+
+\[
+P(TA)=P(T|A)P(A)
+\] \[
+P(TA')=P(T|A')P(A')
+\]
+
+If we select a collection of events as:
+
+\[
+\zeta=\{TA,TA'\}
+\]
+
+We can see that they are mutually exclusive, therefore we can apply
+the definition for the union of mutually exclusive events, which is:
+
+\[
+P\left(\bigcup\limits_{E\in\zeta}E\right)=\sum\limits_{E\in\zeta}P(E)
+\]
+
+The union on the left evaluates to:
+
+\[
+\bigcup\limits_{E\in\zeta}E
+\] \[
+TA+TA'
+\] \[
+T(A+A')
+\] \[
+T\Omega
+\] \[
+T
+\]
+
+And the sum on the right is:
+
+\[
+P(TA)+P(TA')
+\]
+
+So we now have:
+
+\[
+P(T)=P(TA)+P(TA')
+\]
+
+And can substitute the equivalences we found earlier and solve:
+
+\[
+P(T)=P(T|A)P(A)+P(T|A')P(A')
+\] \[
+P(T)=P(T|A)P(A)+P(T|A')(1-P(A))
+\] \[
+\subsolution{1.6}{1}{a}{P(T)=0.0691}
+\]
+
+%
+\subproblem{1.6}{1}{b} We are looking for the value of $P(A|T)$. We
+can arrive at this value via Bayes' Theorem:
+
+\[
+P(A|T)=\dfrac{P(T|A)P(A)}{P(T)}
+\] \[
+\subsolution{1.6}{1}{b}{P(A|T)=0.14038}
+\]
+
+%
+\subproblem{1.6}{1}{c} We are looking for the value of
+$P(A'|T')$. Again, we can use Bayes' Theorem:
+
+\[
+P(A'|T')=\dfrac{P(T'|A')P(A')}{P(T')}
+\] \[
+P(A'|T')=\dfrac{(1-P(T|A'))(1-P(A))}{1-P(T)}
+\] \[
+\subsolution{1.6}{1}{c}{P(A'|T')=0.99968}
+\]
+
+%
 \problem{1.6}{5}
 
+We have five events that describe the probability space:
 
+\[
+A:\text{``Circuit got an A''}
+\] \[
+B:\text{``Circuit got a B''}
+\] \[
+C:\text{``Circuit got a C''}
+\] \[
+D:\text{``Circuit got a D''}
+\] \[
+F:\text{``Circuit eventually failed''}
+\]
 
+And we know the following probabilities:
 
+\[
+\begin{array}{c|c|c}
+E & P(E) & P(F|E) \\
+\midrule
+A & 0.77 & 0.02 \\
+B & 0.11 & 0.10 \\
+C & 0.07 & 0.14 \\
+D & 0.05 & 0.25 \\
+\end{array}
+\]
+
+%
+\subproblem{1.6}{5}{a} We are looking for the value of $P(C+D|F)$. By
+applying Bayes' Theorem, we have:
+
+\[
+P(C+D|F)=\dfrac{P(F|C+D)P(C+D)}{P(F)}
+\]
+
+We can expand this using the definition of conditional probability:
+
+\[
+P(C+D|F)=\dfrac{\dfrac{P(F(C+D))}{P(C+D)}P(C+D)}{P(F)}
+\] \[
+P(C+D|F)=\dfrac{P(F(C+D))}{P(F)}
+\] \[
+P(C+D|F)=\dfrac{P(FC+FD)}{P(F)}
+\]
+
+Because $FC$ and $FD$ are mutually exclusive (a circuit can't have
+both a C rating and a D rating), we can expand $P(FC+FD)$:
+
+\[
+P(C+D|F)=\dfrac{P(FC)+P(FD)}{P(F)}
+\]
+
+If we then look at the definition of conditional probability applied
+to some of our givens, we have:
+
+\[
+P(F|C)=\dfrac{P(FC)}{P(C)}
+\] \[
+P(F|D)=\dfrac{P(FD)}{P(D)}
+\]
+
+And then solving for $P(FC)$ and $P(FD)$ respectively:
+
+\[
+P(FC)=P(F|C)P(C)
+\] \[
+P(FD)=P(F|D)P(D)
+\]
+
+Which we can substitute into our earlier equation:
+
+\[
+P(C+D|F)=\dfrac{P(F|C)P(C)+P(F|D)P(D)}{P(F)}
+\]
+
+To calculate the denominator, we use the law of total probability,
+with the collection of events as:
+
+\[
+\zeta=\{A,B,C,D\}
+\]
+
+Which are mutually exclusive and a superset of the event we're solving
+for $F$.
+
+\[
+P(F)=\sum\limits_{E\in\zeta}P(F|E)P(E)
+\] \[
+P(F)=P(F|A)P(A)+P(F|B)P(B)+P(F|C)P(C)+P(F|D)P(D)
+\]
+
+Which we can substitute into our equation and solve for $P(C+D|F)$.
+
+\[
+P(C+D|F)=\dfrac{P(F|C)P(C)+P(F|D)P(D)}{P(F|A)P(A)+P(F|B)P(B)+P(F|C)P(C)+P(F|D)P(D)}
+\] \[
+\subsolution{1.6}{5}{a}{P(C+D|F)=0.45791}
+\]
+
+%
+\subproblem{1.6}{5}{b} We are looking for the value of
+$P(A|F')$. Through basic application of Bayes' Theorem, we have:
+
+\[
+P(A|F')=\dfrac{P(F'|A)P(A)}{P(F')}
+\]
+
+We can then look at the complements of these probabilities to make the
+computation easier.
+
+\[
+P(A|F')=\dfrac{(1-P(F|A))P(A)}{1-P(F)}
+\]
+
+We can then apply what we learned earlier about the value of $P(F)$:
+
+\[
+P(A|F')=\dfrac{(1-P(F|A))P(A)}{1-(P(F|A)P(A)+P(F|B)P(B)+P(F|C)P(C)+P(F|D)P(D))}
+\] \[
+\subsolution{1.6}{5}{b}{P(A|F')=0.79323}
+\]
+
+%
 \problem{1.6}{7}
 
+We have the following events:
+
+\[
+C:\text{``Valve used at cold temperature''}
+\] \[
+M:\text{``Valve used at medium temperature''}
+\] \[
+W:\text{``Valve used at warm temperature''}
+\] \[
+H:\text{``Valve used at hot temperature''}
+\] \[
+L:\text{``Valve leaks''}
+\]
+
+And the following probabilities:
+
+\[
+\begin{array}{c|c|c}
+E & P(E) & P(L|E) \\
+\midrule
+C & 0.12 & 0.003 \\
+M & 0.55 & 0.009 \\
+W & 0.20 & 0.014 \\
+H & 0.13 & 0.018 \\
+\end{array}
+\]
+
+%
+\subproblem{1.6}{7}{a} We want to find $P(H|L)$. We can first apply
+Bayes' Theorem:
+
+\[
+P(H|L)=\dfrac{P(L|H)P(H)}{P(L)}
+\]
+
+To find $P(L)$, we apply the Law of Total Probability, using the
+collection of events:
+
+\[
+\zeta=\{C,M,W,H\}
+\]
+
+which is a superset of our desired event ($L$), so now we have:
+
+\[
+P(L)=P(L|C)P(C)+P(L|M)P(M)+P(L|W)P(W)+P(L|H)P(H)
+\]
+
+And substitute and solve:
+
+\[
+P(H|L)=\dfrac{P(L|H)P(H)}{P(L|C)P(C)+P(L|M)P(M)+P(L|W)P(W)+P(L|H)P(H)}
+\] \[
+\subsolution{1.6}{7}{a}{P(H|L)=0.22392}
+\]
+
+%
+\subproblem{1.6}{7}{b} We want to find $P(M|L')$. Bayes' Theorem:
+
+\[
+P(M|L')=\dfrac{P(L'|M)P(M)}{P(L')}
+\]
+
+Complement:
+
+\[
+P(M|L')=\dfrac{(1-P(L|M))P(M)}{1-P(L)}
+\]
+
+Then we can use the previous value of $P(L)$ and solve:
+
+\[
+P(M|L')=\dfrac{(1-P(L|M))P(M)}{1-(P(L|C)P(C)+P(L|M)P(M)+P(L|W)P(W)+P(L|H)P(H))}
+\] \[
+\subsolution{1.6}{7}{b}{P(M|L')=0.55081}
+\]
 
 \end{document}
