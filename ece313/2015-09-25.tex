@@ -1,0 +1,249 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Differences between book and class}
+
+We use the notation of a discrete random varaible
+$f:\Omega\rightarrow\mathbb{R}$, then:
+
+\[
+P(\alpha(f))=\sum\limits_{\alpha(x)}P_f(x)
+\]
+
+The book likes to say $P(f=x)$, but that is equivalent to:
+
+\[
+P(f=x)\equiv P(f\in\{x\})
+\] \[
+P(\inv{f}\{x\})
+\] \[
+P_f(x)
+\]
+
+Remembering that:
+
+\[
+\inv{f}S=\{x|f(x)\in S\}
+\]
+
+We like our notation, because it's easier to remember the analog
+between continuous and discrete variables. In the continuous case, we
+have:
+
+\[
+P(\alpha(f))=\int\limits_{\alpha(x)}\rho_f(x)\d{x}
+\]
+
+\section*{Example 2.1.7}
+
+Suppose we have pictures or something. Pictures can be perfect (P),
+good (G), satisfactory (S), or failed (F).
+
+Each event is where we take two pictures, represented as a 2-tuple
+$(x,y)$, where $x,y\in\{P,G,S,F\}$.
+
+We are told that there are different scores for each type of picture:
+
+\[
+\begin{array}{c|c}
+x & S(x) \\
+\midrule
+P & 4 \\
+G & 2 \\
+S & 1 \\
+F & 0 \\
+\end{array}
+\]
+
+We are told some probabilities of events:
+
+\[
+\begin{array}{cccc}
+\underset{0.14}{(P,P)} & \underset{0.102}{(P,G)} & \underset{0.157}{(P,S)} & \underset{0.007}{(P,F)} \\
+(G,P) & (G,G) & (G,S) & (G,F) \\
+(S,P) & (S,G) & (S,S) & (S,F) \\
+(F,P) & (F,G) & (F,S) & (F,F) \\
+\end{array}
+\]
+
+We are told that the total score of each event $(x,y)$ is
+$S(x)\cdot{}S(y)$.
+
+Now we want to know the probability that the total score is $1$. In
+other words, we want to know:
+
+\[
+P_f(4) = P(\inv{f}\{4\})
+\] \[
+P(\{(P,S),(S,P),(G,G)\})
+\]
+
+And then we can just sum those probabilities. Cool beans.
+
+\subsection*{Probability Mass Function}
+
+To construct a PMF, we would just make a table (probably):
+
+\[
+\begin{array}{c|c}
+x & P_f(x) \\
+\midrule
+4 & \cdots \\
+1 & \cdots \\
+2 & \cdots \\
+\end{array}
+\]
+
+Where, for each row, we compute like we did earlier.
+
+\section*{Cumulative Distribution Function}
+
+We like to use special notation, because fuck it, why not.
+
+For the random variable, $f$, the CDF is defined as:
+
+\[
+F_f(x)=P(f\le x)
+\]
+
+If we let $\alpha$ be:
+
+\[
+\alpha=\text{``$f\le x$''}
+\]
+
+Then we know its value. It's:
+
+\[
+\sum\limits_{\alpha(y)}P_f(y)
+\]
+
+Look. We get it. Variables are different. Dummy variables take up our
+namespace, so use a different one. Every day, it's a new variation of
+this.
+
+Anyways, we end up with:
+
+\[
+F_f(x) = \sum\limits_{y\le x}P_f(y)
+\]
+
+\section*{Example 2.2.7}
+
+A random variable $x$ is the time taken for a garage to service a
+car. These times are within $\lbrack 0,10\rbrack$. The times are
+distributed according to:
+
+\[
+F_x(t)=A+B\log(3t+2)\text{ for }0\le t\le 10
+\]
+
+How do we understand the domain of $t$? We know that, for $t<0$, then
+$F_x(t)$ is $0$. And for $t>10$, then $F_x(t)$ is $1$. This should
+make sense if we consider that it's the sum of probabilities.
+
+So now we have $F_x(t)$, how do we get $\rho_x(t)$? We take a derivative!
+
+\[
+\rho_x(t)=B\frac{3}{3x+2}\text{ for }0\le t\le 10
+\]
+
+How do we understand the domain here? Well, $F_x(t)$ is $0$ or $1$
+outside of the range, and the derivative of a constant is $0$, so the
+probability density function is $0$ outside of the range.
+
+\subsection*{Diversion: Evaluating weird integrals}
+
+Suppose we want to evaluate:
+
+\[
+\int\limits\alpha(x) A(x)\d{x}
+\]
+
+For example, with a weird predicate like:
+
+\[
+\alpha(v)=\begin{cases}\text{T} & \text{if the closest prime to $v$ is
+  the $k$th prime $P_k$ and $v\in(P_k-\frac{1}{k},P_k+\frac{1}{k})$} \\
+\text{F} & {otherwise}
+\end{cases}
+\]
+
+Then we just evaluate using Iverson brackets:
+
+\[
+\int\limits_{-\infty}{\infty}\lbrack \alpha(x)\rbrack A(x)\d{x}
+\]
+
+Yay.
+
+\subsection*{Back to the problem}
+
+Wouldn't it be nice if we could make the integral a known value? Well,
+suppose we chose our predicate to be:
+
+\[
+\alpha(x)=\text{``$x\in\mathbb{R}$''}
+\]
+
+Then we'd have:
+
+\[
+P(\alpha(f)) = P(f\in\{x|\alpha(x)\})
+\] \[
+P(\inv{f}\{x|\alpha(x)\})
+\] \[
+P(\inv{f}\mathbb{R})
+\] \[
+P(\Omega)
+\] \[
+1
+\]
+
+So now we look at the density function, since we know the integral of
+it should be the same as the CDF.
+
+\[
+P(\alpha(f)) = \int\limits_{\alpha(x)}\rho_f(x)\d{x}
+\] \[
+\int\limits{-\infty}^{\infty}\lbrack\alpha(x)\rbrack\frac{3B}{3x+2}\d{x}
+\] \[
+\int\limits_{0}^{10}\lbrack \alpha(x)\rbrack\frac{3B}{3x+2}\d{x}
+\] \[
+B\int\limits_{0}^{10}\frac{3}{3x+2}\d{x}
+\]
+
+Which is equal to $1$, so we can solve for $B$. We were able to limit
+the domain of the integral because the CDF is only defined between $0$
+and $10$.
+
+Then we could figure out what $A$ is, based on our new value of $B$.
+
+\end{document}
