@@ -1,0 +1,121 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Review of Known Concepts}
+
+We talk about a random variable $f:\Omega\rightarrow\mathbb{R}$. How
+do we really quantify discrete variables?
+
+$f$ is discrete iff the range of $f$ is countable.
+
+If $f$ is discrete, we can use this cool formula:
+
+\[
+P(\alpha(f))=\sum\limits_{\alpha(x)}P_f(x)
+\]
+
+A random variable, $f$, is continuous iff $f$ is not discrete.
+
+Does this mean we can use the following cool formula?
+
+\[
+P(\alpha(f))=\int\limits_{\alpha(x)}\rho_f(x)\d{x} = \int\lbrack\alpha(x)\rbrack\rho_f(x)\d{x}
+\]
+
+\textbf{No}. But we're going to pretend we can, because why not?
+
+Remember: The PMF is $P_f(x)$. The density function is
+$\rho_f(x)$. The CDF function is $F_f(x)$, where:
+
+\[
+F_f(x)=P(f\le x)
+\]
+
+\subsection*{CDF of Continuous Random Variable}
+
+We want to know the value of $F_f(x)$. We can rewrite it as:
+
+\[
+F_f(x)=P(F\le x)=P(\alpha(f))
+\] \[
+\int\lbrack\alpha(x)\rbrack\rho_f(z)\d{z}
+\] \[
+\int\lbrack z\le x\rbrack\rho_f(z)\d{z}
+\] \[
+\int\limits_{-\infty}^x\rho_f(z)\d{z}
+\]
+
+\textbf{Note}: It's important to realize that we can find the
+probability density function from the CDF.
+
+\[
+\dd{}{x}F_f(x)=\dd{}{x}\int_{-\infty}^x\rho_f(z)\d{z}=\rho_f(x)
+\]
+
+\section*{Pseudo-Example 2.1.9}
+
+Suppose there are 9 warehouses, and a particular item can be in 3 of
+them.
+
+Let $f$ be the random variable which represents the number of calls up
+to and including the one to a warehouse that has the item we're
+interested in.
+
+We might be interested in the probability that we call the right
+warehouse on our first try. In other words:
+
+\[
+P(f=1)=P_f(1)=\frac{3}{9}
+\]
+
+Similarly, we can look at the probability that it takes two calls:
+
+\[
+P(f=2)=P_f(2)
+\]
+
+We note that this can be represented as a conditional probability:
+
+\[
+P_f(2)=P(\text{2nd call succeeds}|\text{1st failed})
+\]
+
+If the first call failed, then we're not going to look at it again, so
+now we have only 8 warehouses that we could possibly call. Because we
+didn't find the item, then there are still 3 warehouses that house the
+item.
+
+Anyways, stuff happens, so we find that:
+
+\[
+P_f(2)=(\frac{3}{8})\cdot(1-\frac{3}{9})
+\]
+
+\end{document}
