@@ -1,0 +1,190 @@
+\documentclass{article}
+%\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xintexpr}
+\usepackage{multicol}
+\usepackage{empheq}
+\usepackage{forest}
+\usepackage{booktabs}
+
+\setlength{\columnsep}{0.5cm}
+\setlength{\columnseprule}{1pt}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\problem}[2]{$\boxed{\text{#1.#2}}$}
+\newcommand{\subproblem}[3]{$\boxed{\text{(#3)}}$}
+\newcommand{\solution}[3]{\boxed{#3\quad(\text{#1.#2})}}
+\newcommand{\subsolution}[4]{\boxed{#4\quad(\text{#1.#2#3})}}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{0em}
+
+\begin{document}
+
+\section*{Homework 3}
+
+%
+\problem{2.1}{7}
+
+Each event can be represented as a 2-tuple $(x,y)$, where $x$ is the
+picture quality, and $y$ is the appearance quality. Each can take on
+the values $x,y\in(D=\{p,g,s,f\})$, which stands for perfect, good,
+satisfactory, and failed (respectively). Furthermore, we can determine
+a score for each one: $C((x,y))$ for piCture quality, and $A((x,y))$
+for appearance quality. These are defined as follows:
+
+\[
+C((x,y)):(D,D)\rightarrow\mathbb{R}
+\] \[
+C((x,y))=\begin{cases}4 & \text{if $x=p$} \\
+2 & \text{if $x=g$} \\
+1 & \text{if $x=s$} \\
+0 & \text{if $x=f$}
+\end{cases}
+\]
+
+and
+
+\[
+A((x,y)):(D,D)\rightarrow\mathbb{R}
+\] \[
+A((x,y))=\begin{cases}3 & \text{if $y=p$} \\
+2 & \text{if $y=g$} \\
+1 & \text{if $y=s$} \\
+0 & \text{if $y=f$}
+\end{cases}
+\]
+
+Finally, we can attach a total score to each event, $T(\sigma)$,
+defined as:
+
+\[
+T(\sigma):(D,D)\rightarrow\mathbb{R}
+\] \[
+T(\sigma)=C(\sigma)\cdot A(\sigma)
+\]
+
+%
+\subproblem{2.1}{7}{a} To construct the probability mass function, we
+can create a table for all the event scores $(x,y)$, where the columns
+are the $x$ values, and the rows are the $y$ values. Each entry is the
+total score $T((x,y))$
+
+\[
+\begin{array}{c|cccc}
+  & x=p & x=g & x=s & x=f \\
+\midrule
+y=p & 12 & 6 & 3 & 0 \\
+y=g & 8 & 4 & 2 & 0 \\
+y=s & 4 & 2 & 1 & 0 \\
+y=f & 0 & 0 & 0 & 0 \\
+\end{array}
+\]
+
+Then we can determine the range of the discrete random variable $T$,
+which is:
+
+\[
+T(\sigma):(D,D)\rightarrow\{12,8,6,4,3,2,1,0\}
+\]
+
+Then we can construct the inverse image of the function as:
+
+\[
+\begin{array}{l|l}
+e & \inv{T}\{e\} \\
+\midrule
+0 & \{(f,p),(f,g),(f,s),(p,f),(g,f),(s,f),(f,f)\} \\
+1 & \{(s,s)\} \\
+2 & \{(s,g),(g,s)\} \\
+3 & \{(s,p)\} \\
+4 & \{(g,g),(p,s)\} \\
+6 & \{(g,p)\} \\
+8 & \{(p,g)\} \\
+12 & \{(p,p)\} \\
+\end{array}
+\]
+
+And the PMF as:
+
+\[
+\subsolution{2.1}{7}{a}{\begin{array}{l|l}
+e & P_T(e) \\
+\midrule
+0& 0.061 \\
+1& 0.013 \\
+2& 0.195 \\
+3& 0.067 \\
+4& 0.298 \\
+6& 0.124 \\
+8& 0.102 \\
+12& 0.140 \\
+\end{array}}
+\]
+
+%
+\subproblem{2.1}{7}{b} We define the CDF, $F_T(e)$, as:
+
+\[
+F_T(e)=\sum\limits_{x\le e}P_T(e)
+\]
+
+Using this, we can construct the CDF as follows:
+
+\[
+\subsolution{2.1}{7}{b}{\begin{array}{l|l}
+e & F_T(e) \\
+\midrule
+0& 0.061 \\
+1& 0.074 \\
+2& 0.269 \\
+3& 0.336 \\
+4& 0.634 \\
+6& 0.758 \\
+8& 0.860 \\
+12& 1.000 \\
+\end{array}}
+\]
+
+%
+\problem{2.1}{9}
+
+%
+\problem{2.1}{10}
+
+%
+\problem{2.1}{11}
+
+%
+\problem{2.2}{6c}
+
+%
+\problem{2.2}{7b}
+
+%
+\problem{2.2}{8c}
+
+%
+\problem{2.2}{11}
+
+
+\end{document}
