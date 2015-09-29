@@ -1,0 +1,195 @@
+\documentclass{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+\usepackage{multicol}
+
+\setlength{\columnsep}{0.5cm}
+\setlength{\columnseprule}{1pt}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\problem}[2]{$\boxed{\text{#1 \##2}}$}
+\newcommand{\subproblem}[1]{$\boxed{(#1)}$}
+\newcommand{\RUS}{Rule of Universal Specification}
+\newcommand{\RUG}{Rule of Universal Generalization}
+
+\setlength\parindent{0pt}
+\setlength\parskip{0em}
+
+\begin{document}
+\begin{multicols*}{2}
+
+\problem{5}{1}
+
+\subproblem{a} The problem lies in the first and second sentences. The
+proof writer wanted to write the negation of the conclusion, but wrote
+a different statement entirely. The problem statement is, in the
+universe of the real numbers:
+
+\[
+\forall x\forall y((x+y=10)\rightarrow((x\ne 3)\wedge(y\ne 8)))
+\]
+
+The conclusion in particular is:
+
+\[
+(x\ne 3)\wedge(y\ne 8)
+\]
+
+If we negate that, we get:
+
+\[
+\neg((x\ne 3)\wedge(y\ne 8))
+\] \[
+\neg(x\ne 3)\vee\neg(y\ne 8)
+\] \[
+(x=3)\vee(y=8)
+\]
+
+We can see that the proof writer forgot to swap the $\wedge$ for a
+$\vee$ when applying DeMorgan's Law.
+
+\subproblem{b} Let $x=3$ and $y=7$. Therefore $x+y=10$, so the premise
+is true. But the conclusion $(3\ne 3)\wedge(7\ne 8)$ is false, because
+$3=3$.
+
+\problem{5}{2}
+
+Let the universe of discourse be the integers. We want to show that
+$15|n$ iff $3|n$ and $5|n$. Written mathematically, we have:
+
+\[
+\forall n((15|n)\leftrightarrow((3|n)\wedge(5|n)))
+\]
+
+In order to prove this statement, we want to prove two statements:
+
+\[\tag{a}
+\forall n((15|n)\rightarrow((3|n)\wedge(5|n)))
+\] \[\tag{b}
+\forall n(((3|n)\wedge(5|n))\rightarrow(15|n))
+\]
+
+\subproblem{a} Let $n$ be an arbitrary integer. Assume $15|n$,
+i.e. that $\exists{}a(n=15a)$. We can factor $15$ to get
+$15=3\cdot{}5$. We can acknowledge the implication of this equivalence
+with the expression $3|15$, or equivalently $\exists{}b(15=3b)$. By
+substituting this expression for $15$ in the known value for $n$, we
+get:
+
+\[
+n=(3b)a
+\]
+
+By using the associativity of the integers, we can rewrite this as:
+
+\[
+n=3(ba)
+\]
+
+If we let $c=ba$, which is an integer because the integers are closed
+under multiplication, then we can rewrite this as $n=3c$. By the
+definition of ``divides'', we can conclude that $3|n$.
+
+We can apply the same steps as above, replacing $5$ for $3$, and
+conclude that $5|n$. Because we have both $3|n$ and $5|n$, we have
+$(3|n)\wedge(5|n)$, which is our conclusion. We have shown that this
+statement is true for arbitrary $n$, and by the \RUG, we can conclude
+that for any integer $n$, if $15|n$ then $3|n$ and $5|n$.
+
+\subproblem{b} Let $n$ be an arbitrary integer. Assume $3|n$ and
+$5|n$, or in other words, that $\exists{}b(n=3b)$ and
+$\exists{}c(n=5c)$. We can set these two statements equal to each
+other, to get:
+
+\[
+3b=5c
+\]
+
+If we solve for $b$, we get:
+
+\[
+b=\frac{5}{3}c
+\]
+
+Because we are working in the integers and we are working with an
+integer $b$, the only way this expression can evaluate to an integer
+is if $c$ is some multiple of $3$, or in other words, that $3|c$ and
+$\exists{}x(c=3x)$. If we substitute this new value for $c$ into the
+expression from $5|n$, we get:
+
+\[
+n=5(3x)
+\]
+
+We can redistribute the parenthesis because the multiplication follows
+the rules of associativity in the integers, so we can rewrite it as:
+
+\[
+n=(5\cdot 3)x
+\] \[
+n=15x
+\]
+
+In other words, we have found that $n=15x$ for some integer $x$, which
+is the definition for $15|n$. By the \RUG, we have shown that, since
+this statement is true for arbitrary $n$, it must be true for any
+integer $n$. We have concluded that for any integer $n$, if $3|n$ and
+$5|n$, then $15|n$.
+
+Finally, because we have proven statements (a) and (b), we have proven
+the original statement.
+
+\problem{5}{3}
+
+Let the universe of discourse be the integers. We want to show whether
+the following statement is true or not: if $m$ is even and $n$ is odd,
+then $n^2-m^2=n+m$. One obvious counter example is any $n$ and $m$
+chosen such that $n<m$, for example $(n,m)=(3,2)$. We can also show
+that this is untrue for any chosen $n$ and $m$.
+
+By the definitions of even and odd, we have that $\exists{}a(m=2a)$
+and $\exists{}b(n=2b+1)$. If we expand the conclusion using these
+values, we have that:
+
+\[
+(2a)^2+(2b+1)^2=(2a)-(2b+1)
+\] \[
+4a^2+4b^2+4b+1=2a-2b-1
+\] \[
+4a^2+4b^2+6b-2a+2=0
+\] \[
+2a^2+2b^2+3b-a+1=0
+\] \[
+2a^2-a+(2b^2+3b+1)=0
+\]
+
+Solving for $a$, we get:
+
+\[
+a=\dfrac{1\pm \sqrt{1^2-4\cdot 2\cdot (2b^2+3b+1)}}{2\cdot 2}
+\] \[
+a=\dfrac{1}{4}\pm\dfrac{\sqrt{1-16b^2-24b-4}}{4}
+\]
+
+Because we are working in the integers, the only way for this
+expression to be true is if $4|a$ and consequently $\exists{}x(m=8x)$,
+however this is not true in general. For example, if $m=2$, then
+$\nexists{}x(2=8x)$.
+
+\end{multicols*}
+\end{document}
