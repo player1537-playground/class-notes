@@ -7,6 +7,7 @@
 \usepackage{empheq}
 \usepackage{forest}
 \usepackage{booktabs}
+\usepackage{ifthen}
 
 \setlength{\columnsep}{0.5cm}
 \setlength{\columnseprule}{1pt}
@@ -166,7 +167,82 @@ e & F_T(e) \\
 \]
 
 %
+\subproblem{2.1}{7}{c} The outcomes are shipped can be summarized as:
+
+\[
+\beta=\{(s,g),(g,s),(s,p),(g,g),(p,s),(g,p),(p,g),(p,p)\}
+\]
+
+To find the most likely score, we can interpret that to mean the
+weighted average score. In other words, we want to find the value of:
+
+\[
+\text{avg}=
+\dfrac
+    {\sum\limits_{\sigma\in\beta}T(\sigma)\cdot \dfrac{P(\sigma)}{\sum\limits_{x\in\beta}P(x)} }
+    {(\max\{T(\sigma)|\sigma\in\beta\})-(\min\{T(\sigma)|\sigma\in\beta\})}
+\]
+
+Alternatively, we can look at it in terms of the PMF and CDF. If we
+introduce $\Gamma=\{T(\omega)|\omega\in\beta\}$, then we have:
+
+\[
+\text{avg}=
+\dfrac
+    {\sum\limits_{e\in\Gamma}e\cdot \dfrac{P_f(e)}{\sum\limits_{x\in\Gamma}P_f(x)}}
+    {|\Gamma|}
+\]
+
+It's important to note that the scores, $T(e)$, of each $e\in\beta$
+falls in the range $\lbrack{}2,12\rbrack$. This means we can rely on
+the CDF, by going back to the definition:
+
+
+
+\[
+F_f(x)=\sum\limits_{z\le x}P_f(z)
+\] \[
+\begin{array}{l}
+F_f(12)-F_f(2)=\sum\limits_{z\le 12}P_f(z)-\sum\limits_{z\le 2}P_f(z) \\
+F_f(12)-F_f(2)=\sum\limits_{2\le z\le 12}P_f(z) \\
+\end{array}
+\]
+
+%
 \problem{2.1}{9}
+
+We are told the first value of the PMF, $P_X(1)$, is
+$\frac{2}{5}$. Similarly, we can deduce that the value of $P_X(0)$ is
+$0$, because there's no way we can pick the right warehouse if we
+never call any of them.
+
+We can construct a tree as follows, where the events to the left are
+that the item is in the warehouse we call.
+
+\begin{center}
+\begin{forest}
+  for tree={
+    l sep=0.5cm,
+    s sep=3cm,
+    delay={
+%      edge label/.wrap value={\ifthenelse{\equal{#1}{}}{}{node[midway,fill=white]{#1}}},
+    }
+  }
+  [$\circ$
+    [$\dfrac{2}{5}$, edge label={node[midway,fill=white]{$P_X(1)$}}]
+    [$\dfrac{3}{5}$
+      [$\dfrac{2}{4}$, edge label=$P_X(2)$]
+      [$\dfrac{2}{4}$
+        [$\dfrac{2}{3}$, edge label=$P_X(3)$]
+        [$\dfrac{1}{3}$
+          [$\dfrac{2}{2}$, edge label=$P_X(4)$]
+          [$0$]
+        ]
+      ]
+    ]
+  ]
+\end{forest}
+\end{center}
 
 %
 \problem{2.1}{10}
