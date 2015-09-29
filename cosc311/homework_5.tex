@@ -157,39 +157,73 @@ the original statement.
 \problem{5}{3}
 
 Let the universe of discourse be the integers. We want to show whether
-the following statement is true or not: if $m$ is even and $n$ is odd,
+the following statement is true or not: if $n$ is odd and $m$ is even,
 then $n^2-m^2=n+m$. One obvious counter example is any $n$ and $m$
-chosen such that $n<m$, for example $(n,m)=(3,2)$. We can also show
-that this is untrue for any chosen $n$ and $m$.
+chosen such that $n<m$, $n$ is odd, and $m$ is even; for example
+$(n,m)=(1,2)$.
 
-By the definitions of even and odd, we have that $\exists{}a(m=2a)$
-and $\exists{}b(n=2b+1)$. If we expand the conclusion using these
-values, we have that:
+\problem{5}{4}
 
-\[
-(2a)^2+(2b+1)^2=(2a)-(2b+1)
-\] \[
-4a^2+4b^2+4b+1=2a-2b-1
-\] \[
-4a^2+4b^2+6b-2a+2=0
-\] \[
-2a^2+2b^2+3b-a+1=0
-\] \[
-2a^2-a+(2b^2+3b+1)=0
-\]
-
-Solving for $a$, we get:
+Let the universe of discourse be the real numbers. We want to show
+that, for any $x$, if $|x-3|>3$, then $x^2>6x$. Mathematically, this
+is equivalent to:
 
 \[
-a=\dfrac{1\pm \sqrt{1^2-4\cdot 2\cdot (2b^2+3b+1)}}{2\cdot 2}
-\] \[
-a=\dfrac{1}{4}\pm\dfrac{\sqrt{1-16b^2-24b-4}}{4}
+\forall x((|x-3|>3)\rightarrow(x^2>6x))
 \]
 
-Because we are working in the integers, the only way for this
-expression to be true is if $4|a$ and consequently $\exists{}x(m=8x)$,
-however this is not true in general. For example, if $m=2$, then
-$\nexists{}x(2=8x)$.
+It is important to look at the definition of $|z|$, which is:
+
+\[
+|z|=\begin{cases}z & \text{if $z\ge{}0$} \\
+-z & \text{if $z<0$} \\
+\end{cases}
+\]
+
+We can then rewrite the expression $|x-3|$ as:
+
+\[
+|x-3|=\begin{cases}x-3 & \text{if $x-3\ge 0$} \\
+3-x & \text{if $x-3<0$}
+\end{cases}
+\] \[
+|x-3|=\begin{cases}x-3 & \text{if $x\ge 3$} \\
+3-x & \text{if $x<3$}
+\end{cases}
+\]
+
+Finally, this means we can rewrite the predicate $|x-3|>3$ as:
+
+\[
+((x\ge 3)\wedge(x-3>3))\vee((x<3)\wedge(3-x>3))
+\]
+
+which can be simplified to:
+
+\[
+((x\ge 3)\wedge(x>6))\vee((x<3)\wedge(x<0))
+\] \[
+(x>3)\vee(x<0)
+\]
+
+This statement is equivalent to our premise, so that means we need to
+solve this by cases. Namely, they are:
+
+\[\tag{a}
+\forall x((x>3)\rightarrow(x^2>6x))
+\] \[\tag{b}
+\forall x((x<0)\rightarrow(x^2>6x))
+\]
+
+\subproblem{a} Let $x$ be an arbitrary real number. Assume $x>3$. This
+means that $\exists{}a\in\mathbb{R}^+(x=3+a)$. If we substitute this
+expression into $x^2>6x$, we get:
+
+\[
+(3+a)^2>6\cdot(3+a)
+\] \[
+9^2+6a+a^2>18+6a
+\]
 
 \end{multicols*}
 \end{document}
