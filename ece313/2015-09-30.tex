@@ -1,0 +1,163 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Example 2.1.10}
+
+We have a random variable $X$ that takes on the values
+$\{1,2,\cdots\}$.
+
+\subsection*{Example 2.1.10 (part a)}
+
+We want to know if it's possible to have a PMF such that:
+
+\[
+P_X(i)=\frac{c}{i^{1.5}}
+\]
+
+We might start be constructing a probability space using $X$:
+
+\[
+X:\Omega\rightarrow\mathbb{R}
+\] \[
+\text{probability space}: (\Omega,S,P)
+\] \[
+P:S\rightarrow\lbrack0,1\rbrack
+\]
+
+We could also apply the nice formula:
+
+\[
+P(\alpha(X))=\sum\limits_{\alpha(z)}P_X(z)
+\]
+
+Where $\alpha(z)=``z\in\mathbb{R}''$
+
+We also apply the relation:
+
+\[
+P(X\in\mathbb{R})=P(\inv{X}\mathbb{R})
+\]
+
+But we know that this must be the probability space:
+
+\[
+P(\Omega)=1
+\]
+
+That last step might not be clear, so let's look at the definition of
+the inverse image.
+
+\textbf{Note}: Midterm is before spring break. Make a study sheet.
+
+Suppose we have some function from a domain to a codomain:
+
+\[
+f:D\rightarrow C
+\]
+
+Then the inverse image is defined to be:
+
+\[
+\inv{f}A\overset{\text{def}}{=}\{x|f(x)\in A\}
+\]
+
+We can apply this to the value $\inv{X}\mathbb{R}$:
+
+\[
+\inv{X}\mathbb{R}=\{x|X(x)\in\mathbb{R}\}
+\] \[
+\inv{X}\mathbb{R}=\Omega
+\]
+
+Who cares? Because we are showing that, if we choose our $\alpha(x)$
+in this particular way, then it must have the value $1$. Now we can
+look at the summation on the right. In other words:
+
+It must be the case that:
+
+\[
+1=\sum\limits_{z\in\mathbb{R}}P_X(z)
+\]
+
+Now we can start looking back at the original PMF:
+
+\[
+P_X(i)=\frac{c}{i^{1.5}}
+\]
+
+It's often assumed that, if a PMF is given in this way, then we assume
+that $i$ must be an integer. Now what happens if it's not an integer?
+It's often implied that the function actually means:
+
+\[
+P_X(i)=\begin{cases}\dfrac{c}{i^{1.5}} & \text{if $i\in\{1,2,\cdots\}$} \\ 0 & \text{otherwise} \\\end{cases}
+\]
+
+Looking back at the sum, we think about what it means if $z$ is a
+positive integer or not. If it is, then it takes on an actual value,
+given by $cz^{-1.5}$. Otherwise, it is the value $0$. Adding up a
+bunch of $0$s doesn't change the value of the summation. Therefore, we
+can limit the summation bounds, and get:
+
+\[
+1=\sum\limits_{z\in\mathbb{Z}^+}\frac{c}{z^{1.5}}
+\]
+
+And furthermore:
+
+\[
+1=\sum\limits_{z=1}^\infty \frac{c}{z^{1.5}}
+\] \[
+1=c\sum\limits_{z=1}^\infty z^{-1.5}
+\]
+
+Suppose we introduce the variable $v$ to equal the summation:
+
+\[
+v=\sum\limits_{z=1}^\infty z^{-1.5}
+\]
+
+Then if we let $c=v^{-1}$, then the statement is now:
+
+\[
+1=v^{-1}v
+\] \[
+1=1
+\]
+
+\subsection*{Example 2.1.10 (part b)}
+
+We want to know if it's possible to have a PMF such that:
+
+\[
+P_X(i)=\frac{c}{i\log i}
+\]
+
+\end{document}
