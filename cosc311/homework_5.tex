@@ -136,8 +136,8 @@ expression from $5|n$, we get:
 n=5(3x)
 \]
 
-We can redistribute the parenthesis because the multiplication follows
-the rules of associativity in the integers, so we can rewrite it as:
+We can redistribute the parenthesis because multiplication follows the
+rules of associativity in the integers, so we can rewrite it as:
 
 \[
 n=(5\cdot 3)x
@@ -203,27 +203,55 @@ which can be simplified to:
 \[
 ((x\ge 3)\wedge(x>6))\vee((x<3)\wedge(x<0))
 \] \[
-(x>3)\vee(x<0)
+(x>6)\vee(x<0)
 \]
 
 This statement is equivalent to our premise, so that means we need to
 solve this by cases. Namely, they are:
 
 \[\tag{a}
-\forall x((x>3)\rightarrow(x^2>6x))
+\forall x((x>6)\rightarrow(x^2>6x))
 \] \[\tag{b}
 \forall x((x<0)\rightarrow(x^2>6x))
 \]
 
-\subproblem{a} Let $x$ be an arbitrary real number. Assume $x>3$. This
-means that $\exists{}a\in\mathbb{R}^+(x=3+a)$. If we substitute this
+\subproblem{a} Let $x$ be an arbitrary real number. Assume $x>6$. This
+means that $\exists{}a\in\mathbb{R}^+(x=6+a)$. If we substitute this
 expression into $x^2>6x$, we get:
 
 \[
-(3+a)^2>6\cdot(3+a)
+(6+a)^2>6\cdot(6+a)
 \] \[
-9^2+6a+a^2>18+6a
+6^2+6a+a^2>6^6+6a
+\] \[
+a^2>0
+\] \[
+a^2>0
 \]
+
+Because we chose $a$ to be a positive real number (not equal to zero),
+then we know that $a^2$ must also be positive (and not equal to zero),
+so this case leads to a true conclusion.
+
+\subproblem{b} Let $x$ be an arbitrary real number. Assume $x<0$. This
+means that $\exists{}a\in\mathbb{R}^+(x=-a)$. We can substitute this
+into the expression $x^2>6x$ to get:
+
+\[
+(-a)^2>6(-a)
+\] \[
+a^2>-6a
+\]
+
+The right hand side of this equation will always be negative, because
+we chose $a$ to be positive. Similarly, the left hand side will be
+positive, because a positive number squared will still be
+positive. This means that this inequality will always be true, and
+therefore this case is true.
+
+Because we have shown that both cases separately lead to a true
+conclusion, the cases ORed together will also be true, and therefore
+the original conclusion is true.
 
 \end{multicols*}
 \end{document}

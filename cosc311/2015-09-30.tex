@@ -1,0 +1,200 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Chapter 1: Counting Techniques}
+
+This chapter focuses on problem solving, mostly.
+
+\subsection*{Example 9.30.1}
+
+An art class is equipped with $100$ different sculpting tools and
+$500$ distinct paint brushes. How many art supplies are available to
+students to either sculpt or paint?
+
+We need to assume some things:
+
+\begin{itemize}
+\item Each sculpting tool is distinct.
+\item Each paint brush is different from the others.
+\item Students are \textbf{NOT} simultaneously sculpting and painting.
+\end{itemize}
+
+We conclude, by the Rule of Sum (defined below), that there are
+$500+100=600$ art supplies available to students to either sculpt or
+paint.
+
+\section*{The Rule of Sum}
+
+If a first taask can be performed in $m$ ways, while a second task can
+be performed in $n$ ways, and the two tasks cannot be performed
+simultaneously, then performing either task can be accomplished in any
+one of $m+n$ ways.
+
+\section*{Example 9.30.2}
+
+Buick cars come in $4$ models, $12$ colors, $3$ engine sizes, and $2$
+transmission types. (A) How many distinct Buicks can be manufactured?
+(B) If one of the available colors is red, how many different red
+buicks can be manufactured?
+
+Since we only know one rule, it is apt to ask ``Does the Rule of Sum
+apply here?'' The answer is no.
+
+Luckily, we can apply the Rule of Product (defined below). By the Rule
+of Product, we can separate this into the following stages (using the
+given order):
+
+\begin{enumerate}
+\item Model - - - - - 4
+\item Color - - - - - 12
+\item Engine Size - - - - - 3
+\item Transmission Type - - - - - 2
+\end{enumerate}
+
+By the rule of product: $4\cdot{}12\cdot{}3\cdot{}2=288$ distinct
+buicks that can be manufactured.
+
+(B) is an exercise for the students.
+
+\section*{The Rule of Product}
+
+If a procedure can be broken down into first and second stages, and if
+there are $m$ possible outcomes for the first stage and if, for each
+of these outcomes, there are $n$ possible outcomes for the second
+stage, then the total procedure can be carried out, in the designated
+order, in $mn$ ways.
+
+\section*{Example 9.30.3}
+
+Suppose a license plate is defined as $2$ letters followed by $4$
+numbers.
+
+(A) If no letter or digit ($0$-$9$) can be repeated, then how many
+possibilities are there?
+
+Again, we can separate into stages:
+
+\begin{itemize}
+\item Stage 1: Pick a letter for 1st space $\ldots{}26$
+\item Stage 2: Pick a letter for 2nd space $\ldots{}25$
+\item Stage 3: Pick a digit for 3rd space $\ldots{}10$
+\item Stage 4: Pick a digit for 4rd space $\ldots{}9$
+\item Stage 5: Pick a digit for 5rd space $\ldots{}8$
+\item Stage 6: Pick a digit for 6rd space $\ldots{}7$
+\end{itemize}
+
+By the Rule of Product: $26\cdot25\cdot10\cdot9\cdot8\cdot7=3276000$
+possible license plates.
+
+(B) Same as (A) but with repititions allowed:
+
+$26\cdot26\cdot10\cdot10\cdot10\cdot10=6760000$ possible license
+plates.
+
+(C) With repititions allowed, how many license plates have only vowels
+(A, E, I, O, U) and even digits (0, 2, 4, 6, 8)? (Exercise)
+
+\section*{Section 1.2: Permutations}
+
+\subsection*{Definition 1.1: Factorial}
+
+For an integer $n\ge0$, \textbf{$n$ factorial} (denoted $n!$) is
+defined by:
+
+\[
+\begin{array}{l}
+0!=1 \\
+n!=(n)(n-1)(n-2)\cdots(3)(2)(1), n\ge1 \\
+\end{array}
+\]
+
+\subsection*{Definition 1.2: Permutation}
+
+Given a collection of \textit{distinct} objects, any linear
+arrangement of these objects is called a \textbf{permutation} of the
+collection.
+
+The number of possible permutations of $n$ distinct objects is $n!$.
+
+For $n$ distinct objects and $r\in\mathbb{Z}$, $1\le{}r\le{}n$, the
+number of permutations of size $r$ for $n$ distinct objects is:
+
+\[
+P(n,r)=n(n-1)(n-2)\cdots(n-r+1)
+\] \[
+P(n,r)=\dfrac{n!}{(n-r)!}
+\]
+
+\subsection*{Example 9.30.4}
+
+Collection: X, Y, Z (3 distinct objects).
+
+There are 3 spots to fill with 3 objects, no repititions allowed. This
+means the number of possible permutations is $3\cdot2\cdot1=6$.
+
+\textbf{Note}: Order matters; Same letters in each arrangement, but
+different order makes the arrangement different.
+
+\subsection*{Example 9.30.5}
+
+Suppose our collection is: A, B, C, D, E, F (6 distinct objects). How
+many ways can we arrange them linearly in 3 spots?
+
+The answer is:
+
+\[
+P(6,3)=\dfrac{6!}{(6-3)!}=\dfrac{6!}{3!}=\dfrac{720}{6}=120
+\]
+
+\subsection*{Example 9.30.6}
+
+$M$ $I$ $S$ $S$ $I$ $P$ $P$ $I$: 11 objects
+
+$M_1$ $I_1$ $S_1$ $S_2$ $I_2$ $S_3$ $S_4$ $I_3$ $P_1$ $P_2$ $I_4$: 11
+distinguishable objects
+
+The number of permutations of the 11 \textit{distinguishable} objects
+is $11!$ What about in the case where we have
+\textit{indistinguishable} objects?
+
+%\begin{tabular}{l{20em}cl{20em}}
+%Distinguishable Objects & vs & Indistinguishable Objects \\
+%\hline
+%Each $S$ is labeled so that they can be distinguished from each other. & \\
+%Same for $I$'s and $P$'s and $M$'s & \\
+%So 11 distinct objects make $11!$ permutations of the objects & \\
+%\end{tabular}
+
+%\begin{itemize}
+%Stage 1: For each arrangement of 11 indistinguishable letters, there
+%are $4!$ different ones when we distinguish the 4 $S$'s. Thus,
+%$4!\cdot(\text{\# of arrangements of 11 objects})=\text{
+
+\end{document}

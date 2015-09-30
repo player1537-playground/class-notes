@@ -204,5 +204,9 @@ PDFS += pdf/cosc311/homework_5.pdf
 pdf/cosc311/homework_5.pdf: cosc311/homework_5.tex
 	$(call pdf_rule)
 
+PDFS += pdf/cosc311/2015-09-30.pdf
+pdf/cosc311/2015-09-30.pdf: cosc311/2015-09-30.tex
+	$(call pdf_rule)
+
 .PHONY: pdf/all
 pdf/all: $(PDFS)
