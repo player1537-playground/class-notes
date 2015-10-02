@@ -328,18 +328,19 @@ infinity:
 \[
 \lim\limits_{n\rightarrow\infty}F_X(n)=\lim\limits_{n\rightarrow\infty}\sum\limits_{z=1}^n\frac{c}{z^2}
 \] \[
-\lim\limits_{n\rightarrow\infty}F_X(n)=c\lim\limits_{n\rightarrow\infty}\sum\limits_{z=1}^n\frac{1}{z^2}
+\lim\limits_{n\rightarrow\infty}F_X(n)=c\sum\limits_{z=1}^\infty\frac{1}{z^2}
 \]
 
-We know that the infinite sum of inverse squares approaches the value
-$1$, so we have:
+We know that the infinite sum of inverse squares converges, so if we
+let $v$ equal that sum, then we have:
 
 \[
-\lim\limits_{n\rightarrow\infty}F_X(n)=c\cdot 1
+\lim\limits_{n\rightarrow\infty}F_X(n)=cv
 \]
 
-If we chose $c=1$, then this means that the CDF will eventually
-approach $1$, which means $\subsolution{2.1}{10}{a}{\text{the PMF is valid}}$.
+If we chose $c=v^{-1}$, then this means that the CDF equals $1$ at
+infinity, which means
+$\subsolution{2.1}{10}{a}{\text{the PMF is valid}}$.
 
 %
 \subproblem{2.1}{10}{b} Now we want to look at the possibility of the
@@ -355,9 +356,9 @@ By the same logic we used above, we will arrive at the infinite sum:
 \lim\limits_{n\rightarrow\infty}F_X(n)=c\sum\limits_{z=1}^\infty \frac{1}{i}
 \]
 
-However, we also know that the infinite sum of inverse integers is
-unbounded. Therefore, no matter what $c$ we choose, this sum will
-never converge to $1$, so $\subsolution{2.1}{10}{b}{\text{this PMF is not valid}}$
+However, we know that the infinite sum of inverse integers
+diverges. Therefore, no matter what $c$ we choose, this sum will never
+converge to $1$, so $\subsolution{2.1}{10}{b}{\text{this PMF is not valid}}$
 
 %
 \problem{2.1}{11}
@@ -366,6 +367,8 @@ Do we really just copy the handout..?
 
 %
 \problem{2.2}{6c}
+
+
 
 %
 \problem{2.2}{7b}
