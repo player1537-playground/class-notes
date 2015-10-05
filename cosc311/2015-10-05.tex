@@ -1,0 +1,108 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{General Result of Arrangements of In/Distinguishable Objects}
+
+Page 9. Blue box.
+
+If there are $n$ objects with $n_1$ indistinguishable objects of a
+first type, $n_2$ indistinguishable objects of a second type,
+$\cdots$, and $n_r$ indistinguishable objects of an $r$th type, where
+$n_1+n_2+\cdots+n_r=n$, then there are
+$\frac{n!}{n_1!n_2!\cdots{}n_r!}$ linear arrangements of the given $n$
+objects.
+
+\textbf{Note} Permutations count linear arrangements (where order
+matters) and in which objects \textit{cannot} be repeated.
+
+If repititions were allowed, then the number of possible arrangements
+of size $r$ of $n$ objects is $n^r$, with $r\ge0$.
+
+\section*{Section 1.3: Combinations/The Binomial Theorem}
+
+\subsection{Example 10.05.1 (A)}
+
+Consider 4 distinct objects: $\{W,X,Y,Z,\}$. How many possibilities
+are there for picking 2 of the 4 objects?
+
+If order matters (e.g. $\langle{}W,X\rangle$ and $\langle{}X,W\rangle$
+are different arrangements), then we are asking the number of
+permutations of size $r=2$ out of $n=4$ objects, then:
+
+\[
+P(n,r)=P(4,2)=\frac{4!}{(4-2)!}=\frac{4!}{2!}=12\text{ permutations}
+\]
+
+What if order \textit{does not} matter (e.g. $\langle{}W,X\rangle$ and
+$\langle{}X,W\rangle$ are the same selection or ``combinations'' of
+the 2 letters $X$ and $W$)?
+
+Then for each selection/combination of 2 objects (of size $r=2$) of
+the 4 objects, there are $2!$ permutations (e.g. for
+$\langle{}W,X\rangle$ and $\langle{}X,W\rangle$, there are $2\cdot1$
+ways to arrange any 2 letters in 2 spots).
+
+So, we have the relation with permutations:
+
+\[
+P(4,2)=12\text{ permutations}=2!\text{ permutations}\cdot(\text{number of combinations of size $2$})
+\]
+
+\[
+\text{number of combinations of size $2$} = \frac{12\text{ permutations}}{2!\text{ permutations}}=6
+\]
+
+\subsection*{Example 10.05.1 (B)}
+
+What if $r=3$ in the above example?
+
+Blah blah.
+
+\[
+\text{number of combinatins} = \frac{P(4,3)}{3!}
+\]
+
+\subsection*{In General}
+
+Page 15.
+
+\[
+C(n,r)=\frac{P(n,r)}{r!}=\frac{n!}{r!(n-r)!}\quad 0\le r\le n
+\]
+
+We also use the notation:
+
+\[
+C(n,r)=\binom{n}{r}
+\]
+
+Which is read as ``$n$ choose $r$''.
+
+\end{document}
