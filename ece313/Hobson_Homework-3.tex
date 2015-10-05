@@ -8,6 +8,7 @@
 \usepackage{forest}
 \usepackage{booktabs}
 \usepackage{ifthen}
+\usepackage{xfrac}
 
 \setlength{\columnsep}{0.5cm}
 \setlength{\columnseprule}{1pt}
@@ -167,45 +168,51 @@ e & F_T(e) \\
 \]
 
 %
-\subproblem{2.1}{7}{c} The outcomes are shipped can be summarized as:
+\subproblem{2.1}{7}{c} The outcomes that can be shipped are:
 
 \[
 \beta=\{(s,g),(g,s),(s,p),(g,g),(p,s),(g,p),(p,g),(p,p)\}
 \]
 
-To find the most likely score, we can interpret that to mean the
-weighted average score. In other words, we want to find the value of:
+We can interpret the most common score as the one with the highest
+probability from the PMF. We note that $\beta$ can also be represented
+as:
 
 \[
-\text{avg}=
-\dfrac
-    {\sum\limits_{\sigma\in\beta}T(\sigma)\cdot \dfrac{P(\sigma)}{\sum\limits_{x\in\beta}P(x)} }
-    {(\max\{T(\sigma)|\sigma\in\beta\})-(\min\{T(\sigma)|\sigma\in\beta\})}
+\beta=\inv{T}\{2,3,4,6,8,12\}
 \]
 
-Alternatively, we can look at it in terms of the PMF and CDF. If we
-introduce $\Gamma=\{T(\omega)|\omega\in\beta\}$, then we have:
+So we can just look at the PMF for each of these values and see that
+the most likely score is
 
 \[
-\text{avg}=
-\dfrac
-    {\sum\limits_{e\in\Gamma}e\cdot \dfrac{P_f(e)}{\sum\limits_{x\in\Gamma}P_f(x)}}
-    {|\Gamma|}
+\subsolution{2.1}{7}{c}{T(e)=4}
 \]
 
-It's important to note that the scores, $T(e)$, of each $e\in\beta$
-falls in the range $\lbrack{}2,12\rbrack$. This means we can rely on
-the CDF, by going back to the definition:
-
-
+For the second part, we can look at $\beta'$, where:
 
 \[
-F_f(x)=\sum\limits_{z\le x}P_f(z)
+\beta'=\{(f,p),(f,g),(f,s),(g,f),(s,f),(p,f),(f,f),(s,s)\}
+\]
+
+We note that this the same as:
+
+\[
+\beta'=\inv{T}\{0,1\}
+\]
+
+We can then relate this to the PMF via:
+
+\[
+P(\beta')=P(\inv{T}\{0,1\})
 \] \[
-\begin{array}{l}
-F_f(12)-F_f(2)=\sum\limits_{z\le 12}P_f(z)-\sum\limits_{z\le 2}P_f(z) \\
-F_f(12)-F_f(2)=\sum\limits_{2\le z\le 12}P_f(z) \\
-\end{array}
+P(\beta')=\sum\limits_{z\le1}P_T(z)
+\]
+
+But this is exactly the same as the CDF for $1$:
+
+\[
+\subsolution{2.1}{7}{c}{P(\beta')=F_T(1)}
 \]
 
 %
@@ -218,9 +225,8 @@ never call any of them.
 
 We can construct a tree as follows, where the events to the left are
 that the item is in the warehouse we call. We also introduce the
-events $A_i$ for $i\in\{1,2,3,4\}$, which stand for the event that
-call $i$ succeeds (but is not directly related to the event that call
-$i-1$ succeeds or fails).
+events $C_i$ for $i\in\{1,2,3,4\}$, which stand for the event that
+call $i$ succeeds, and relate it to the PMF by $P_X(i)=P(C_i)$.
 
 \begin{center}
 \begin{forest}
@@ -232,14 +238,14 @@ $i-1$ succeeds or fails).
     }
   }
   [$\circ$
-    [$\dfrac{2}{5}$, edge label={$A_1$}]
-    [$\dfrac{3}{5}$, edge label={$A_1'$}
-      [$\dfrac{2}{4}$, edge label={$A_2$}]
-      [$\dfrac{2}{4}$, edge label={$A_2'$}
-        [$\dfrac{2}{3}$, edge label={$A_3$}]
-        [$\dfrac{1}{3}$, edge label={$A_3'$}
-          [$\dfrac{2}{2}$, edge label={$A_4$}]
-          [$0$, edge label={$A_4'$}]
+    [$\dfrac{2}{5}$, edge label={$C_1$}]
+    [$\dfrac{3}{5}$, edge label={$C_1'$}
+      [$\dfrac{2}{4}$, edge label={$C_2$}]
+      [$\dfrac{2}{4}$, edge label={$C_2'$}
+        [$\dfrac{2}{3}$, edge label={$C_3$}]
+        [$\dfrac{1}{3}$, edge label={$C_3'$}
+          [$\dfrac{2}{2}$, edge label={$C_4$}]
+          [$0$, edge label={$C_4'$}]
         ]
       ]
     ]
@@ -247,10 +253,8 @@ $i-1$ succeeds or fails).
 \end{forest}
 \end{center}
 
-We can then compute the probability of each event using the law of
-total probability. The probability of the first one can be computed
-trivially, as just the value of the left node from the top
-(abbreviated as the path L).
+The probability of the first one can be computed trivially, as just
+the value of the left node from the top (abbreviated as the path L).
 
 \[
 P_X(1)=P(A)
@@ -258,11 +262,83 @@ P_X(1)=P(A)
 P_X(1)=\frac{2}{5}
 \]
 
-The second one can be computed as intersection of the two
-probabilities:
+We can then compute the probability of each remaining event using the
+law of total probability. If we let $\zeta$ be the set:
 
 \[
-P_X(2)=P(A_2A_1')
+\zeta=\{C_1,C_1'\}
+\]
+
+Then all the elements in $\zeta$ are mutually exclusive, and the next
+event, $C_2$, is fully contained within the union of each element in
+$\zeta$. In other words:
+
+\[
+\zeta\subset\bigcup\limits_{A\in\zeta}A
+\]
+
+Therefore, we can use the law of total probability to determine:
+
+\[
+P(C_2)=\sum\limits_{A\in\zeta}P(C_2|A)P(A)
+\] \[
+P(C_2)=\underbrace{P(C_2|C_1)P(C_1)}_{z_1}+\underbrace{P(C_2|C_1')P(C_1')}_{z_2}
+\]
+
+For the first part $z_1$, we recognize that the event that the second
+call succeeds or fails cannot occur if the first call
+succeeds. Therefore, we know that
+
+\[
+P(C_2|C_1)=0
+\]
+
+The second part, $z_2$, can be computed using the tree above, by
+multiplying the fractions as we travel along that tree. We would
+follow the right branch, and then the left (i.e. RL), so we would
+have:
+
+\[
+P(C_2|C_1')P(C_1')=\frac{3}{5}\cdot\frac{2}{4}=\frac{3}{10}
+\]
+
+Finally, we can substitute these back into the original expression
+using $z_1$ and $z_2$ to get:
+
+\[
+P(C_2)=0+\frac{3}{10}
+\] \[
+P(C_2)=\frac{3}{10}
+\]
+
+Using this process, we can compute the rest of the probabilities as
+follows:
+
+\[
+\begin{array}{l|l|l}
+C_i & \text{Expression} & P(C_2) \\
+\midrule
+3 & \dfrac{3\cdot2\cdot2}{5\cdot4\cdot3} & \dfrac{1}{5} \\
+\midrule
+4 & \dfrac{3\cdot2\cdot1\cdot2}{5\cdot4\cdot3\cdot2} & \dfrac{1}{10} \\
+\midrule
+5 & \dfrac{3\cdot2\cdot1\cdot0}{5\cdot4\cdot3\cdot1} & 0 \\
+\end{array}
+\]
+
+Finally, we can use these to define the PMF and CDF as:
+
+\[
+\solution{2.1}{9}{\begin{array}{l|l|l}
+i & P_X(i) & F_X(i) \\
+\midrule
+0 & 0 & 0 \\
+1 & \sfrac{2}{5} & \sfrac{2}{5} \\
+2 & \sfrac{3}{10} & \sfrac{7}{10} \\
+3 & \sfrac{1}{5} & \sfrac{9}{10} \\
+4 & \sfrac{1}{10} & 1 \\
+5 & 0 & 1 \\
+\end{array}}
 \]
 
 %
@@ -363,21 +439,425 @@ converge to $1$, so $\subsolution{2.1}{10}{b}{\text{this PMF is not valid}}$
 %
 \problem{2.1}{11}
 
-Do we really just copy the handout..?
+Let the random variable $f$ be the number of appointments up to and
+including when Monday's schedule is filled. Let $M$ and $T$ represent
+whether a particular appointment is scheduled for a Monday or a
+Tuesday, respectively.
+
+\subproblem{2.1}{11}{a} We can define the sample space as:
+
+\[
+\Omega=\left\{\langle a_1,a_2,\cdots,a_6\rangle\middle| a_i\in\{M,T\}, 3=\sum\limits_i\lbrack a_i=M\rbrack, 3=\sum\limits_i\lbrack a_i=T\rbrack\right\}
+\]
+
+For simplicity, we let $M=1$ and $T=0$, so now our sample space (aka,
+our state space) is:
+
+\[
+\subsolution{2.1}{11}{a}{\Omega=\left\{\langle a_1,a_2,\cdots,a_6\rangle\middle| a_i\in\{M,T\},3=\sum\limits_ia_i\right\}}
+\]
+
+\subproblem{2.1}{11}{b} To compute the PDF (and also the CDF), we need
+to look at what our random variable actually means. We note that, if a
+particular day $k$ is the total number of appointments up to and
+including the one that filled Monday's schedule, then it must be that:
+
+\[
+3\le k\le 6
+\]
+
+Furthermore, for a schedule $\langle{}a_1,a_2,\cdots,a_6\rangle$, we
+know that the $k$th appointment must be for a Monday
+(i.e. $a_k=1$). We also note that $k$ is the output of the random
+variable:
+
+\[
+k=f(\langle a_1,a_2,\cdots,a_6\rangle)
+\]
+
+Because we are told that elementary events, $\{a_1,a_2,\cdots,a_6\}$,
+are equally likely, it must be for any subset of the sample space,
+$A$, that:
+
+\[
+P(A)=\frac{|A|}{|\Omega|}
+\]
+
+If we let $A=\inv{f}\{k\}$, then we have:
+
+\[
+P(\inv{f}\{k\})=\frac{|\inv{f}\{k\}|}{|\Omega|}
+\]
+
+However, the left side is the same as the PMF of $k$:
+
+\[
+P_f(k)=\frac{|\inv{f}\{k\}|}{|\Omega|}
+\]
+
+We can easily determine the size of $\Omega$ by realizing that we
+could create a set $\zeta=\{1,2,\cdots,6\}$ and then randomly choose 3
+(where order does not matter). This corresponds to a combination and
+can be computed via:
+
+\[
+|\Omega|=\binom{6}{3}
+\]
+
+Now we just need to determine how many items are in the set
+$\inv{f}\{k\}$, or in other words, how many different schedules there
+are when it takes $k$ days to fill Monday's schedule. We can do this
+by looking back at our sample space and noting that, if $a_k$ is the
+last 1 in the tuple, then the summation can be simplified:
+
+\[
+3=\sum\limits_{i=1}^6a_i
+\] \[
+3=\sum\limits_{i=1}^ka_i
+\]
+
+And furthermore, since $a_k=1$:
+
+\[
+2=\sum\limits_{i=1}^{k-1}a_i
+\]
+
+Again, we can let $\zeta=\{1,2,\cdots,k-1\}$ and randomly choose 2
+elements, corresponding to binomial coefficients, and allowing us to
+determine a value for $|\inv{f}\{k\}|$:
+
+\[
+|\inv{f}\{k\}|=\binom{k-1}{2}
+\]
+
+Finally, we can go back to the earlier equation for $P_f(k)$:
+
+\[
+P_f(k)=\dfrac{\binom{k-1}{2}}{\binom{6}{3}}
+\] \[
+P_f(k)=\frac{(k-1)!}{(k-3)!2!}\cdot\frac{3!3!}{6!}
+\]
+
+This gives us the PMF for any $3\le{}k\le6$. For $1\le{}k\le2$ or
+$7\le{}k$, the PMF would have the value $0$.
+
+\[
+\subsolution{2.1}{11}{b}{\begin{array}{l|l|l}
+k & P_f(k) & F_f(k) \\
+\midrule
+1 & 0 & 0 \\
+2 & 0 & 0 \\
+3 & \sfrac{1}{20} & \sfrac{1}{20} \\
+4 & \sfrac{3}{20} & \sfrac{4}{20} \\
+5 & \sfrac{6}{20} & \sfrac{10}{20} \\
+6 & \sfrac{10}{20} & 1 \\
+7 & 0 & 1 \\
+\end{array}}
+\]
 
 %
 \problem{2.2}{6c}
 
+Let the random variable $X$ be continuous. We also have the
+probability density function defined, for some value of $A$, as:
 
+\[
+f(x)=A(0.5-(x-0.25)^2)
+\]
+
+for $x\in\lbrack0.125,0.5\rbrack$, and $f(x)=0$ for any other value of
+$x$ outside of that range. To determine the value of $A$, we need to
+look at the CDF, defined as:
+
+\[
+F_X(x)=\int\limits_{-\infty}^xf(x)\d{x}
+\]
+
+It is helpful to look at value of the CDF at infinity:
+
+\[
+F_X(\infty)=\int\limits_{-\infty}^\infty f(x)\d{x}
+\]
+
+We note that $f(x)$ is only defined between $0.125$ and $0.5$, so we
+can simplify the integral to:
+
+\[
+F_X(\infty)=\int\limits_{0.125}^{0.5} f(x)\d{x}
+\] \[
+F_X(\infty)=-\frac{A x^3}{3}+\frac{A x^2}{4}+\frac{7 A x}{16}
+\]
+
+We know that the CDF at infinity should be equal to 1, so we can solve
+for $A$ and get:
+
+\[
+A=5.50538
+\]
+
+To find the probability that the paint thickness is less than $0.2$mm,
+then we are looking for the value of:
+
+\[
+\int\limits_{x\le0.2} f(x)\d{x}
+\]
+
+However, this is equivalent to the CDF of $0.2$ (i.e. $F_X(0.2)$):
+
+\[
+F_X(0.2)=\int\limits_{-\infty}^{0.2}f(x)\d{x}
+\]
+
+We can simplify this with the reasoning that $f(x)=0$ for $x\le0.125$:
+
+\[
+F_X(0.2)=\int\limits_{0.125}^{0.2}f(x)\d{x}
+\]
+
+We can calculate this value directly, based on the value of $A$ we
+calculated earlier:
+
+\[
+\solution{2.2}{6c}{F_X(0.2)=0.203097}
+\]
 
 %
 \problem{2.2}{7b}
 
+Let $X$ be a random continuous variable, with a CDF defined as:
+
+\[
+F_X(x)=\begin{cases}A+B\ln(3x+2) & \text{if $0\le{}x\le10$} \\ 0 & \text{otherwise}\end{cases}
+\]
+
+We can also compute PDF as:
+
+\[
+\rho_X(x)=\dd{F_X(x)}{x}
+\] \[
+\rho_X(x)=\begin{cases}B\frac{3}{3x+2} & \text{if $0\le{}x\le10$} \\ 0 & \text{otherwise}\end{cases}
+\]
+
+We can also simplify $\rho_X(x)$ using an Iverson bracket:
+
+\[
+\rho_X(x)=\lbrack0\le x\le 10\rbrack B\frac{3}{3x+2}
+\]
+
+
+From here, we can use the integral equation for the CDF using the PDF
+we just calculated, and evaluate it at infinity (where the CDF should
+be 1). In other words, we are solving the following for $B$.
+
+\[
+1=\int\limits_{-\infty}^\infty\rho_X(x)\d{x}
+\]
+
+We can substitute the value for $\rho_X(x)$ we calculated earlier:
+
+\[
+1=\int\limits_{-\infty}^\infty \lbrack0\le x\le 10\rbrack B\frac{3}{3x+2}
+\]
+
+Because of the Iverson bracket, we can simplify the limits of the
+integral and factor out the $B$ term:
+
+\[
+1=B\int\limits_{0}^{10}\frac{3}{3x+2}
+\] \[
+B=\frac{1}{\ln(16)}
+\]
+
+For the remainder of the problem, we won't need to know the value for
+$A$, so we'll leave it uncalculated. We want to find the probability
+that a job takes longer than two hours (i.e. $P(x\ge2)$). If we let
+$\alpha(x)=``x\ge2''$, then we want to find:
+
+\[
+P(x\ge2)=\int\limits_{\alpha(x)}\rho_X(x)\d{x}
+\]
+
+We can expand this using an Iverson bracket:
+
+\[
+P(x\ge2)=\int\limits_{-\infty}^\infty\lbrack\alpha(x)\rbrack\rho_X(x)\d{x}
+\]
+
+Then simplify the range using the known value for $\alpha(x)$ and the
+known values for $\rho_X(x)$:
+
+\[
+P(x\ge2)=\int\limits_{2}^{10}\rho_X(x)\d{x}
+\]
+
+We could expand this into two integrals:
+
+\[
+P(x\ge2)=\int\limits_{0}^{10}\rho_X(x)\d{x}-\int\limits_{0}^{2}\rho_X(x)\d{x}
+\]
+
+However, this is just the value of the CDF at $10$ minus the CDF at
+$2$:
+
+\[
+P(x\ge2)=F_X(10)-F_X(2)
+\] \[
+P(x\ge2)=A+B\ln(3\cdot10+2)-A-B\ln(3\cdot2+2)
+\] \[
+P(x\ge2)=\frac{\ln(32)-\ln(8)}{\ln(16)}
+\] \[
+\solution{2.2}{7b}{P(x\ge2)=0.5}
+\]
+
 %
 \problem{2.2}{8c}
 
+Let $\theta$ be a random continuous variable. The PDF of $\theta$ is
+defined, for some value of $A$, as:
+
+\[
+f(\theta)=\lbrack0\le\theta\le10\rbrack A(e^{10-\theta}-1)
+\]
+
+To determine the value of $A$, we can look at the CDF defined as:
+
+\[
+F(\theta)=\int\limits_{-\infty}^\theta f(\phi)\d{\phi}
+\]
+
+We know that the CDF should be 1 at infinity, so we can solve for $A$:
+
+\[
+F(\infty)=\int\limits_{-\infty}^\infty f(\theta)\d{\theta}
+\] \[
+F(\infty)=\int\limits_{-\infty}^\infty \lbrack0\le\theta\le10\rbrack A(e^{10-\theta}-1)\d{\theta}
+\]
+
+Because of the Iverson bracket, we can simplify the limits of our
+integral:
+
+\[
+F(\infty)=\int\limits_{0}^{10} A(e^{10-\theta}-1)\d{\theta}
+\]
+
+And factor out the $A$ and solve:
+
+\[
+F(\infty)=A\int\limits_{0}^{10} e^{10-\theta}-1\d{\theta}
+\] \[
+1=A\int\limits_{0}^{10} e^{10-\theta}-1\d{\theta}
+\] \[
+A=\frac{1}{e^{10}-1}
+\]
+
+The probability we want to find is the probability $P(\alpha(\theta))$
+for $\alpha(\theta)=``0\le\theta\le8''$. We can compute this as:
+
+\[
+P(\alpha(\theta))=\int\limits_{\alpha(\theta)}f(\theta)\d{\theta}
+\]
+
+Which we can expand using an Iverson bracket:
+
+\[
+P(\alpha(\theta))=\int\limits_{-\infty}^\infty \lbrack0\le\theta\le8\rbrack f(\theta)\d{\theta}
+\]
+
+We can simplify the limits then:
+
+\[
+P(\alpha(\theta))=\int\limits_{0}^{8} f(\theta)\d{\theta}
+\]
+
+We can directly compute this value:
+
+\[
+\solution{2.2}{8c}{P(\alpha(\theta))=0.999710}
+\]
+
 %
 \problem{2.2}{11}
+
+Let $X$ be a continuous random variable with PDF defined, for some
+$A$, as:
+
+\[
+f(x)=\lbrack10\le x\le11\rbrack Ax(130-x^2)
+\]
+
+\subproblem{2.2}{11}{a} We can determine the value of $A$ using the
+CDF at infinity:
+
+\[
+\begin{array}{l}
+1=\int\limits_{-\infty}^\infty f(x)\d{x} \\
+1=\int\limits_{10}^{11} Ax(130-x^2)\d{x} \\
+1=A\int\limits_{10}^{11} x(130-x^2)\d{x}
+\end{array}
+\]
+
+\[
+\subsolution{2.2}{11}{a}{A=\dfrac{4}{819}}
+\]
+
+\subproblem{2.2}{11}{b} We can then compute the CDF using the integral
+form:
+
+\[
+F(x)=\int\limits_{-\infty}^x f(z)\d{z}
+\]
+
+We can then substitute $f$:
+
+\[
+F(x)=\int\limits_{-\infty}^x \lbrack10\le z\le11\rbrack Az(130-z^2)
+\]
+
+We can factor out the Iverson bracket if we limit the range of the
+integral:
+
+\[
+F(x)=\lbrack10\le x\le11\rbrack A\int\limits_{10}^x z(130-z^2)
+\]
+
+If we substitute the known value for $A$ we get the CDF:
+
+\[
+\subsolution{2.2}{11}{b}{F(x)=\lbrack10\le x\le11\rbrack \frac{4}{819}\int\limits_{10}^x z(130-z^2)}
+\]
+
+\subproblem{2.2}{11}{c} Let $\alpha(x)=``10.25\le{}x\le10.5''$. We
+want to find $P(\alpha(x))$. By definition, this is:
+
+\[
+\begin{array}{l}
+P(\alpha(x))=\int\limits_{\alpha(x)}f(x)\d{x} \\
+P(\alpha(x))=\int\limits_{-\infty}^\infty \lbrack\alpha(x)\rbrack f(x)\d{x} \\
+P(\alpha(x))=\int\limits_{10.25}^{10.5} f(x)\d{x} \\
+\end{array}
+\]
+
+We can expand this last expression into two integrals:
+
+\[
+P(\alpha(x))=\int\limits_{10}^{10.5} f(x)\d{x}-\int\limits_{10}^{10.25} f(x)\d{x}
+\]
+
+These integrals represent the values $F(10.5)$ and $F(10.25)$
+respectively:
+
+\[
+P(\alpha(x))=F(10.5)-F(10.25)
+\]
+
+This is something we can now compute directly, to find:
+
+\[
+\subsolution{2.2}{11}{c}{P(\alpha(x))=0.283048}
+\]
+
+
+
 
 
 \end{document}
