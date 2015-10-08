@@ -1,0 +1,206 @@
+\documentclass{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+\usepackage{multicol}
+
+\setlength{\columnsep}{0.5cm}
+\setlength{\columnseprule}{1pt}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\problem}[2]{$\boxed{\text{#1 \##2}}$}
+\newcommand{\subproblem}[1]{$\boxed{\text{(#1)}}$}
+\newcommand{\subsolution}[2]{\boxed{#2\quad(\text{#1})}}
+\newcommand{\RUS}{Rule of Universal Specification}
+\newcommand{\RUG}{Rule of Universal Generalization}
+\newcommand{\ROP}{Rule of Product}
+\newcommand{\ROS}{Rule of Sums}
+
+\setlength\parindent{0pt}
+\setlength\parskip{0em}
+
+\begin{document}
+\begin{multicols*}{2}
+
+%
+\problem{1.1}{4}
+
+There are $n=10$ board members, denoted:
+
+\[
+A=\langle{}a_1,a_2,\cdots,a_n\rangle
+\]
+
+%
+\subproblem{a} We are looking to fill $r=4$ distinct positions:
+
+\[
+B=\langle{}b_1,b_2,\cdots,b_r\rangle, \quad b_i\in\{1,2,\cdots,n\}
+\]
+
+Where $b_1$ is the president's position, $b_2$ is the vice president,
+$b_3$ is the secretary, and $b_4$ is the treasurer. Because each
+position is distinct, then the order of each $b_i$ matters, so we are
+looking at permutations. So we can directly calculate $P(n,r)$:
+
+\[
+P(n,r)=\frac{n!}{(n-r)!}
+\] \[
+P(10, 4)=\frac{10!}{6!}
+\] \[
+\subsolution{a}{P(10, 4)=5040}
+\]
+
+%
+\subproblem{b i} Suppose that $a_1$, $a_2$, and $a_3$ are the $k=3$
+members which are physicians. The event that a physician is nominated
+for president can be written as:
+
+\[
+b_1\le k
+\]
+
+This means that we have 3 choices for the first position, 9 for the
+second, 8 for the third, and 7 for the last. By the \ROP, this means
+we have $kP(n-1,r-1)$ slates:
+
+\[
+\subsolution{b i}{3P(9,3)=1512}
+\]
+
+%
+\subproblem{b ii} The event that exactly one physician is nominated
+for the board of directors can be summarized as:
+
+\[
+1=\sum\limits_i \lbrack b_i\le k\rbrack
+\]
+
+Suppose we choose one of the 4 $b_i$ positions to be the sole
+physician and then choose the remaining ones from the non-physician
+pool. This means there are 3 options for the first position, 6 for the
+second, 5 for the third, and 4 for the last. This means there are
+$kP(n-k-1,r-1)$ slates that match this event:
+
+\[
+\subsolution{b ii}{3P(6,3)=360}
+\]
+
+%
+\subproblem{b iii} The event that at least one physician is on the
+board of directors can be summarized by:
+
+\[
+1\le \sum\limits_i \lbrack b_i\le k\rbrack
+\]
+
+Suppose we choose one position to be filled from the pool of
+physicians, and then choose the remaining positions from all the other
+members. Then the first position has 3 options, the second has 9
+options, the third has 8 options, and the fourth has 7 options. This
+means there are $kP(n-1,r-1)$ slates that satisfy the event:
+
+\[
+\subsolution{b iii}{3P(9,3)=1512}
+\]
+
+%
+\problem{1.1}{6}
+
+The runners can be written as:
+
+\[
+X=\langle x_1,x_2,\cdots,x_n\rangle
+\]
+
+The trophies as:
+
+\[
+T=\langle t_1,t_2,\cdots,t_r\rangle,\quad t_i\in\{1,2,\cdots,n\}
+\]
+
+Where $\forall{}i\forall{}j((i\ne{}j)\rightarrow(t_i\ne{}t_j))$.
+
+%
+\subproblem{a} Suppose $n=30$ and $r=8$. Because $T$ is a tuple, then
+order matters, so we are looking at a permutation. This means there
+are $P(n,r)$ ways the trophies can be handed out:
+
+\[
+\subsolution{a}{P(30,8)=235,989,936,000}
+\]
+
+%
+\subproblem{b} In this problem, we are looking for the event that $m$
+runners from $X$ are in one of the first $k$ spots of $T$. Assuming,
+without loss of generality, that the $m$ runners are the first runners
+in $X$, then this can be written as:
+
+\[
+2=\sum\limits_{i=1}^k \lbrack T_i\le m\rbrack
+\]
+
+In other words, $m$ of the racers in the top $k$ spots are the runners
+we're interested in, and $k-m$ are the $n-m$ remaining racers. Let
+$n=30$, $k=3$, and $m=2$. In this circumstance, the order of the
+racers does not matter. Suppose we choose the position of the
+non-interesting racer first (which means we have $k=3$ possibilities)
+and the non-interesting racer himself (which means we have $n-m=28$
+possibilities). Then we choose which of the interesting racers comes
+before the other (so that's another $m=2$ possibilities), and then the
+last interesting racer (which only has $1$ remaining possibility).
+
+In summary, we have $3\cdot28\cdot2\cdot1$ different ways this can be
+arranged, or:
+
+\[
+\prod\limits_{i=1}^2\binom{n-m}{1}
+\]
+
+%
+\problem{1.1}{10}
+
+
+
+%
+\problem{1.1}{16}
+
+
+
+%
+\problem{1.1}{20}
+
+
+
+%
+\problem{1.1}{30}
+
+
+
+%
+\problem{1.1}{34}
+
+
+
+%
+\problem{1.1}{38}
+
+
+
+
+\end{multicols*}
+\end{document}
