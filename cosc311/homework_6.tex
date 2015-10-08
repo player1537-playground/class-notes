@@ -145,36 +145,111 @@ are $P(n,r)$ ways the trophies can be handed out:
 \]
 
 %
-\subproblem{b} In this problem, we are looking for the event that $m$
-runners from $X$ are in one of the first $k$ spots of $T$. Assuming,
-without loss of generality, that the $m$ runners are the first runners
-in $X$, then this can be written as:
+\subproblem{b} In this problem, we are looking for the event that
+$m=2$ out of the $n=30$ total runners are in one of the first $r=3$
+spots of $T$. Assuming, without loss of generality, that the $m$
+runners are the first runners in $X$, then this can be written as:
 
 \[
-2=\sum\limits_{i=1}^k \lbrack T_i\le m\rbrack
+m=\sum\limits_{i=1}^r \lbrack T_i\le m\rbrack
 \]
 
-In other words, $m$ of the racers in the top $k$ spots are the runners
-we're interested in, and $k-m$ are the $n-m$ remaining racers. Let
-$n=30$, $k=3$, and $m=2$. In this circumstance, the order of the
-racers does not matter. Suppose we choose the position of the
-non-interesting racer first (which means we have $k=3$ possibilities)
-and the non-interesting racer himself (which means we have $n-m=28$
-possibilities). Then we choose which of the interesting racers comes
-before the other (so that's another $m=2$ possibilities), and then the
-last interesting racer (which only has $1$ remaining possibility).
+\hspace{2em} One way we can go about calculating this is to look at the three
+separate events that the first place winner is not one the interesting
+runners, or the second place winner is not one of the interesting
+ones, and so on.
 
-In summary, we have $3\cdot28\cdot2\cdot1$ different ways this can be
-arranged, or:
+\hspace{2em} If the first place runner is uninteresting, then we have $n-m=28$
+possible choices for the uninteresting one. Then we have $m=2$ choices
+for the second place, interesting runner, and $m-1=1$ choice for the
+third place winner. Together, this means there are $28\cdot2\cdot1=56$
+ways to have our two interesting runners in the top 3 places, where
+neither runner is in first place.
+
+\hspace{2em} Similarly, if the second place winner is uninteresting, then we have:
+first place is one of the $m=2$ interesting runners, second place is
+one of the $n-m=28$ uninteresting runners, and third has $m-1=1$
+interesting runners. Again, this comes to $2\cdot28\cdot1=56$
+possibilities.
+
+\hspace{2em} Lastly, if the third place winner is uninteresting, we will also
+arrive at the same value: $56$ possibilities.
+
+\hspace{2em} Because each of these events cannot be performed
+simultaneously, then by the \ROS, we can add up their possibilities to
+get the total number of possibilities that the top 3 places will
+contain our two interesting runners, which is:
 
 \[
-\prod\limits_{i=1}^2\binom{n-m}{1}
+\subsolution{b}{3\cdot28\cdot2\cdot1=168}
 \]
 
 %
 \problem{1.1}{10}
 
+Let the $k=2$ shelves be represented by $S$, where:
 
+\[
+S=\langle s_1,s_2,\cdots,s_k\rangle
+\]
+
+Suppose there is an initial, unique ordering of books. Let the tuple
+$B$ represent which of the $k=2$ shelves each of the $n=15$ books are
+on, where;
+
+\[
+B=\langle b_1,b_2,\cdots,b_n\rangle,\quad b_i\in S
+\]
+
+Subject to the condition
+
+\[
+\forall s\in S\left(1\le\sum\limits_{j=1}^n\lbrack b_j=s\rbrack\right)
+\]
+
+Then suppose we have another tuple $R$ which denotes a reordering of
+$B$:
+
+\[
+R=\langle r_1,r_2,\cdots,r_n\rangle,\quad r_i\in\{1,2,\cdots,n\}
+\]
+
+Subject to the condition:
+
+\[
+\forall i\forall j((i\ne j)\rightarrow(r_i\ne r_j))
+\]
+
+In other words, $R$ is a permutation of the set $\{1,2,\cdots,n\}$,
+and we can define another tuple $B^*$ as
+
+\[
+B^*=\langle b^*_1,b^*_2,\cdots,b^*_n\rangle,\quad b^*_i=b_{r_i}
+\]
+
+From here, we can look at the properties of the $B$ tuple and later
+apply them to each of the possible $B^*$ tuples. Without loss of
+generality, we can let the first $k$ elements of $B$ be each of the
+elements of $S$ in turn:
+
+\[
+B=\langle s_1, s_2,\cdots,s_k,b_{k+1},b_{k+2},\cdots,b_n\rangle
+\]
+
+From here, we can choose each of the $b_{k+1},b_{k+2},\cdots,b_n$
+elements from $S$ randomly. This means for each of those $n-k$
+elements, we have $k$ different choices for them. Overall, we can
+write the total number of ways to choose $B$ as:
+
+\[
+\prod\limits_{i=k+1}^n k=k^(n-k)
+\]
+
+For each of these choices for $B$, we also have a unique set of
+choices for $B^*$. It is important to note that even though for
+different choices of $B$, there may be two values for $B^*$ that are
+equivalent, these actual represent different orderings of the books on
+their respective shelves, and therefore
 
 %
 \problem{1.1}{16}
