@@ -242,7 +242,7 @@ elements, we have $k$ different choices for them. Overall, we can
 write the total number of ways to choose $B$ as:
 
 \[
-\prod\limits_{i=k+1}^n k=k^(n-k)
+\prod\limits_{i=k+1}^n k=k^{n-k}
 \]
 
 For each of these choices for $B$, we also have a unique set of
@@ -250,6 +250,20 @@ choices for $B^*$. It is important to note that even though for
 different choices of $B$, there may be two values for $B^*$ that are
 equivalent, these actual represent different orderings of the books on
 their respective shelves, and therefore
+
+\textbf{Note}: I fucked this up. We might end up with two $B^*$ arrays
+that actually do mean the same thing, because the top shelf of both
+might have books $\langle{}1,2,3\rangle$ in that order, and this is
+indistinguishable from each other (aka, there's double counting going
+on).
+
+I'm going to have to pick a slightly different model, where I focus
+solely on the case for $k=2$, and account for the fact that we can
+condition the model on another variable, $m$, for the number of books
+on shelf 1, and then determine how many different ways those can be
+chosen from the array of books we have (and similarly, for the other
+shelf). This might actually help turn the problem into a more
+combinatoric one, because I'll have to use $P(n,r)$ and $C(n,r)$.
 
 %
 \problem{1.1}{16}
