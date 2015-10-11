@@ -268,17 +268,158 @@ combinatoric one, because I'll have to use $P(n,r)$ and $C(n,r)$.
 %
 \problem{1.1}{16}
 
+The alphabet of $n=40$ symbols can be represented as:
 
+\[
+A=\{a_1,a_2,\cdots,a_n\}
+\]
+
+%
+\subproblem{a} If we have $k=25$ symbols in a message, and symbols can
+be repeated, then the message can be represented as:
+
+\[
+M=\langle m_1,m_2,\cdots,m_k\rangle,\quad \forall i(m_i\in A)
+\]
+
+Because each symbol in $M$ can be repeated, every option has the same
+number of possibilities:
+
+\[
+\prod\limits_{i=1}^k n=n^k
+\] \[
+\subsolution{a}{40^{25}}
+\]
+
+\subproblem{b} We can partition our alphabet into two sets of size
+$m=30$ and $n-m=10$:
+
+\[
+A^{(1)}=\{a_1,a_2,\cdots,a_m\}
+\]
+
+The message can now be represented, with the restrictions from the
+question, as:
+
+\[
+M=\langle m_1,m_2,\cdots,m_k\rangle,\quad\begin{cases}m_1,m_n\in A \\ \forall 1<i<k(m_i\in A^{(1)})\end{cases}
+\]
+
+Because repitition is allowed for every symbol in the message, we can
+simply multiply the size of each of the sets of possible symbols for
+every symbol in the message:
+
+\[
+n^2\prod\limits_{i=2}^{k-1} m=n^2m^{k-2}
+\] \[
+\subsolution{b}{40^2 30^{23}}
+\]
 
 %
 \problem{1.1}{20}
 
+The alphabet of letters we can use are:
 
+\[
+A=\langle
+\text{D}_1,
+\text{A}_1,
+\text{T}_1,
+\text{A}_2,
+\text{G}_1,
+\text{R}_1,
+\text{A}_3,
+\text{M}_1
+\rangle
+\]
+
+We can then define an analogous count of each of the $n=8$ letters:
+
+\[
+N=\langle n_d,n_a,n_t,n_g,n_r,n_m\rangle=\langle 1,3,1,1,1,1\rangle
+\]
+
+%
+\subproblem{a} The number of different arrangements can be defined as:
+
+\[
+\subsolution{a}{\dfrac{\left(\sum\limits_i n_i\right)!}{\prod\limits_i n_i!}=\dfrac{8!}{3!}}
+\]
+
+%
+\subproblem{b} We can go about this problem by looking at the set of
+all permutations of:
+
+\[
+X=\langle{}\text{A}_1,\text{A}_2,\text{A}_3\rangle
+\]
+
+and all permutations of:
+
+\[
+Y=\langle \text{D}_1,\text{T}_1,\text{G}_1,\text{R}_1,\text{M}_1\rangle
+\]
+
+And then we can look at all $k$, where $1\le{}k\le{}n-2$, and the
+arrangements:
+
+\[
+M^{(k)}=\langle y_1,y_2,\cdots,y_{k-1},x_1,x_2,x_3,y_{k+3},\cdots,y_n\rangle
+\]
+
+Then we can simply multiply together the number of arrangements of
+$X$, $Y$, and the values for $k$.
+
+\[
+\subsolution{b}{P(n-3,n-3)P(3,3)(n-2)=5!\cdot3!\cdot6}
+\]
 
 %
 \problem{1.1}{30}
 
+Let the alphabet be:
 
+\[
+A=\{a_1,a_2,\cdots,a_{26}\}
+\]
+
+%
+\subproblem{a} If any letter can be repeated, then we have a message
+defined as:
+
+\[
+M^{(x,y,z)}=\langle x,y,z,y,x \rangle,\quad x,y,z\in A
+\]
+
+This means we can simplify the problem to the number of ways we can
+choose a permutation $(x,y,z)$ from $A$, which is just
+$26^3$. Similarly, for six letters, we have:
+
+\[
+M^{(x,y,z)}=\langle x,y,z,z,y,x \rangle,\quad x,y,z\in A
+\]
+
+Which again is just $26^3$.
+
+\[
+\subsolution{a}{26^3}
+\]
+
+%
+\subproblem{b} For this part, we add another condition to
+$M^{(x,y,z)}$:
+
+\[
+x\ne y,\quad y\ne z,\quad x\ne z
+\]
+
+In other words, we're now looking at a permutation of size 3 out of
+the alphabet. Likewise, for the six letter case, it also comes down to
+$P(26,3)$.
+
+\[
+\subsolution{b}{P(26,3)=\frac{26!}{23!}}
+\]
 
 %
 \problem{1.1}{34}
