@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Section 1.2 - \# 38}
+
+A committee of 15 -- 9 women and 6 men -- seated at a circular table;
+seat 6 men so no 2 men are sitting next to each other.
+
+We can first try just fixing 1 woman in a spot:
+
+\[
+W=\langle w_1,w_2,\cdots,w_9\rangle
+\]
+
+We can then arrange the remaining 8 women in the 8 spots. This is
+equivalent to $8!$ ways.
+
+There are 9 spaces between the women. So of these 9 spaces, we know
+that for any 6 of these, there are $P(9,6)$ permutations of the 6
+spaces. But since it doesn't matter what order we select the spaces
+(to put the men), we really have $\frac{P(9,6)}{6!}$ ways to select 6
+of the 9 spaces.
+
+For each of these ways to select the spaces for the men, there are
+$6!$ ways to arrange the 6 men in the 6 spots. In total, there are:
+
+\[
+8!\cdot\frac{P(9,6)}{6!}6!=\frac{8!9!}{3!}
+\]
+
+\end{document}

@@ -228,5 +228,13 @@ PDFS += pdf/ece313/2015-10-09.pdf
 pdf/ece313/2015-10-09.pdf: ece313/2015-10-09.tex
 	$(call pdf_rule)
 
+PDFS += pdf/cosc311/2015-10-14.pdf
+pdf/cosc311/2015-10-14.pdf: cosc311/2015-10-14.tex
+	$(call pdf_rule)
+
+PDFS += pdf/cosc311/2015-10-19.pdf
+pdf/cosc311/2015-10-19.pdf: cosc311/2015-10-19.tex
+	$(call pdf_rule)
+
 .PHONY: pdf/all
 pdf/all: $(PDFS)
