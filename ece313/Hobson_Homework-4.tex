@@ -1,0 +1,299 @@
+\documentclass{article}
+%\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xintexpr}
+\usepackage{multicol}
+\usepackage{empheq}
+\usepackage{forest}
+\usepackage{booktabs}
+\usepackage{ifthen}
+\usepackage{xfrac}
+
+\setlength{\columnsep}{0.5cm}
+\setlength{\columnseprule}{1pt}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\problem}[2]{$\boxed{\text{#1.#2}}$}
+\newcommand{\subproblem}[3]{$\boxed{\text{(#3)}}$}
+\newcommand{\solution}[3]{\boxed{#3\quad(\text{#1.#2})}}
+\newcommand{\subsolution}[4]{\boxed{#4\quad(\text{#1.#2#3})}}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{0em}
+
+\begin{document}
+
+\section*{Homework 4}
+
+%
+\problem{2.3}{4}
+
+We can reuse the solution to problem 2.1.9 which was:
+
+\[
+\begin{array}{l|l|l}
+i & P_X(i) & F_X(i) \\
+\midrule
+0 & 0 & 0 \\
+1 & \sfrac{2}{5} & \sfrac{2}{5} \\
+2 & \sfrac{3}{10} & \sfrac{7}{10} \\
+3 & \sfrac{1}{5} & \sfrac{9}{10} \\
+4 & \sfrac{1}{10} & 1 \\
+5 & 0 & 1 \\
+\end{array}
+\]
+
+And then apply the definition for the expected value:
+
+\[
+E(X)=\sum\limits_i p_i x_i
+\]
+
+Where $p_i$ is the value from the table, $P_X(i)$, and $x_i$ is just
+$i$. With this knowledge, the summation becomes:
+
+\[
+E(X)=\sum\limits_{i=1}^4 iP_X(i)
+\] \[
+E(X)=1\cdot\frac{2}{5}+2\cdot\frac{3}{10}+3\cdot\frac{1}{5}+4\cdot\frac{1}{10}
+\] \[
+\solution{2.3}{4}{E(X)=2}
+\]
+
+%
+\problem{2.3}{12}
+
+Using the result from problem 2.2.6, we know that the probability
+density function is:
+
+\[
+f(x)=\lbrack0.125\le x\le0.5\rbrack 5.50538\left(0.5-(x-0.25)^2\right)
+\]
+
+%
+\subproblem{2.3}{12}{a} We can apply the definition for the expected value
+based on the PDF as:
+
+\[
+E(X)=\int\limits_{-\infty}^\infty xf(x)\d{x}
+\]
+
+The limits can be simplifed by the definition of $f(x)$, so we have:
+
+\[
+E(X)=\int\limits_{0.125}^{0.5} xf(x)\d{x}
+\]
+
+We can directly evaluate this integral to get:
+
+\[
+\subsolution{2.3}{12}{a}{E(X)=0.309476}
+\]
+
+%
+\subproblem{2.3}{12}{b} In solving the median paint thickness, we want
+to solve the following equation for $x$:
+
+\[
+F_X(\tilde{x})=0.5
+\]
+
+We can start by determining the value for $F_X(x)$, which is defined
+as:
+
+\[
+F_X(x)=\int\limits_{-\infty}^x f(z)\d{z}
+\]
+
+Because of the limitation of the domain on $f(x)$, we can simplify the
+limits of the integral:
+
+\[
+F_X(x)=\int\limits_{0.125}^x f(z)\d{z}
+\]
+
+Now the equation we want to solve is:
+
+\[
+0.5=\int\limits_{0.125}^{\tilde{x}} f(z)\d{z}
+\]
+
+We can solve this to find that $\tilde{x}$, which is the median, must
+be:
+
+\[
+\subsolution{2.3}{12}{b}{\tilde{x}=0.308073}
+\]
+
+%
+\problem{2.3}{13}
+
+In problem 2.2.8, we found that the PDF was defined as:
+
+\[
+f(\theta)=\lbrack0\le\theta\le10\rbrack \frac{1}{e^{10}-11}\left(e^{10-\theta}-1\right)
+\]
+
+%
+\subproblem{2.3}{13}{a} The expected value can be found by:
+
+\[
+E(\Theta)=\int\limits_{-\infty}^\infty \theta f(\theta)\d{\theta}
+\]
+
+We can simplify the range:
+
+\[
+E(\Theta)=\int\limits_{0}^{10} \theta f(\theta)\d{\theta}
+\]
+
+Which we can calculate as:
+
+\[
+\subsolution{2.3}{13}{a}{E(\Theta)=0.99773}
+\]
+
+%
+\subproblem{2.3}{13}{b} To find the medium value, we solve the
+following for $\tilde{\theta}$:
+
+\[
+0.5=F_\Theta(\tilde{\theta})
+\]
+
+Where $F_\Theta(\theta)$ is defined as:
+
+\[
+F_\Theta(\theta)=\int\limits_{-\infty}^\theta f(z)\d{z}
+\] \[
+F_\Theta(\theta)=\int\limits_{0}^\theta f(z)\d{z}
+\]
+
+Now the problem is to solve for $\tilde{\theta}$ of:
+
+\[
+0.5=F_\Theta(\tilde{\theta})=\int\limits_{0}^{\tilde{\theta}} f(z)\d{z}
+\] \[
+\subsolution{2.3}{13}{b}{\tilde{\theta}=0.692711}
+\]
+
+%
+\problem{2.3}{16}
+
+Previously, we found that the PMF and CDF for problem 2.1.11 were:
+
+\[
+\begin{array}{l|l|l}
+k & P_f(k) & F_f(k) \\
+\midrule
+1 & 0 & 0 \\
+2 & 0 & 0 \\
+3 & \sfrac{1}{20} & \sfrac{1}{20} \\
+4 & \sfrac{3}{20} & \sfrac{4}{20} \\
+5 & \sfrac{6}{20} & \sfrac{10}{20} \\
+6 & \sfrac{10}{20} & 1 \\
+7 & 0 & 1 \\
+\end{array}
+\]
+
+The expected value is defined as:
+
+\[
+E(f)=\sum\limits_k p_k x_k
+\]
+
+Where each $p_k=P_f(k)$ and $x_k=k$. This simplifies to:
+
+\[
+E(f)=\sum\limits{k=3}^6 k P_f(k)
+\] \[
+E(f)=3\cdot\frac{1}{20}+4\cdot\frac{3}{20}+5\cdot\frac{6}{20}+6\cdot\frac{10}{20}
+\] \[
+\solution{2.3}{16}{E(f)=5.25}
+\]
+
+%
+\problem{2.3}{17}
+
+Previously, we found in problem 2.2.11 that the PDF was:
+
+\[
+f(x)=\lbrack10\le x\le11\rbrack \frac{4x(130-x^2)}{819}
+\]
+
+and the CDF was:
+
+\[
+F(x)=\lbrack10\le x\le11\rbrack \frac{4}{819}\int\limits_{10}^x z(130-z^2)\d{z}
+\]
+
+%
+\subproblem{2.3}{17}{a} The expected value of the resistance is
+defined as:
+
+\[
+E(X)=\int\limits_{-\infty}^\infty x f(x)\d{x}
+\]
+
+The limits can be simplified to:
+
+\[
+E(X)=\int\limits_{10}^{11} x f(x)\d{x}
+\]
+
+This expression can be directly computed:
+
+\[
+\subsolution{2.3}{17}{a}{E(X)=10.418}
+\]
+
+%
+\subproblem{2.3}{17}{b} The median value can be found by solving the
+following for $\tilde{x}$:
+
+\[
+0.5=F_X(\tilde{x})
+\]
+
+We already know the value for $F_X(x)$, so we can directly solve this
+to find:
+
+\[
+\subsolution{2.3}{17}{b}{\tilde{x}=10.385}
+\]
+
+%
+\problem{2.4}{7}
+
+%
+\problem{2.4}{8}
+
+%
+\problem{2.4}{10}
+
+%
+\problem{2.4}{12}
+
+%
+\problem{2.4}{13}
+
+\end{document}
