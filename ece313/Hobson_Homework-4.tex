@@ -37,6 +37,9 @@
 \newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
 \newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
 
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\E}{\mathcal{E}}
+
 \setlength\parindent{0pt}
 \setlength\parskip{0em}
 
@@ -65,18 +68,18 @@ i & P_X(i) & F_X(i) \\
 And then apply the definition for the expected value:
 
 \[
-E(X)=\sum\limits_i p_i x_i
+\E(X)=\sum\limits_i p_i x_i
 \]
 
 Where $p_i$ is the value from the table, $P_X(i)$, and $x_i$ is just
 $i$. With this knowledge, the summation becomes:
 
 \[
-E(X)=\sum\limits_{i=1}^4 iP_X(i)
+\E(X)=\sum\limits_{i=1}^4 iP_X(i)
 \] \[
-E(X)=1\cdot\frac{2}{5}+2\cdot\frac{3}{10}+3\cdot\frac{1}{5}+4\cdot\frac{1}{10}
+\E(X)=1\cdot\frac{2}{5}+2\cdot\frac{3}{10}+3\cdot\frac{1}{5}+4\cdot\frac{1}{10}
 \] \[
-\solution{2.3}{4}{E(X)=2}
+\solution{2.3}{4}{\E(X)=2}
 \]
 
 %
@@ -94,19 +97,19 @@ f(x)=\lbrack0.125\le x\le0.5\rbrack 5.50538\left(0.5-(x-0.25)^2\right)
 based on the PDF as:
 
 \[
-E(X)=\int\limits_{-\infty}^\infty xf(x)\d{x}
+\E(X)=\int\limits_{-\infty}^\infty xf(x)\d{x}
 \]
 
 The limits can be simplifed by the definition of $f(x)$, so we have:
 
 \[
-E(X)=\int\limits_{0.125}^{0.5} xf(x)\d{x}
+\E(X)=\int\limits_{0.125}^{0.5} xf(x)\d{x}
 \]
 
 We can directly evaluate this integral to get:
 
 \[
-\subsolution{2.3}{12}{a}{E(X)=0.309476}
+\subsolution{2.3}{12}{a}{\E(X)=0.309476}
 \]
 
 %
@@ -157,19 +160,19 @@ f(\theta)=\lbrack0\le\theta\le10\rbrack \frac{1}{e^{10}-11}\left(e^{10-\theta}-1
 \subproblem{2.3}{13}{a} The expected value can be found by:
 
 \[
-E(\Theta)=\int\limits_{-\infty}^\infty \theta f(\theta)\d{\theta}
+\E(\Theta)=\int\limits_{-\infty}^\infty \theta f(\theta)\d{\theta}
 \]
 
 We can simplify the range:
 
 \[
-E(\Theta)=\int\limits_{0}^{10} \theta f(\theta)\d{\theta}
+\E(\Theta)=\int\limits_{0}^{10} \theta f(\theta)\d{\theta}
 \]
 
 Which we can calculate as:
 
 \[
-\subsolution{2.3}{13}{a}{E(\Theta)=0.99773}
+\subsolution{2.3}{13}{a}{\E(\Theta)=0.99773}
 \]
 
 %
@@ -218,17 +221,17 @@ k & P_f(k) & F_f(k) \\
 The expected value is defined as:
 
 \[
-E(f)=\sum\limits_k p_k x_k
+\E(f)=\sum\limits_k p_k x_k
 \]
 
 Where each $p_k=P_f(k)$ and $x_k=k$. This simplifies to:
 
 \[
-E(f)=\sum\limits{k=3}^6 k P_f(k)
+\E(f)=\sum\limits{k=3}^6 k P_f(k)
 \] \[
-E(f)=3\cdot\frac{1}{20}+4\cdot\frac{3}{20}+5\cdot\frac{6}{20}+6\cdot\frac{10}{20}
+\E(f)=3\cdot\frac{1}{20}+4\cdot\frac{3}{20}+5\cdot\frac{6}{20}+6\cdot\frac{10}{20}
 \] \[
-\solution{2.3}{16}{E(f)=5.25}
+\solution{2.3}{16}{\E(f)=5.25}
 \]
 
 %
@@ -251,19 +254,19 @@ F(x)=\lbrack10\le x\le11\rbrack \frac{4}{819}\int\limits_{10}^x z(130-z^2)\d{z}
 defined as:
 
 \[
-E(X)=\int\limits_{-\infty}^\infty x f(x)\d{x}
+\E(X)=\int\limits_{-\infty}^\infty x f(x)\d{x}
 \]
 
 The limits can be simplified to:
 
 \[
-E(X)=\int\limits_{10}^{11} x f(x)\d{x}
+\E(X)=\int\limits_{10}^{11} x f(x)\d{x}
 \]
 
 This expression can be directly computed:
 
 \[
-\subsolution{2.3}{17}{a}{E(X)=10.418}
+\subsolution{2.3}{17}{a}{\E(X)=10.418}
 \]
 
 %
@@ -284,8 +287,171 @@ to find:
 %
 \problem{2.4}{7}
 
+The PDF is:
+
+\[
+f(x)=\lbrack0.125\le x\le 0.5\rbrack 5.50538(0.5-(x-0.25)^2)
+\]
+
+%
+\subproblem{2.4}{7}{a} The variance is defined as:
+
+\[
+\var(X) = \E(X^2)-\E(X)^2
+\]
+
+We already calculated $\E(X)$ to be $0.309476$, so now we just need to
+find $\E(X^2)$ which is:
+
+\[
+\E(X^2)=\int\limits_{-\infty}^\infty x f(x)^2\d{x}
+\]
+
+Because we know the limits of $f(x)$, we can modify the limits of our
+integral appropriately:
+
+\[
+\E(X^2)=\int\limits_{0.125}^{0.5} x f(x)^2\d{x}
+\]
+
+We can directly compute this value:
+
+\[
+\E(X^2)=0.107258
+\]
+
+So now we can compute the variance:
+
+\[
+\var(X)=0.107258 - 0.309476^2
+\] \[
+\subsolution{2.4}{7}{a}{\var(X)=0.0.011482}
+\]
+
+%
+\subproblem{2.4}{7}{b} The standard deviation is defined as:
+
+\[
+\sigma = \sqrt{\var(X)}
+\] \[
+\subsolution{2.4}{7}{b}{\sigma = 0.107154}
+\]
+
+%
+\subproblem{2.4}{7}{c} The upper quartile range is defined as:
+
+\[
+F_X(\tilde{x}_{0.75})=0.75
+\]
+
+And the lower quartile range is:
+
+\[
+F_X(\tilde{x}_{0.25})=0.25
+\]
+
+For each respective range, we are solving the equation:
+
+\[
+p=\int\limits_{-\infty}^{\tilde{x}_p} f(x)\d{x}
+\] \[
+p=\int\limits_{0.125}^{\tilde{x}_p} f(x)\d{x}
+\]
+
+The solutions for $p=0.75$ and $p=0.25$ are:
+
+\[
+\subsolution{2.4}{7}{c}{\begin{array}{l}
+\tilde{x}_{0.75}=0.401061 \\
+\tilde{x}_{0.25}=0.217099 \\
+\end{array}}
+\]
+
+%
+\subproblem{2.4}{7}{d} The interquartile range is defined as:
+
+\[
+d=\tilde{x}_{0.75}-\tilde{x}_{0.25}
+\] \[
+\subsolution{2.4}{7}{d}{d=0.183962}
+\]
+
 %
 \problem{2.4}{8}
+
+The PDF is:
+
+\[
+f(\theta)=\lbrack0\le\theta\le10\rbrack \frac{1}{e^{10}-11}\left(e^{10-\theta}-1\right)
+\]
+
+%
+\subproblem{2.4}{8}{a} The variance is:
+
+\[
+\var(\Theta)=\E(\Theta^2)-\E(\Theta)^2
+\]
+
+We already know that $\E(\Theta)$ is $0.99773$. To find $\E(\Theta^2)$
+we need to evaluate the integral:
+
+\[
+\E(\Theta^2)=\int\limits_{0}^{10} \theta f(\theta)^2 \d{\theta}
+\] \[
+\E(\Theta^2)=1.9803
+\]
+
+Thus the variance is:
+
+\[
+\var(\Theta)=1.9803-0.99773^2
+\] \[
+\subsolution{2.4}{8}{a}{\var(\Theta)=0.984834}
+\]
+
+%
+\subproblem{2.4}{8}{b} The standard deviation is:
+
+\[
+\sigma=\sqrt{\var(\Theta)}
+\] \[
+\subsolution{2.4}{8}{b}{\sigma=0.992388}
+\]
+
+%
+\subproblem{2.4}{8}{c} The upper and lower quartiles are:
+
+\[
+F_X(\tilde{\theta}_{0.75})=0.75
+\] \[
+F_X(\tilde{\theta}_{0.25})=0.25
+\]
+
+For each of these, we are solving:
+
+\[
+p=\int\limits_{-\infty}^{\tilde{\theta}_p} f(\theta)\d{\theta}
+\] \[
+p=\int\limits_{0}^{\tilde{\theta}_p} f(\theta)\d{\theta}
+\]
+
+The solutions to these for $p=0.75$ and $p=0.25$:
+
+\[
+\subsolution{2.4}{8}{c}{\begin{array}{l}
+\tilde{\theta}_{0.75}=1.38505 \\
+\tilde{\theta}_{0.25}=0.287533 \\
+\end{array}}
+\]
+
+%
+\subproblem{2.4}{8}{d} The interquartile range is:
+
+\[
+d=\tilde{\theta}_{0.75}-\tilde{\theta}_{0.25}
+\] \[
+\subsolution{2.4}{8}{d}{d=1.097517}
+\]
 
 %
 \problem{2.4}{10}

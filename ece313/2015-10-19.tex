@@ -1,0 +1,194 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Previously}
+
+Previously, we covered the expected value of a function:
+
+\[
+E(g(\eta))=\begin{cases}
+\sum\limits_z g(z)P_\eta(z) & \text{if $\eta$ is discrete} \\
+\int\limits_{-\infty}^\infty \rho_\eta(z) \d{z} & \text{if $\eta$ is ``continuous''} \\
+\end{cases}
+\]
+
+We also know that, if $\eta_1$, $\eta_2$ are random variables and
+$a,b\in\mathbb{R}$, then:
+
+\[
+E(a\eta_1+b\eta_2)=aE(\eta_1)+bE(\eta_2)
+\]
+
+\section*{Variance}
+
+The variance of a random variable is:
+
+\[
+\text{Var}(\eta)=E((\eta-E(\eta))^2)
+\]
+
+And the standard deviation is:
+
+\[
+\sigma=\sqrt{\text{Var}(\eta)}
+\]
+
+We can prove the result of the variance. By expanding the squared
+term, we have:
+
+\[
+\text{Var}(\eta)=E(\eta^2-2\eta E(\eta)+E(\eta)^2)
+\] \[
+\text{Var}(\eta)=E(\eta^2)-2E(\eta)E(\eta)+E(\eta)^2
+\]
+
+This can be simplified further to:
+
+\[
+\text{Var}(\eta)=E(\eta^2)-E(\eta)^2
+\]
+
+We might also be curious what the variance of weird $\eta$ is, e.g.:
+
+\[
+\text{Var}(a\eta+b)=E(\lbrack(a\eta+b)-E(a\eta+b)\rbrack^2)
+\] \[
+E(\lbrack(a\eta+b)-aE(\eta)+b\rbrack^2)
+\] \[
+E(\lbrack a-aE(\eta)\rbrack^2)
+\] \[
+E(\lbrack a(1-E(\eta))\rbrack^2)
+\] \[
+E(a^2 \lbrack1-E(\eta)\rbrack^2)
+\] \[
+a^2 E(\lbrack 1-E(\eta)\rbrack^2)
+\]
+
+Now we recognize that this is just the variance of $\eta$:
+
+\[
+\text{Var}(a\eta+b)=a^2\text{Var}(\eta)
+\]
+
+\section*{Probabilities from Expectations}
+
+Let $f$ be a random variable. Let $\alpha$ be a predicate.
+
+\[
+P(\alpha(f))=\begin{cases}
+\sum\limits_z\lbrack\alpha(z)\rbrack P_f(z) & \text{if $f$ is discrete} \\
+\int\limits_{-\infty}^\infty \lbrack\alpha(z)\rbrack \rho_f(z)\d{z} & \text{if $f$ is ``continuous''} \\
+\end{cases}
+\]
+
+This looks a lot like the expectation definition: sum over probability
+space of some function multiplied by a probability function. In other
+words, this is:
+
+\[
+P(\alpha(f))\equiv E(\lbrack\alpha(f)\rbrack)
+\]
+
+\section*{Chebyshev's Inequality}
+
+We first make note of the fact that expectations have the monotonicity
+property:
+
+\[
+f\le g \Rightarrow E(f)\le E(g)
+\]
+
+Now we can derive the inequality.
+
+Let $f$ be a random variable, and $\mu=E(f)$.
+
+Suppose we look at the difference between the random variable and its
+expectation, i.e. $|f-\mu|$. Now suppose that the difference is
+large. We want to find the probability of this value. In other words:
+
+\[
+P(|f-\mu|\ge s)
+\]
+
+We can rewrite this with our familiar $\alpha(z)$ terminology:
+$\alpha(z)=``|z-u|\ge{}s''$, then
+
+\[
+P(\alpha(f))
+\]
+
+We already determined that this probability is equivalent to an
+expectation:
+
+\[
+E(\lbrack\alpha(f)\rbrack)
+\]
+
+We can use the monotonicity property and find a random variable which
+is smaller or equal to our other random variable,
+$\lbrack\alpha(z)\rbrack$.
+
+We note that it is true that:
+
+\[
+\lbrack\alpha(z)\rbrack\le \dfrac{(z-\mu)^2}{s^2}
+\]
+
+If the Iverson bracket is 0, then this is true. If the bracket is 1,
+then $|z-\mu|$ must be greater than $s$, and therefore $|z-\mu|^2$
+must be greater than $s^2$, which means the fraction is larger than
+1. Yay.
+
+\[
+E(\lbrack\alpha(f)\rbrack)\le E\left(\dfrac{(f-\mu)^2}{s^2}\right)
+\]
+
+Because expectations exhibit the linearity property, then we can
+factor out the $s^2$ term:
+
+\[
+E(\lbrack\alpha(f)\rbrack)\le \dfrac{E((f-\mu)^2)}{s^2}
+\]
+
+But the numerator is just the definition of the variance:
+
+\[
+P(|f-\mu|\ge s)\le \dfrac{\text{Var}(f)}{s^2}
+\]
+
+This is called Chebyshev's Inequality. It is also sometimes written as:
+
+\[
+P(|f-\mu|\ge s)\le \dfrac{\sigma^2}{s^2}
+\]
+
+
+
+\end{document}
