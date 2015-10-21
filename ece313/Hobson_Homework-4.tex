@@ -456,8 +456,112 @@ d=\tilde{\theta}_{0.75}-\tilde{\theta}_{0.25}
 %
 \problem{2.4}{10}
 
+We are given that the mean time $\mu$ in seconds is:
+
+\[
+\mu=\E(T)=75.0
+\]
+
+And the standard deviation $\sigma$ in seconds is:
+
+\[
+\sigma=7.3
+\]
+
+Chebyshev's Inequality states that:
+
+\[
+\E(|T-\mu|\ge s)\le \frac{\sigma^2}{s^2}
+\]
+
+%
+\subproblem{2.4}{10}{a} To find the time interval
+$\lbrack\mu-s,\mu+s\rbrack$ with a probability of $75\%$, we are
+solving the following equation for $s$:
+
+\[
+1-0.75=\frac{\sigma^2}{s^2}
+\] \[
+s^2=\frac{\sigma^2}{0.25}
+\] \[
+s=\sqrt{\frac{\sigma^2}{0.25}}
+\]
+
+This gives us an $s$ value of $14.6$ seconds, which means the time
+interval is:
+
+\[
+\subsolution{2.4}{10}{a}{\lbrack60.4,89.6\rbrack}
+\]
+
+%
+\subproblem{2.4}{10}{b} This time, we are finding the time interval
+that the random variable occurs $89\%$ of the time. This means we are
+computing:
+
+\[
+s=\sqrt{\frac{\sigma^2}{0.11}}
+\] \[
+s=22.0103
+\] \[
+\subsolution{2.4}{10}{b}{\lbrack52.9897,97.0103\rbrack}
+\]
+
 %
 \problem{2.4}{12}
+
+Again, the PMF and CDF from problem 2.1.11 was:
+
+\[
+\begin{array}{l|l|l}
+k & P_f(k) & F_f(k) \\
+\midrule
+1 & 0 & 0 \\
+2 & 0 & 0 \\
+3 & \sfrac{1}{20} & \sfrac{1}{20} \\
+4 & \sfrac{3}{20} & \sfrac{4}{20} \\
+5 & \sfrac{6}{20} & \sfrac{10}{20} \\
+6 & \sfrac{10}{20} & 1 \\
+7 & 0 & 1 \\
+\end{array}
+\]
+
+The standard deviation is given by:
+
+\[
+\sigma=\sqrt{\var(f)}
+\]
+
+Where the variance is given by:
+
+\[
+\var(f)=\E(f^2)-\E(f)^2
+\]
+
+We previously calculate $\E(f)$ to be $5.25$, so this simplifies the
+equation to:
+
+\[
+\var(f)=\E(f^2)-5.25^2
+\]
+
+This expectation can then be calculated with:
+
+\[
+\E(f^2)=\sum\limits_i P_f(i) i^2
+\] \[
+\E(f^2)=3^2\cdot\frac{1}{20}+4^2\cdot\frac{3}{20}+5^2\cdot\frac{6}{20}+6^2\cdot\frac{10}{20}
+\] \[
+\E(f^2)=28.35
+\]
+
+The standard deviation then is:
+
+\[
+\sigma=\sqrt{28.35-5.25^2}
+\] \[
+\solution{2.4}{12}{\sigma=22.0103}
+\]
 
 %
 \problem{2.4}{13}
