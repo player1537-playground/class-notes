@@ -244,5 +244,21 @@ PDFS += pdf/ece313/2015-10-19.pdf
 pdf/ece313/2015-10-19.pdf: ece313/2015-10-19.tex
 	$(call pdf_rule)
 
+PDFS += pdf/ece313/2015-10-21.pdf
+pdf/ece313/2015-10-21.pdf: ece313/2015-10-21.tex
+	$(call pdf_rule)
+
+PDFS += pdf/cosc311/homework_7.pdf
+pdf/cosc311/homework_7.pdf: cosc311/homework_7.tex
+	$(call pdf_rule)
+
+PDFS += pdf/ece313/2015-10-23.pdf
+pdf/ece313/2015-10-23.pdf: ece313/2015-10-23.tex
+	$(call pdf_rule)
+
+PDFS += pdf/ece313/Hobson_Homework-5.pdf
+pdf/ece313/Hobson_Homework-5.pdf: ece313/Hobson_Homework-5.tex
+	$(call pdf_rule)
+
 .PHONY: pdf/all
 pdf/all: $(PDFS)

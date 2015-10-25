@@ -508,6 +508,67 @@ s=22.0103
 \]
 
 %
+\problem{2.4}{11}
+
+We are given the mean is:
+
+\[
+\mu=110.8
+\]
+
+And the standard deviation is:
+
+\[
+\sigma=0.5
+\]
+
+The lower and upper bounds are given as:
+
+\[
+B_{lower}=109.55
+\] \[
+B_{upper}=112.05
+\]
+
+We know from Chebyshev's Inequality that:
+
+\[
+P(\mu-c\sigma \le X \le \mu+c\sigma)\ge 1-\frac{1}{c^2}
+\]
+
+Where the lower bound inside $P(\cdots)$ is $B_{lower}$, and likewise
+with $B_{upper}$. So we can solve for $c$ based on these values:
+
+\[
+\mu-c_{lower}\sigma = B_{lower}
+\] \[
+c_{lower}=\frac{\mu-B_{lower}}{\sigma}
+\] \[
+c_{lower}=2.5
+\]
+
+And likewise for the upper bound:
+
+\[
+\mu+c_{upper}\sigma=B_{upper}
+\] \[
+c_{upper}=\frac{B_{upper}-\mu}{\sigma}
+\] \[
+c_{upper}=2.5
+\]
+
+Because $c_{upper}=c_{lower}$, we can let $c$ represent this value,
+and calculate the lower bound of the probability as:
+
+\[
+P(\cdots)\ge 1-\frac{1}{c^2}
+\] \[
+P(\cdots)\ge 1-\frac{1}{2.5^2}
+\] \[
+\solution{2.4}{11}{P(\cdots)\ge0.84}
+\]
+
+%
 \problem{2.4}{12}
 
 Again, the PMF and CDF from problem 2.1.11 was:
@@ -565,5 +626,63 @@ The standard deviation then is:
 
 %
 \problem{2.4}{13}
+
+The PDF was given as:
+
+\[
+f(x)=\lbrack10\le x\le11\rbrack \frac{4x(130-x^2)}{819}
+\]
+
+%
+\subproblem{2.4}{13}{a} The standard deviation is given by:
+
+\[
+\sigma=\sqrt{\var(X)}
+\] \[
+\sigma=\sqrt{\E(X^2)-\E(X)^2}
+\]
+
+We previously calculated the expected value as:
+
+\[
+\E(X)=10.385
+\]
+
+We can now calculate the value of $\E(X^2)$:
+
+\[
+\E(X^2)=\int\limits_{-\infty}^\infty x^2 f(x)\d{x}
+\] \[
+\E(X^2)=\int\limits_{10}^{11} x^2 f(x)\d{x}
+\] \[
+\E(X^2)=108.62
+\]
+
+So the standard deviation is:
+
+\[
+\sigma=\sqrt{108.62-10.385^2}
+\] \[
+\subsolution{2.4}{13}{a}{\sigma=0.878507}
+\]
+
+%
+\subproblem{2.4}{13}{b} To find the $p$th percentile, we need to solve
+the following equation for $\tilde{x}_p$:
+
+\[
+p = \int\limits_{-\infty}^{\tilde{x}_p} f(x)\d{x}
+\] \[
+p = \int\limits_{10}^{\tilde{x}_p} f(x)\d{x}
+\]
+
+We can solve this for $p=0.80$ and $p=0.10$:
+
+\[
+\subsolution{2.4}{13}{b}{\begin{array}{l}
+\tilde{x}_{0.80}=10.694 \\
+\tilde{x}_{0.10}=10.070 \\
+\end{array}}
+\]
 
 \end{document}

@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\E}{\mathcal{E}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Independent Random Variables}
+
+Remember that, for events, we define independence as:
+
+\[
+P(AB)=P(A)P(B)
+\]
+
+Similarly, we can define independent random variables.
+
+$\eta_1$ and $\eta_2$ are independent random variables if and only if
+the following events are independent:
+
+\[
+\eta_1\le x_1, \eta_2\le x_2
+\]
+
+For all real numbers $x_1,x_2$.
+
+Recall that these events are related to events by:
+
+\[
+\eta_1\le x_1\equiv \inv{\eta_1}\{z|z\le x_1\}
+\] \[
+\eta_2\le x_2\equiv \inv{\eta_2}\{z|z\le x_2\}
+\]
+
+Rants again about what it really means to be independent without
+cheating. Warm and fuzzy feelings, yo.
+
+\section*{What does independence buy us?}
+
+We know that, for any $\eta_1,\eta_2$, then:
+
+\[
+\E(\eta_1+\eta_2)\equiv \E(\eta_1)+\E(\eta_2)
+\]
+
+However, if the variables are independent, then we also have:
+
+\[
+\E(\eta_1\cdot\eta_2)=\E(\eta_1)\cdot\E(\eta_2),\quad \text{$\eta_1$ and $\eta_2$ are independent}
+\]
+
+Additionally, if the variables are independent, then we also have:
+
+\[
+\var(\eta_1+\eta_2)=\var(\eta_1)=\var(\eta_2),\quad \text{$\eta_1$ and $\eta_2$ are independent}
+\]
+
+\end{document}
