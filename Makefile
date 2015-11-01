@@ -260,5 +260,13 @@ PDFS += pdf/ece313/Hobson_Homework-5.pdf
 pdf/ece313/Hobson_Homework-5.pdf: ece313/Hobson_Homework-5.tex
 	$(call pdf_rule)
 
+PDFS += pdf/ece313/2015-10-26.pdf
+pdf/ece313/2015-10-26.pdf: ece313/2015-10-26.tex
+	$(call pdf_rule)
+
+PDFS += pdf/cosc311/homework_8.pdf
+pdf/cosc311/homework_8.pdf: cosc311/homework_8.tex
+	$(call pdf_rule)
+
 .PHONY: pdf/all
 pdf/all: $(PDFS)
