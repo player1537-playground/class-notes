@@ -37,6 +37,10 @@
 \newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
 \newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
 
+\newcommand{\p}[1]{\,\partial #1}
+\newcommand{\pp}[2]{\frac{\p{#1}}{\p{#2}}}
+\newcommand{\ppp}[2]{\dfrac{\p{#1}}{\p{#2}}}
+
 \DeclareMathOperator{\var}{Var}
 \DeclareMathOperator{\E}{\mathcal{E}}
 
@@ -45,7 +49,7 @@
 
 \begin{document}
 
-\section*{Homework 4}
+\section*{Homework 5}
 
 %
 \problem{2.6}{8}
@@ -157,7 +161,129 @@ F_Y(y)&=P(Y\le y) \\
 \]
 
 Because $X$ is always positive, then $1+X$ will also always be
-positive, so we can multiply both sides of the inequality by $1+X$ without
+positive, so we can multiply both sides of the inequality by $1+X$
+without needing to reverse the direction of the inequality sign.
+
+\[
+\begin{array}{rl}
+F_Y(y)&=P(1\le y(1+X)) \\
+&=P(1\le y+yX) \\
+&=P(1-y\le yX) \\
+\end{array}
+\]
+
+Now we want to divide by $y$ on each side, to get $X$ by
+itself. However, we might run into an issue where $y$ is negative or
+zero. We can look at this logic split into cases. In the case that $y$
+is zero, the expression $\frac{1-y}{y}$ is undefined, so we can
+exclude it from the other cases.
+
+\[
+F_Y(y)=\begin{cases}
+P\left(\frac{1-y}{y}\le X\right) &\text{if $y>0$} \\
+P\left(\frac{1-y}{y}\ge X\right) &\text{if $y<0$} \\
+\end{cases}
+\]
+
+We can rearrange the expressions so that we can write this in terms of
+$F_X(\text{something})$.
+
+\[
+F_Y(y)=\begin{cases}
+1-F_X\left(\frac{1-y}{y}\right) &\text{if $y>0$} \\
+F_X\left(\frac{1-y}{y}\right) &\text{if $y<0$} \\
+\end{cases}
+\]
+
+Now, if we look at the original definition for $F_X$, we can rule out
+some of the cases as being zero:
+
+\[
+F_Y(y)=\begin{cases}
+1-\lbrack0\le \frac{1-y}{y}\le 1\rbrack \left(\frac{1-y}{y}\right)^2  &\text{if $y>0$} \\
+\lbrack0\le \frac{1-y}{y}\le 1\rbrack \left(\frac{1-y}{y}\right)^2 &\text{if $y<0$} \\
+\end{cases}
+\]
+
+We can simplify the Iverson bracket as:
+
+\[
+\begin{array}{rl}
+\lbrack 0\le \frac{1-y}{y}\le 1\rbrack &= \begin{cases}
+\lbrack 0\le 1-y \le y\rbrack &\text{if $y>0$} \\
+\lbrack 0\ge 1-y \ge y\rbrack &\text{if $y<0$} \\
+\end{cases} \\
+
+&=\begin{cases}
+\lbrack y\le 1 \le 2y\rbrack &\text{if $y>0$} \\
+\lbrack y\ge 1 \ge 2y\rbrack &\text{if $y<0$} \\
+\end{cases} \\
+\end{array}
+\]
+
+The second case will lead the Iverson bracket to a value of zero,
+because we assume $y<0$, but the statement checks that $y\ge1$, which
+cannot both be true. In the first case, we can further split this into
+two Iverson brackets:
+
+\[
+\begin{array}{rl}
+\lbrack 0\le \frac{1-y}{y}\le 1\rbrack &= \begin{cases}
+\lbrack y\le 1\rbrack \lbrack 1\le 2y\rbrack & \text{if $y>0$} \\
+0 &\text{if $y<0$} \\
+\end{cases} \\
+
+&=\begin{cases}
+\lbrack y\le 1\rbrack \lbrack \sfrac{1}{2}\le y\rbrack & \text{if $y>0$} \\
+0 &\text{if $y<0$} \\
+\end{cases} \\
+
+&=\begin{cases}
+\lbrack \sfrac{1}{2} \le y \le 1 \rbrack & \text{if $y>0$} \\
+0 &\text{if $y<0$} \\
+\end{cases} \\
+\end{array}
+\]
+
+Substituting these expressions into the previously calculated value of
+$F_Y$ gives us:
+
+\[
+F_Y(y)=\begin{cases}
+1-\lbrack \sfrac{1}{2}\le y\le 1\rbrack \left(\frac{1-y}{y}\right)^2  &\text{if $y>0$} \\
+0 &\text{if $y<0$} \\
+\end{cases}
+\]
+
+We can rewrite this as:
+
+\[
+F_Y(y)=\lbrack y\ge 0\rbrack \left(1 -\lbrack\sfrac{1}{2}\le y\le1\rbrack \left(\frac{1-y}{y}\right)^2\right)
+\]
+
+Now we can differentiate this on the interval of
+$\lbrack\sfrac{1}{2},1\rbrack$ to find the value of the PDF for $Y$:
+
+\[
+\begin{array}{rl}
+\rho_Y(y)&=\dd{}{z} F_Y(z) \\
+&=\lbrack \sfrac{1}{2}\le y\le1\rbrack \frac{2-2z}{z^3} \\
+\end{array}
+\]
+
+And the expectation:
+
+\[
+\E Y=\int z \rho_Y(z)\d{z}
+\]
+
+\[
+\subsolution{2.6}{8}{c}{
+\begin{array}{l}
+\rho_Y(y)=\lbrack \sfrac{1}{2}\le y\le1\rbrack \frac{2-2z}{z^3} \\
+\E Y=0.61371 \\
+\end{array}}
+\]
 
 %
 \subproblem{2.6}{8}{d} Suppose $Y=2^X$.
@@ -165,22 +291,469 @@ positive, so we can multiply both sides of the inequality by $1+X$ without
 %
 \problem{2.6}{10}
 
+We are given the PDF:
+
+\[
+\rho_X(x)=\lbrack0\le x\le L\rbrack Ax(L-x)
+\]
+
+%
+\subproblem{2.6}{10}{a} The value for $A$ can be found by solving the
+integral:
+
+\[
+1=\int \rho_X(z)\d{z}
+\]
+
+Which gives:
+
+\[
+\subsolution{2.6}{10}{a}{A=\frac{6}{L^3}}
+\]
+
+%
+\subproblem{2.6}{10}{b} The random variable describing the difference
+between the lengths of the two segments is given by:
+
+\[
+\begin{array}{rl}
+D&=|X - (L - X)| \\
+&=|2X - L| \\
+\end{array}
+\]
+
+We can compute the density by observing that:
+
+\[
+\rho_D(x)=\pp{}{x} F_D(x) = \pp{}{x}P(D\le x) = \pp{}{x}P(|2X-L|\le x)
+\]
+
+We can solve the inequality for $X$ to get:
+
+\[
+\begin{array}{rl}
+|2X-L|\le x &\equiv -x \le 2X-L\le x \\
+&\equiv -x+L\le 2X\le x+L \\
+&\equiv \frac{-x+L}{2}\le X\le \frac{x+L}{2} \\
+\end{array}
+\]
+
+We can rewrite the expression for $\rho_D(x)$ using an integral:
+
+\[
+\begin{array}{rl}
+\rho_D(x)&=\pp{}{x} \int_{\frac{-x+L}{2}}^{\frac{x+L}{2}} \rho_X(z)\d{z} \\
+&=\pp{}{x} \int_{\frac{-x+L}{2}}^{\frac{x+L}{2}} \lbrack0\le z\le L\rbrack Az(L-z)\d{z} \\
+\end{array}
+\]
+
+Using Leibniz integral rule, this is equivalent to:
+
+\[
+\rho_D(x)=\left(A\frac{x+L}{2}\left(L-\frac{x+L}{2}\right)\right)\cdot\frac{1}{2} - \left(A\frac{-x+L}{2}\left(L-\frac{-x+L}{2}\right)\right)\cdot\frac{-1}{2}
+\]
+
+Which simplifies to:
+
+\[
+\subsolution{2.6}{10}{b}{\rho_D(x)=\dfrac{3\left(L^2-x^2\right)}{2L^3}}
+\]
+
+%
+\subproblem{2.6}{10}{c} The expectation can be calculated directly
+from the definition of the random variable $D$:
+
+\[
+\begin{array}{rl}
+\E D&=\E|2X-L| \\
+&=A\int_0^L |2x-L| \rho_X(x)\d{x} \\
+\end{array}
+\]
+
+We can also verify the answer against the value we found for the PDF
+of $D$:
+
+\[
+\E D =\int\limits_0^L \rho_D(x)\d{x}
+\]
+
+\[
+\subsolution{2.6}{10}{c}{\E D=\frac{3L}{8}}
+\]
+
 %
 \problem{2.6}{11}
 
+We are given the expectation and standard deviation of funds $A$ and
+$B$:
+
+\[
+\begin{array}{cc}
+\E A_x=0.1 x & \sqrt{\var(A_x)}=0.02x \\
+\E B_x=0.1 x & \sqrt{\var(B_x)}=0.03x \\
+\end{array}
+\]
+
+The total amount of money available to lend, $T$, is:
+
+\[
+T=1000
+\]
+
 %
-\problem{2.6}{12}
+\subproblem{2.6}{11}{a} Investing all money in $A$ gives an
+expectation and standard deviation of:
+
+\[
+\subsolution{2.6}{11}{a}{\begin{array}{cc}
+A_{1000} = 100 & \sqrt{\var(A_{1000})} = 20 \\
+\end{array}}
+\]
+
+%
+\subproblem{2.6}{11}{b} Investing all money in $B$ gives an
+expectation and standard deviation of:
+
+\[
+\subsolution{2.6}{11}{b}{\begin{array}{cc}
+B_{1000} = 100 & \sqrt{\var(B_{1000})} = 30 \\
+\end{array}}
+\]
+
+%
+\subproblem{2.6}{11}{c} Investing $50\%$ of the total money in each,
+gives an expectation of:
+
+\[
+\begin{array}{rl}
+\E(A_{500}+B_{500}) &= \E A_{500} + \E B_{500} \\
+&= 50 + 50 \\
+\end{array}
+\]
+
+And similarly for the standard deviations:
+
+\[
+\begin{array}{rl}
+\sqrt{\var(A_{500}+B_{500})} &= \sqrt{\var(A_{500})+\var(B_{500})} \\
+&=\sqrt{\sqrt{\var(A_{500})}^2+\sqrt{\var(B_{500})}^2} \\
+&=\sqrt{10+15} \\
+\end{array}
+\]
+
+Because $A$ and $B$ are independent.
+
+\[
+\subsolution{2.6}{11}{c}{\begin{array}{cc}
+\E(A_{500}+B_{500})=100 & \sqrt{\var(A_{500}+B_{500})} = 5 \\
+\end{array}}
+\]
+
+%
+\subproblem{2.6}{11}{d} If $x$ dollars goes into fund $A$ and $T-x$
+goes into fund $B$, then the variance is given by:
+
+\[
+\begin{array}{rl}
+\var(A_x + B_{T-x}) &= \var(A_x) + \var(B_{T-x}) \\
+&= \sqrt{\var(A_x)}^2 + \sqrt{\var(B_{T-x})}^2 \\
+&= (0.02x)^2 + (0.03(T-x))^2 \\
+\end{array}
+\]
+
+To find the minimum, we take a derivative:
+
+\[
+\dd{}{x}\var(A_x+B_{T-x}) = 0.0026 x - 0.0018 T
+\]
+
+Then we set it to $0$ and solve for $x$:
+
+\[
+x=\frac{9}{13} T
+\] \[
+\subsolution{2.6}{11}{d}{x=692.31}
+\]
+
+%
+\problem{2.6}{12} We previously found, in problem 2.3.17, that the
+expected value of each resistor is given by:
+
+\[
+\E X=10.418
+\]
+
+And in problem 2.2.11, we found that the PDF was:
+
+\[
+\rho_X(x)=\lbrack 10\le x\le 11\rbrack \frac{4x(130-x^2)}{819}
+\]
+
+%
+\subproblem{2.6}{12}{a} To find the expected resistance of the 5
+resistors in series, $X_1,X_2,\cdots,X_5$, we note that:
+
+\[
+\E(X_1+X_2+\cdots+X_5)=\E X_1 + \E X_2 + \cdots + \E X_5
+\]
+
+But because each $X_i=X$, this is just:
+
+\[
+\subsolution{2.6}{12}{a}{5 \E X =52.090}
+\]
+
+%
+\subproblem{2.6}{12}{b} To find the variance of the total set of
+resistors, we first want to calculate the variance for one resistor:
+
+\[
+\var(X)=\E(X^2)-\E(X)^2
+\]
+
+where
+
+\[
+\begin{array}{rl}
+\E(X^2) &=\int x^2 \rho_X(x)\d{x} \\
+&=108.62 \\
+\end{array}
+\]
+
+Given a variance of:
+
+\[
+\begin{array}{rl}
+\var(X)&=108.62 - 10.418^2 \\
+&=0.085276 \\
+\end{array}
+\]
+
+Then we note that, for independent variables $X_i$, then:
+
+\[
+\var\left(\sum\limits_i X_i\right) = \sum\limits_i \var(X_i)
+\]
+
+And because each $X_i=X$, then
+
+\[
+\var\left(\sum\limits_i X_i\right)=5\var(X)
+\]
+
+\[
+\subsolution{2.6}{12}{b}{0.426380}
+\]
 
 %
 \problem{3.1}{4}
 
+Let $X$ be a random variable for how many arrows hit a bull's-eye out
+of 9 total arrows, described by
+
+\[
+X\sim B(9, 0.09)
+\]
+
+%
+\subproblem{3.1}{4}{a} We want to find the probability that two arrows
+hit a bull's-eye, or in other words, the value of $P(X=2)$. Applying
+the definition of the PMF for a binomially distributed random
+variable, we get:
+
+\[
+P(X=2)=\binom{9}{2} 0.09^2(1-0.09)^{9-2}
+\]
+
+\[
+\subsolution{3.1}{4}{a}{P(X=2)=0.1506875}
+\]
+
+%
+\subproblem{3.1}{4}{b} To find the probability that greater than 2
+bull's-eye are hit, we are looking for the value of
+$P(X\ge2)$. However, we can simplify the expression if we look at the
+value of the complement of this probability:
+
+\[
+P(X\ge2) = 1 - P(X<2)
+\]
+
+The latter side can be written as:
+
+\[
+\begin{array}{rl}
+P(X\ge2) &= 1 - \sum\limits_{i=0}^1 P(X=i) \\
+&= 1 - \left(P(X=0)+P(X=1)\right) \\
+&= 1 - \left(\binom{9}{0} 0.09^0 (1-0.09)^{9-0} + \binom{9}{1} 0.09^1 (1-0.09)^{9-1}\right) \\
+\end{array}
+\]
+
+\[
+\subsolution{3.1}{4}{b}{P(X\ge2) =0.191166}
+\]
+
+%
+\subproblem{3.1}{4}{c} The expected value can be computed directly
+from the definition:
+
+\[
+\E X=9\cdot0.09
+\] \[
+\subsolution{3.1}{4}{c}{\E X=0.81}
+\]
+
 %
 \problem{3.1}{6}
+
+The individual probability that a randomly chosen answer from a pool
+of $k$ answers is:
+
+\[
+p_k = \frac{1}{k}
+\]
+
+Let the variable $X_k$ be a binomial distribution:
+
+\[
+X_k\sim B(10, p_k)
+\]
+
+%
+\subproblem{3.1}{6}{a} We want to find the probability that the
+student passes the test with 5 possible answers per question,
+i.e. $P(X_5\ge7)$. The definition states that this value is:
+
+\[
+P(X_5\ge7)=\sum\limits_{i=7}^{10} \binom{10}{i} \left(\frac{1}{5}\right)^i\left(1-\frac{1}{5}\right)^{10-i}
+\]
+
+\[
+\subsolution{3.1}{6}{a}{P(X_5\ge7)=0.0008644}
+\]
+
+%
+\subproblem{3.1}{6}{b} This time, we want to find the value of
+$P(X_2\ge7)$:
+
+\[
+P(X_2\ge7)=\sum\limits_{i=7}^{10} \binom{10}{i} \left(\frac{1}{2}\right)^i\left(1-\frac{1}{2}\right)^{10-i}
+\]
+
+\[
+\subsolution{3.1}{6}{b}{P(X_2\ge7)=0.171875}
+\]
 
 %
 \problem{3.1}{7}
 
+Let $X$ be a random variable for the number of people who need to take
+sick leave, defined by:
+
+\[
+X\sim B(180, 0.35)
+\]
+
+Let $Y$ be a random variable for the proportion of people who need
+sick leave:
+
+\[
+Y=\frac{1}{180} X
+\]
+
+%
+\subproblem{3.1}{7}{a} The expectation of $X$ is defined to be:
+
+\[
+\E X=180\cdot 0.35
+\]
+
+Likewise, the expectation for $Y$ is:
+
+\[
+\begin{array}{rl}
+\E Y &= \E\left(\frac{1}{180} X\right) \\
+&= \frac{1}{180}\E X \\
+\end{array}
+\]
+
+The variance for $X$ is:
+
+\[
+\var(X)=180\cdot0.35\cdot(1-0.35)
+\]
+
+And the variance for $Y$:
+
+\[
+\begin{array}{rl}
+\var(Y) &= \var\left(\frac{1}{180} X\right) \\
+&= \left(\frac{1}{180}\right)^2\var(X) \\
+&= \frac{0.35\cdot(1-0.35)}{180} \\
+\end{array}
+\]
+
+\[
+\subsolution{3.1}{7}{a}{\begin{array}{cc}
+\E Y=0.35 & \var(Y)=0.00126389 \\
+\end{array}}
+\]
+
+%
+\subproblem{3.1}{7}{b} For arbitrary sick rate $p$, we can define the
+random variable $X$ as:
+
+\[
+X\sim B(180, p)
+\]
+
+with the same $Y$ from earlier. We can calculate the variance of $Y$:
+
+\[
+\begin{array}{rl}
+\var(Y) &= \var\left(\frac{1}{180} X\right) \\
+&= \left(\frac{1}{180}\right)^2 \var(X) \\
+&= \frac{1}{180^2} 180\cdot p\cdot (1-p) \\
+&= \frac{p-p^2}{180} \\
+\end{array}
+\]
+
+To find the maximum variance, we set the derivative to $0$:
+
+\[
+\dd{}{p}\var(Y) =\frac{1}{180}\left(2p-1\right)
+\] \[
+\frac{1}{180}\left(2p-1\right)=0
+\] \[
+2p-1=0
+\]
+
+The individual probability value which leads to the largest variance
+is:
+
+\[
+\subsolution{3.1}{7}{b}{p=0.5}
+\]
+
 %
 \problem{3.1}{12}
+
+Let $X$ be a random variable for the number of visitors bounce a
+website, defined by:
+
+\[
+X\sim B(12, 0.93)
+\]
+
+We want to find the probability that at least 10 of the 12 visitors
+will bounce, i.e. $P(X\ge10)$. From the definition, this is:
+
+\[
+P(X\ge10)=\sum\limits_{i=10}^{12} \binom{12}{i} 0.93^i (1-0.93)^{12-i}
+\]
+
+\[
+\solution{3.1}{12}{P(X\ge10)=0.953203}
+\]
 
 \end{document}
