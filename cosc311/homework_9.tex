@@ -1,0 +1,727 @@
+\documentclass{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+\usepackage{multicol}
+
+\setlength{\columnsep}{0.5cm}
+\setlength{\columnseprule}{1pt}
+
+\newcommand{\T}{\text{True}}
+\newcommand{\F}{\text{False}}
+\newcommand{\TT}{1}
+\newcommand{\FF}{0}
+\newcommand{\TF}[1]{\if1#1\TT\else\FF\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\TT}{\FF}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\problem}[2]{$\boxed{\text{#1 \##2}}$}
+\newcommand{\subproblem}[1]{$\boxed{\text{(#1)}}$}
+\newcommand{\subsolution}[2]{\boxed{#2\quad(\text{#1})}}
+\newcommand{\solution}[1]{\boxed{#1}}
+\newcommand{\RUS}{Rule of Universal Specification}
+\newcommand{\RUG}{Rule of Universal Generalization}
+\newcommand{\ROP}{Rule of Product}
+\newcommand{\ROS}{Rule of Sums}
+
+\newcommand{\multistep}[1]{\begin{array}{rl} #1 \end{array}}
+\newcommand{\subeq}{\subseteq}
+\newcommand{\sub}{\subset}
+
+\setlength\parindent{0pt}
+\setlength\parskip{0em}
+
+\begin{document}
+\begin{multicols*}{2}
+
+%
+\problem{3.2}{2}
+
+Let $A$ be the interval $\lbrack0,3\rbrack$, also denoted by:
+
+\[
+A=\{x|0\le x\le 3\}
+\]
+
+And $B$ the interval $\lbrack2,7)$, denoted by:
+
+\[
+B=\{x|2\le x<7\}
+\]
+
+%
+\subproblem{a} The intersection $A\cap{}B$ can be calculated with:
+
+\[
+\begin{array}{rl}
+A\cap B&=\{x|(x\in A)\wedge(x\in B)\} \\
+&=\{x|(0\le x\le 3)\wedge(2\le x<7)\} \\
+&=\{x|2\le x\le 3\}
+\end{array}
+\]
+
+\[
+\subsolution{a}{A\cap B=\lbrack 2,3\rbrack} \\
+\]
+
+%
+\subproblem{b} The union $A\cup{}B$ can be calculated with:
+
+\[
+\begin{array}{rl}
+A\cup B&=\{x|(x\in A)\vee(x\in B)\} \\
+&=\{x|(0\le x\le 3)\vee(2\le x<7)\} \\
+&=\{x|0\le x<7\} \\
+\end{array}
+\]
+
+\[
+\subsolution{b}{A\cup B=\lbrack 0,7)}
+\]
+
+%
+\subproblem{c} The complement $\overline{A}$ is given by:
+
+\[
+\multistep{
+\overline{A}&=\{x|\neg(x\in A)\} \\
+&=\{x|\neg(0\le x\le 3)\} \\
+&=\{x|\neg((0\le x)\wedge(x\le 3))\} \\
+&=\{x|\neg(0\le x)\vee\neg(x\le 3)\} \\
+&=\{x|(x<0)\vee(x>3)\} \\
+}
+\]
+
+\[
+\subsolution{c}{\overline{A}=(-\infty,0)\cup(3,\infty)}
+\]
+
+%
+\subproblem{d} The symmetric difference $A\triangle{}B$ is calculated
+from:
+
+\[
+\multistep{
+A\triangle B&=\{x|(x\in A\cup B)\wedge(x\not\in A\cap B)\} \\
+&=\{x|(x\in\lbrack0,7))\wedge(x\not\in \lbrack2,3\rbrack)\} \\
+&=\{x|(0\le x<7)\wedge(\neg((2\le x)\wedge(x\le 3)))\} \\
+&=\{x|(0\le x<7)\wedge((x<2)\vee(3<x))\} \\
+&=\{x|(0\le x<2)\vee(3<x<7)\} \\
+}
+\]
+
+\[
+\subsolution{d}{A\triangle B=\lbrack0,2)\cup(3,7)}
+\]
+
+%
+\subproblem{e} The difference $A-B$ is calculated via:
+
+\[
+\multistep{
+A-B&=\{x|(x\in A)\wedge(x\not\in B)\} \\
+&=\{x|(0\le x\le 3)\wedge\neg(2\le x<7)\} \\
+&=\{x|(0\le x\le 3)\wedge((x<2)\vee(7\le x))\} \\
+&=\{x|0\le x<2\} \\
+}
+\]
+
+\[
+\subsolution{e}{A-B=\lbrack0,2)}
+\]
+
+%
+\subproblem{f} The difference $B-A$ can be computed with:
+
+\[
+\multistep{
+B-A&=\{x|(x\in B)\wedge(x\not\in A)\} \\
+&=\{x|(2\le x<7)\wedge\neg(0\le x\le 3)\} \\
+&=\{x|(2\le x<7)\wedge((x<0)\vee(3<x))\} \\
+&=\{x|3<x<7\} \\
+}
+\]
+
+\[
+\subsolution{f}{B-A=(3,7)}
+\]
+
+%
+\problem{3.2}{4a}
+
+Let $A$, $B$, $C$, $D$, and $E$ be sets defined by:
+
+\[
+\begin{array}{cc}
+A=\{2n|n\in\mathbb{Z}\} & B=\{3n|n\in\mathbb{Z}\} \\
+C=\{4n|n\in\mathbb{Z}\} & D=\{6n|n\in\mathbb{Z}\} \\
+E=\{8n|n\in\mathbb{Z}\} & \\
+\end{array}
+\]
+
+Let the universe of discourse $U=\mathbb{Z}$.
+
+%
+\subproblem{i} We want to determine if
+$E\subseteq{}C\subseteq{}A$. This is equivalent to:
+
+\[
+E\subseteq{}C\subseteq{}A\Leftrightarrow((E\subseteq C)\wedge(C\subseteq A))
+\]
+
+We can first check whether $E\subseteq{}C$ is true:
+
+\[
+\multistep{
+E\subseteq{}C&\Leftrightarrow \forall x((x\in E)\rightarrow(x\in C) \\
+&\Leftrightarrow \forall x((\exists n(x=8n))\rightarrow(\exists m(x=4m))) \\
+&\Leftrightarrow \forall x((\exists n(x=(4\cdot2)n))\rightarrow(\exists m(x=4m))) \\
+&\Leftrightarrow \forall x((\exists n(x=4(2n)))\rightarrow(\exists m(x=4m))) \\
+}
+\]
+
+Because $2n$ is also an integer, then the $m$ that satisfies the
+conclusion is twice the $n$ value of the premise. Therefore
+$E\subseteq{}C$. By the same logic, when we check whether
+$C\subseteq{}A$, we will find that it is also true, because $4$ is a
+multiple of $2$.
+
+Therefore, the statement $E\subseteq{}C\subseteq{}A$ is $\subsolution{i}{\T}$.
+
+%
+\subproblem{ii} We want to determine if $A\subeq{}C\subeq{}E$ is
+true. We can split this up into two parts:
+
+\[
+A\subeq{}C\subeq{}E\Leftrightarrow((A\subeq C)\wedge(C\subeq E))
+\]
+
+We can look at the first part $A\subeq{}C$:
+
+\[
+\multistep{
+A\subeq{}C&\Leftrightarrow \forall x((x\in A)\rightarrow(x\in C)) \\
+&\Leftrightarrow \forall x((\exists n(x=2n))\rightarrow(\exists m(x=4m))) \\
+}
+\]
+
+We can immediately determine a case where this is false. Let $x=2$
+(which is an integer), then the $n$ that satisfies $2=2n$ is
+$n=1$. Therefore the premise of the implication is true. However, the
+conclusion is false, because there is no integer $m$ such that $2=4m$,
+so true premises led to a false conclusion, and the statement is
+$\subsolution{ii}{\F}$.
+
+%
+\subproblem{iii} We want to determine if $B\subeq{}D$.
+
+\[
+\multistep{
+B\subeq D&\Leftrightarrow \forall x((x\in B)\rightarrow(x\in D)) \\
+&\Leftrightarrow \forall x((\exists n(x=3n))\rightarrow(\exists m(x=6m))) \\
+}
+\]
+
+Again, we can come up with a counter-example for this implication. Let
+$x=3$, then the $n$ which satisfies $3=3n$ is $n=1$, which means the
+premise is true. The conclusion $\exists m(3=6m)$ is false because
+there is no value of $m$ in our universe (the integers) which makes
+this statement true. Therefore, the statement $B\subeq{}D$ is
+$\subsolution{iii}{\F}$.
+
+%
+\subproblem{iv} We want to determine if $D\subeq{}B$.
+
+\[
+\multistep{
+D\subeq B&\Leftrightarrow \forall x((x\in D)\rightarrow(x\in B)) \\
+&\Leftrightarrow \forall x((\exists n(x=6n))\rightarrow(\exists m(x=3m))) \\
+&\Leftrightarrow \forall x((\exists n(x=3(2n)))\rightarrow(\exists m(x=3m))) \\
+}
+\]
+
+If, for arbitrary $n$ that satisfies $x=6n$, we let $m=2n$, then we
+can see that the conclusion is true. Because $n$ was chosen
+arbitarily, the statement is true in general, and therefore
+$D\subeq{}B$ is $\subsolution{iv}{\T}$.
+
+%
+\subproblem{v}
+
+%
+\subproblem{vi}
+
+%
+\problem{3.2}{6a}
+
+We want to prove the statement: if $A\subeq{}B$ and $C\subeq{}D$, then
+$A\cap{}C\subeq{}B\cap{}D$ and
+$A\cup{}C\subeq{}B\cup{}D$. Mathematically, this can be written as:
+
+\[
+\begin{array}{l}
+((A\subeq B)\wedge(C\subeq D))\Rightarrow \\
+\quad \lbrack((A\cap C)\subeq(B\cap D))\,\wedge\,((A\cup C)\subeq(B\cup D))\rbrack
+\end{array}
+\]
+
+Instead of looking at both parts at once, we can separate this into
+two statements:
+
+\[\tag{i}
+((A\subeq B)\wedge(C\subeq D))\Rightarrow ((A\cap C)\subeq(B\cap D))
+\] and \[\tag{ii}
+((A\subeq B)\wedge(C\subeq D))\Rightarrow ((A\cup C)\subeq(B\cup D))
+\]
+
+Note that we can rewrite the givens as:
+
+\[\tag{1}
+(x\in A)\Rightarrow(x\in B) \\
+\] \[\tag{2}
+(x\in C)\Rightarrow(x\in D) \\
+\]
+
+%
+\subproblem{i} We first want to look at what the conclusion really
+means:
+
+\[
+\begin{array}{l}
+((A\cap C)\subeq(B\cap D)) \\
+\quad\Leftrightarrow \forall x((x\in A\cap C)\rightarrow(x\in B\cap D)) \\
+\quad\Leftrightarrow \forall x((x\in\{y|y\in A\wedge y\in C)\rightarrow(x\in\{z|z\in B\wedge z\in D)) \\
+\quad\Leftrightarrow \forall x((x\in A\wedge x\in C)\rightarrow(x\in B\wedge x\in D)) \\
+\end{array}
+\]
+
+By using equation (1) and (2), we can replace the $x\in{}A$ and
+$x\in{}C$ terms with $x\in{}B$ and $x\in{}D$ respectively.
+
+\[
+\begin{array}{l}
+((A\cap C)\subeq(B\cap D)) \\
+\quad\Leftrightarrow \forall x((x\in B\wedge x\in D)\rightarrow(x\in B\wedge x\in D))
+\end{array}
+\]
+
+Which is trivially true, because for any predicate $p$,
+$p\rightarrow{}p$ is true. Overall, this means that when the premises
+are true, we reach a true conclusion, and therefore statement (i) is
+$\subsolution{i}{\T}$.
+
+%
+\subproblem{ii} If we were to rewrite the expression like in part (i),
+we would find that the conclusion of (ii) is equivalent to:
+
+\[
+\begin{array}{l}
+((A\cup C)\subeq(B\cup D)) \\
+\quad\Leftrightarrow \forall x((x\in A\vee x\in C)\rightarrow(x\in B\vee x\in D)) \\
+\end{array}
+\]
+
+Using equations (1) and (2), we can rewrite this as:
+
+\[
+\begin{array}{l}
+((A\cup C)\subeq(B\cup D)) \\
+\quad\Leftrightarrow \forall x((x\in B\vee x\in D)\rightarrow(x\in B\vee x\in D)) \\
+\end{array}
+\]
+
+Which is trivially true again. Therefore statement (ii) is also
+$\subsolution{ii}{\T}$.
+
+%
+\problem{3.2}{8a}
+
+%
+\problem{3.2}{14c}
+
+To show that $A\cup{}(A\cap{}B)\equiv{}A$, we can construct a
+membership tables as follows:
+
+\[
+\begin{array}{c|c|c|c}
+A & B & A\cap B & A\cup(A\cap B) \\
+\midrule
+\xintFor #1 in {0,1}\do{
+  \xintFor #2 in {0,1}\do{
+    \TF#1 &
+    \TF#2 &
+    \xintTF{#1 & #2} &
+    \xintTF{#1 | (#1 & #2)} \\
+  }
+}
+\end{array}
+\]
+
+We see that columns 1 ($A$) and 4 ($A\cup(A\cap{}B)$) are equivalent,
+which means that the expression $A\equiv{}A\cup(A\cap{}B)$ is
+$\solution{\T}$.
+
+%
+\problem{3.2}{18}
+
+Let the universe $U=\mathbb{Z}^+$. For every $n\in\mathbb{Z}^+$, let
+$A_n$ be the set:
+
+\[
+A_n=\{1,2,\cdots,n\}
+\]
+
+%
+\subproblem{a \& c} We want to determine the values of the sets $X_a$
+and $X_c$:
+
+\[
+X_a=\bigcup\limits_{n=1}^7 A_n
+\] \[
+X_c=\bigcup\limits_{n=1}^m A_n
+\]
+
+It's easier to first look at $X_c$ and use its result to compute
+$X_a$. First we note that, in general:
+
+\[
+(n \le m)\Leftrightarrow(A_n\subseteq A_m)
+\]
+
+We can also note that, for arbitrary sets $X$ and $Y$, then:
+
+\[
+X\subseteq Y \Leftrightarrow (X\cup Y=Y)
+\]
+
+Combining these two properties, we have:
+
+\[\tag{1}
+(n\le m)\Leftrightarrow(A_n\cup A_m=A_m)
+\]
+
+Now we can apply this result to the union. To be more general, we will
+look at the union from $n=k$ to $n=m$. The first thing we want to do
+is pull out the first 2 terms from the union:
+
+\[
+Z = \bigcup\limits_{n=k}^m A_n = A_k\cup A_{k+1}\cup\left(\bigcup\limits_{n=k+2}^m A_n\right)
+\]
+
+Based on our result from (1), because $k\le{}k+1$, then
+$A_k\cup{}A_{k+1}=A_{k+1}$. Therefore, this union is equivalent to:
+
+\[
+Z = A_{k+1}\cup\left(\bigcup\limits_{n=k+2}^m A_n\right)
+\]
+
+If we pull out another term from the larger union, then we are looking
+at:
+
+\[
+Z = A_{k+1}\cup{}A_{k+2}\cup\left(\bigcup\limits_{n=k+3}^m A_n\right)
+\]
+
+By the same logic, this distills to:
+
+\[
+Z = A_{k+2}\cup\left(\bigcup\limits_{n=k+3}^m A_n\right)
+\]
+
+If we were to continue this process, we would find that the union
+ultimately evaluates to:
+
+\[
+\bigcup\limits_{n=k}^m A_n = A_m
+\]
+
+If we let $k=1$ and $m=7$, then we can calculate the value of
+$X_a$. Similarly, if we let $k=1$ and $m$ be arbitrary, then $X_c$'s
+value can be found.
+
+\[
+\subsolution{a \& c}{\begin{array}{l}
+X_a=A_7 \\
+X_c=A_m \\
+\end{array}}
+\]
+
+%
+\subproblem{b \& d} This problem boils down to the same general idea
+as the previous problem. We want to find the values of $X_b$ and
+$X_d$, defined as:
+
+\[
+X_b=\bigcap\limits_{n=1}^{11} A_n
+\] \[
+X_d=\bigcap\limits_{n=1}^m A_n
+\]
+
+Again, we note that in general:
+
+\[
+(n\le m)\Leftrightarrow(A_n\subseteq A_m)
+\]
+
+This time, however, we recognize that, for arbitrary sets $X$ and $Y$:
+
+\[
+(X\subseteq Y)\Leftrightarrow(X\cap Y=X)
+\]
+
+Combining these, we get:
+
+\[\tag{2}
+(n\le m)\Leftrightarrow(A_n\cap A_m=A_n)
+\]
+
+We can start by taking out the first two terms of $X_d$:
+
+\[
+X_d=A_1\cap A_2\cap\left(\bigcap\limits_{n=3}^m A_n\right)
+\]
+
+Then using (2), because $1\le2$ then $A_1\cap{}A_2=A_1$. Therefore:
+
+\[
+X_d=A_1\cap\left(\bigcap\limits_{n=3}^m A_n\right)
+\]
+
+We can pull out another term:
+
+\[
+X_d=A_1\cap A_3\cap\left(\bigcap\limits_{n=4}^m A_n\right)
+\]
+
+Again, because $1\le3$ then by (2), $A_1\cap{}A_3=A_1$. Therefore:
+
+\[
+X_d=A_1\cap\left(\bigcap\limits_{n=4}^m A_n\right)
+\]
+
+If we were to continue this process, we would find that, ultimately:
+
+\[
+X_d=A_1
+\]
+
+Because this result does not depend on $m$, then we know that the
+values of $X_b$ and $X_d$ are:
+
+\[
+\subsolution{b \& d}{\begin{array}{l}
+X_b=A_1 \\
+X_d=A_1 \\
+\end{array}}
+\]
+
+%
+\problem{3.3}{2}
+
+Let the set of all balls be represented by:
+
+\[
+B=\{1,2,\cdots,20\}
+\]
+
+and one outcome (2 balls) represented by:
+
+\[
+x=\langle b_1, b_2\rangle,\quad b_1,b_2\in B
+\]
+
+%
+\subproblem{a} If the first ball is replaced before the second ball is
+drawn, then the sample space can be represented as:
+
+\[
+\subsolution{a}{\Omega = \{\langle b_1,b_2\rangle|b_1\in B\wedge b_2\in B\}}
+\]
+
+%
+\subproblem{b} If the first ball is not replaced before the second
+ball is drawn, then the sample space is:
+
+\[
+\subsolution{b}{\Omega = \{\langle b_1,b_2\rangle|b_1\in B\wedge b_2\in B\wedge b_1\ne b_2\}}
+\]
+
+%
+\problem{3.3}{4}
+
+Let $\Omega$ be a sample space with $|\Omega|=n$ of equally likely
+outcomes and $A\subseteq\Omega$ be an event with $Pr(A)=0.14$ and
+$|A|=7$. We want to find out how many outcomes are in $\Omega$, which
+is the value $n$.
+
+Because we know that the outcomes are equally likely, then the
+probability of event $A$ occurring is:
+
+\[
+\multistep{
+Pr(A)&=\frac{|A|}{|\Omega|} \\
+&=\frac{7}{n}
+}
+\]
+
+However, we already know that $Pr(A)=0.14$, so we can set those two
+expressions equal and solve for $n$:
+
+\[
+0.14=\frac{7}{n}
+\] \[
+n=\frac{7}{0.14}
+\] \[
+\solution{n=50}
+\]
+
+%
+\problem{3.3}{8}
+
+Let $A$ be the set of numbers we can draw from:
+
+\[
+A=\{1,2,\cdots,100\}
+\]
+
+which is divided into two parts:
+
+\[
+A_{even}=\{x|x\in A\wedge\exists n(x=2n)\}
+\] \[
+A_{odd}=\{x|x\in A\wedge\exists n(x=2n+1)\}
+\]
+
+Where the sizes of each are:
+
+\[
+\begin{array}{cc}
+|A_{even}|=50 & |A_{odd}|=50 \\
+\end{array}
+\]
+
+Let $\Omega$ be the sample space of 3 numbers drawn without
+replacement from $A$:
+
+\[
+\Omega=\{\langle x_1,x_2,x_3\rangle|x_1,x_2,x_3\in A\wedge 3=|\{x_1,x_2,x_3\}|\}
+\]
+
+Note that $|\Omega|$ can be found looking at the number of
+combinations without repetition of size $3$ from a set of $100$
+distinct objects:
+
+\[
+|\Omega|=\binom{100}{3}
+\]
+
+Finally, let $B$ be the event that the sum of the numbers from our
+outcome is even. In other words:
+
+\[
+B=\{\langle x_1,x_2,x_3\rangle|\langle x_1,x_2,x_3\rangle\in\Omega\wedge \exists n(x_1+x_2+x_3=2n)\}
+\]
+
+Because we are only interested in whether the sum of the numbers is
+even, we can look at some of the properties of even numbers. Let
+$E(n)$ denote that $n$ is even . The properties are, for arbitrary
+$n$, $m$ and $k$:
+
+\[
+\begin{array}{ccc|c}
+E(n) & E(m) & E(k) & E(n+m+k) \\
+\midrule
+0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 1 \\
+0 & 1 & 0 & 1 \\
+0 & 1 & 1 & 0 \\
+1 & 0 & 0 & 1 \\
+1 & 0 & 1 & 0 \\
+1 & 1 & 0 & 0 \\
+1 & 1 & 1 & 1 \\
+\end{array}
+\]
+
+We can further generalize this by looking at the total number of even
+numbers in our set of 3:
+
+\[
+\begin{array}{c|c}
+E(n)+E(m)+E(k) & E(n+m+k) \\
+\midrule
+0 & 0 \\
+1 & 1 \\
+2 & 0 \\
+3 & 1 \\
+\end{array}
+\]
+
+Therefore there are only 2 possibilities to cover for finding which
+outcomes have an even sum: (i) 1 even number and 2 odd numbers, or
+(ii) 3 even numbers. Once we have the total number of possibilities of
+each, (iii) we can compute the probability of the event $B$ occuring.
+
+%
+\subproblem{i} Because order does not matter for our selection, then
+without loss of generality, we can select the two even numbers first
+and then the odd number. The number of ways we can select two even
+numbers is:
+
+\[
+\binom{|A_{even}|}{2}=\binom{50}{2}
+\]
+
+And the number of ways to select one odd number is:
+
+\[
+\binom{|A_{odd}|}{1}=50
+\]
+
+Therefore the total number of possibilities for (i) is:
+
+\[
+\binom{50}{2}\cdot 50
+\]
+
+%
+\subproblem{ii} For (ii), we want the number of possible ways to
+select 3 even numbers:
+
+\[
+\binom{|A_{even}|}{3}=\binom{50}{3}
+\]
+
+%
+\subproblem{iii} Using (i) and (ii), the number of outcomes for the
+event $B$ is given by:
+
+\[
+|B|=\binom{50}{2}\cdot 50 + \binom{50}{3}
+\]
+
+Because we assume that each outcome is equally likely, then the
+probability of $B$ occurring is given by:
+
+\[
+Pr(B)=\frac{|B|}{|\Omega|}
+\]
+
+Using our newfound value for $|B|$ and the previous value of
+$|\Omega|$, this gives us a probability of:
+
+\[
+\solution{Pr(B)=\dfrac{\binom{50}{2}\cdot50+\binom{50}{3}}{\binom{100}{3}}}
+\]
+
+
+\end{multicols*}
+\end{document}
