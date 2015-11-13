@@ -1,0 +1,215 @@
+\documentclass{article}
+%\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+\usepackage{multicol}
+\usepackage{forest}
+
+\setlength{\columnsep}{0.5cm}
+\setlength{\columnseprule}{1pt}
+
+\newcommand{\T}{\text{True}}
+\newcommand{\F}{\text{False}}
+\newcommand{\TT}{1}
+\newcommand{\FF}{0}
+\newcommand{\TF}[1]{\if1#1\TT\else\FF\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\TT}{\FF}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\problem}[2]{$\boxed{\text{#1 \##2}}$}
+\newcommand{\subproblem}[1]{$\boxed{\text{(#1)}}$}
+\newcommand{\subsolution}[2]{\boxed{#2\quad(\text{#1})}}
+\newcommand{\solution}[1]{\boxed{#1}}
+\newcommand{\RUS}{Rule of Universal Specification}
+\newcommand{\RUG}{Rule of Universal Generalization}
+\newcommand{\ROP}{Rule of Product}
+\newcommand{\ROS}{Rule of Sums}
+
+\newcommand{\multistep}[1]{\begin{array}{rl} #1 \end{array}}
+\newcommand{\subeq}{\subseteq}
+\newcommand{\sub}{\subset}
+
+\setlength\parindent{0pt}
+\setlength\parskip{0em}
+
+\begin{document}
+
+%
+\problem{4.1}{2a}
+
+Let $A=\{1,2,3\}$ and $B=\{2,4,5\}$. We want to find relations from
+$A$ to $B$, which are defined by:
+
+\[
+R\subseteq (A\times B)
+\]
+
+where
+
+\[
+A\times B=\{\langle a,b\rangle|a\in A,b\in B\}
+\]
+
+So three relations are:
+
+\[
+\solution{
+\multistep{
+R_1&=\{\langle 1,2\rangle, \langle 1,4\rangle, \langle 2,4\rangle\} \\
+R_2&=\{\langle 1,5\rangle, \langle 3,5\rangle\} \\
+R_3&=\{\langle 2,2\rangle, \langle 3,5\rangle,\langle 3,2\rangle\} \\
+}
+}
+\]
+
+%
+\problem{4.1}{8}
+
+We want to represent the sample space of the testing process where we
+finish when we find two defective chips or when we test five different
+chips. We label good chips as $G$ and bad chips as $B$.
+
+\resizebox{\textwidth}{!}{
+\begin{forest}
+  [\text{.}
+    [$\langle{}B\rangle$
+      [$\langle{}B{,}B\rangle$]
+      [$\langle{}B{,}G\rangle$
+        [$\langle B{,} G{,} B\rangle$]
+        [$\langle B{,} G{,} G\rangle$
+          [$\langle B{,} G{,} G{,} B\rangle$]
+          [$\langle B{,} G{,} G{,} G\rangle$
+            [$\langle B{,} G{,} G{,} G{,} B\rangle$]
+            [$\langle B{,} G{,} G{,} G{,} G\rangle$]
+          ]
+        ]
+      ]
+    ]
+    [$\langle G\rangle$
+      [$\langle G{,} B\rangle$
+        [$\langle G{,} B{,} B\rangle$]
+        [$\langle G{,} B{,} G\rangle$
+          [$\langle G{,} B{,} G{,} B\rangle$]
+          [$\langle G{,} B{,} G{,} G\rangle$
+            [$\langle G{,} B{,} G{,} G{,} B\rangle$]
+            [$\langle G{,} B{,} G{,} G{,} G\rangle$]
+          ]
+        ]
+      ]
+      [$\langle G{,} G\rangle$
+        [$\langle G{,} G{,} B\rangle$
+          [$\langle G{,} G{,} B{,} B\rangle$]
+          [$\langle G{,} G{,} B{,} G\rangle$
+            [$\langle G{,} G{,} B{,} G{,} B\rangle$]
+            [$\langle G{,} G{,} B{,} G{,} G\rangle$]
+          ]
+        ]
+        [$\langle G{,} G{,} G\rangle$
+          [$\langle G{,} G{,} G{,} B\rangle$
+            [$\langle G{,} G{,} G{,} B{,} B\rangle$]
+            [$\langle G{,} G{,} G{,} B{,} G\rangle$]
+          ]
+          [$\langle G{,} G{,} G{,} G\rangle$
+            [$\langle G{,} G{,} G{,} G{,} B\rangle$]
+            [$\langle G{,} G{,} G{,} G{,} G\rangle$]
+          ]
+        ]
+      ]
+    ]
+  ]
+\end{forest}
+}
+
+%
+\problem{4.1}{14}
+
+%
+\subproblem{a} We want to provide a recursive definition for the
+relation $R\subseteq{}\mathbb{Z}^+\times\mathbb{Z}^+$ where
+$(m,n)\in{}R$ iff $m\ge{}n$.
+
+We start with the base case, where we use the smallest element of
+$\mathbb{Z}^+$ for both $m$ and $n$. In this case, that would be:
+
+\[
+(1,1)\in R
+\]
+
+Then we go with the second case that if we add 1 to both elements of
+the tuple, then the inequality still holds:
+
+\[
+(i,j)\in R\Rightarrow (i+1,j+1)\in R
+\]
+
+And lastly, we note that we can add 1 to the first element of the
+tuple and the inequality will still hold:
+
+\[
+(i,j)\in R\Rightarrow (i+1,j)\in R
+\]
+
+Overall, this gives us a recursive definition:
+
+\[
+\subsolution{a}{
+\begin{array}{ll}
+(1) & (1,1)\in R \\
+(2) & (i,j)\in R\Rightarrow (i+1,j+1)\in R \\
+(3) & (i,j)\in R\Rightarrow (i+1,j)\in R \\
+\end{array}
+}
+\]
+
+%
+\subproblem{b} Now we want to show, using our recursive definition,
+that $(5,2)\in{}R$ and $(4,4)\in{}R$.
+
+\[
+\begin{array}{lll}
+\text{Rule} & \text{Premise} & \text{Conclusion} \\
+\midrule
+(1) & & (1,1)\in R \\
+(2) & (1,1)\in R & (2,2)\in R \\
+(3) & (2,2)\in R & (3,2)\in R \\
+(3) & (3,2)\in R & (4,2)\in R \\
+(3) & (4,2)\in R & \subsolution{b}{(5,2)\in R} \\
+\end{array}
+\]
+
+Likewise, for $(4,4)\in{}R$:
+
+\[
+\begin{array}{lll}
+\text{Rule} & \text{Premise} & \text{Conclusion} \\
+\midrule
+(1) & & (1,1)\in R \\
+(2) & (1,1)\in R & (2,2)\in R \\
+(2) & (2,2)\in R & (3,3)\in R \\
+(2) & (3,3)\in R & \subsolution{b}{(4,4)\in R} \\
+\end{array}
+\]
+
+%
+\problem{4.1}{18}
+
+%
+\problem{4.1}{24}
+
+%
+\problem{4.2}{12}
+
+%
+\problem{4.2}{16}
+
+
+\end{document}

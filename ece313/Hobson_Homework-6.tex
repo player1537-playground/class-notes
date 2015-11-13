@@ -41,6 +41,10 @@
 \newcommand{\pp}[2]{\frac{\p{#1}}{\p{#2}}}
 \newcommand{\ppp}[2]{\dfrac{\p{#1}}{\p{#2}}}
 
+\newcommand{\multistep}[1]{\begin{array}{rl} #1 \end{array}}
+\newcommand{\subeq}{\subseteq}
+\newcommand{\sub}{\subset}
+
 \DeclareMathOperator{\var}{Var}
 \DeclareMathOperator{\E}{\mathcal{E}}
 
@@ -54,28 +58,346 @@
 %
 \problem{3.2}{4}
 
+Suppose $X_1,X_2,\cdots,X_r$ are independent random variables, each
+with a geometric distribution parameter $p$.
+
+%
+\subproblem{3.2}{4}{a} We want to show that the sum of random
+variables, $Y=X_1+X_2+\cdots+X_r$, is the same as the negative
+binomial distribution with parameters $p$ and $r$. First, we want to
+recognize that each $X_i$ represents the number of tries before we
+reach the first success. Because the parameter $p$ is fixed for both a
+geometric and negative binomial distribution, we can lay out each of
+the independent successes next to each other, as follows, where $0$
+represents a failure, and $1$ represents a success.
+
+\[
+\left\langle \underbrace{0, 0, 1}_{X_1}, \underbrace{0, 1}_{X_2}, \cdots, \underbrace{1}_{X_{r-1}}, \underbrace{0, 0, 0, 1}_{X_r}\right\rangle
+\]
+
+Laid out in this way, it's clear that the sum of each $X_i$ is the
+same thing as the negative binomial distribution, where the latter
+counts the number of attempts before $r$ successes occurs.
+
+%
+\subproblem{3.2}{4}{b} The expectation we want to calculate is:
+
+\[
+\E Y=\E (X_1+X_2+\cdots+X_r)
+\]
+
+We know that, for expectations of sums of random variables, we can
+rewrite it as the sum of individual expectations of those random
+variables.
+
+\[
+\E Y = \E X_1 + \E X_2 + \cdots + \E X_r
+\]
+
+Because each random variable is modeled after the same geometric
+distribution, they all have the same expectation:
+
+\[
+\E Y = r\frac{1}{p}
+\]
+
+This is the same as we'd expect from a negative binomial distribution.
+
+%
+\subproblem{3.2}{4}{c} Now we want to compute the variance of $Y$ and
+show that it is the same as we'd get from a negative binomial
+distribution. We first write:
+
+\[
+\var(Y)=\var(X_1+X_2+\cdots+X_r)
+\]
+
+Because each random variable is independent from the others, we can
+separate the variance of sums into a sum of variances:
+
+\[
+\var(Y)=\var(X_1)+\var(X_2)+\cdots+\var(X_r)
+\]
+
+Again, each random variable has the same variance, so we can write:
+
+\[
+\var(Y)=r\frac{1-p}{p^2}
+\]
+
+Which is what we'd expect from a negative binomial distribution.
+
 %
 \problem{3.2}{6}
 
+We can model the random variable, $X$, as a geometric distribution
+with probability $p=0.37$, which is the number of attempts up to and
+including the one that the container lands on the target.
+
 %
-\problem{3.2.}{4}
+\subproblem{3.2}{6}{a} The expected number of container drops needed
+to hit a target, $\E{}X$, is defined for a geometric distribution as:
+
+\[
+\multistep{
+\E X&=\frac{1}{p} \\
+&=2.7027 \\
+}
+\]
+
+We want to round this up, because the number of container drops must
+be an integer (it doesn't make sense to half drop a container, or for
+a container to half land on the target). This gives a final expected
+number of drops as:
+
+\[
+\subsolution{3.2}{6}{a}{\E X=3}
+\]
+
+%
+\subproblem{3.2}{6}{b} In this case, we create a new random variable,
+$Y$, which is a negative binomial distribution with $r=3$. The
+expected value of a negative binomial distribution is defined as:
+
+\[
+\multistep{
+\E Y&=\frac{r}{p} \\
+&=8.108108 \\
+}
+\]
+
+Again, we round up to get the actual expected value:
+
+\[
+\subsolution{3.2}{6}{b}{\E Y=9}
+\]
+
+%
+\subproblem{3.2}{6}{c} If sufficient supplies are dropped by the 10th
+drop, then that means that the event must have occurred for some
+$x\le10$, or in other words, $P(X\le10)$. But this is the same thing
+as the CDF at 10, or $F_X(10)$. This is defined, for a geometric
+distribution as:
+
+\[
+F_X(10)=1-(1-p)^{10}
+\] \[
+\subsolution{3.2}{6}{c}{F_X(10)=0.990151}
+\]
+
+%
+\subproblem{3.2}{6}{d} The probability that the tenth crate is that
+one that successfully lands on the target, which is the value of the
+PMF at 10: $P_X(10)$. This is defined as:
+
+\[
+P_X(10)=(1-p)^{10-1}p
+\] \[
+\subsolution{3.2}{6}{d}{P_X(10)=0.0057845}
+\]
+
+%
+\problem{3.2}{14}
+
+We are given the probability that an event will occur (a user will
+bounce), that is $p_0=0.93$. We want to find the expected number of
+users such that for 10, the event does not occur (these users will not
+bounce). To do this, we can create a negative binomial distribution
+$Y$ with $p=1-p_0$ and $r=10$, and compute the expected value of this
+distribution.
+
+\[
+\multistep{
+\var(Y)&=\frac{r}{p} \\
+&=\frac{r}{1-p_0} \\
+}
+\]
+
+\[
+\solution{3.2}{14}{\var(Y)=142.857}
+\]
 
 %
 \problem{3.3}{10}
 
+We are given the total number of sites, $N=25$, the number of
+contaminated sites, $n=19$, and the number of sampled sites, $r=5$. We
+can create a random variable with a hypergeometric distribution with
+these parameters. We want to find the value of $P_X(4)$, the
+probability that 4 of the sites are contaminated. This is computed
+with:
+
+\[
+P_X(4)=\dfrac{\binom{r}{4}\cdot\binom{N-r}{n-4}}{\binom{N}{n}}
+\] \[
+\solution{3.3}{10}{P_X(4)=0.437718}
+\]
+
 %
 \problem{3.3}{11}
+
+We are told that there are $N=10$ total companies, $n=3$ successful
+companies, $r=4$ sampled companies. A hypergeometric distribution $X$
+with these parameters is $X$. We want to find $P(X\ge2)$, which is
+equivalent to $P(2\le{}X\le 4)$. We can rewrite this as:
+
+\[
+P(2\le X\le 4)=\sum\limits_{x=2}^4 P_X(x)
+\]
+
+Based on this being a hypergeometric distribution, we know that the
+PMF is defined as:
+
+\[
+P_X(x) = \dfrac{\binom{r}{x}\cdot\binom{N-r}{n-x}}{\binom{N}{n}}
+\]
+
+However, this is only defined when $x\le{}\text{min}\{n,r\}$, so we
+can simplify our sum to:
+
+\[
+P(2\le X\le 4)=\sum\limits_{x=2}^3 P_X(x)
+\]
+
+This ultimately evaluates to:
+
+\[
+\solution{3.3}{11}{P(2\le X\le 4)=0.333333}
+\]
 
 %
 \problem{3.4}{4}
 
+Suppose the random variable $X$ represents the number of cracks in a
+tile, modeled by a Poisson distribution with parameter $\lambda=2.4$.
+
+%
+\subproblem{3.4}{4}{a} We first want to find the probability that
+there are no cracks in the title, or: $P_X(0)$. The definition for the
+PMF of a Poisson distribution is:
+
+\[
+P_X(x)=\frac{e^{-\lambda}\lambda^x}{x!}
+\]
+
+Using this, we can calculate $P_X(0)$:
+
+\[
+P_X(0)=\frac{e^{-\lambda}\lambda^0}{0!}
+\] \[
+\subsolution{3.4}{4}{a}{P_X(0)=0.0907180}
+\]
+
+%
+\subproblem{3.4}{4}{b} This time we want to find the probability that
+there are 4 or more cracks, or $P(X\ge4)$. We can rewrite this as:
+
+\[
+\multistep{
+P(X\ge4)&=1-P(X<4) \\
+&=1-P(X\le3) \\
+}
+\]
+
+Because there is no general formula for the CDF of a Poisson
+distribution, we just have to sum the PMF:
+
+\[
+P(X\ge4)=1-\sum\limits_{x=0}^3 P_X(x)
+\] \[
+\subsolution{3.4}{4}{b}{P(X\ge4)=0.221227}
+\]
+
 %
 \problem{3.4}{6}
+
+The random variable $X$ is modelled by a Poisson distribution with
+$\lambda=4$.
+
+%
+\subproblem{3.4}{6}{a} Like 3.4.4, we just apply the formula to get:
+
+\[
+\subsolution{3.4}{6}{a}{P_X(0)=0.0183156}
+\]
+
+%
+\subproblem{3.4}{6}{b} Again, like 3.4.4, we rewrite $P(X\ge6)$ as a
+sum of PMF values:
+
+\[
+\multistep{
+P(X\ge6)&=1-P(X<6) \\
+&=1-P(X\le5) \\
+&=1-\sum\limits_{x=0}^5 P_X(x) \\
+}
+\]
+
+\[
+\subsolution{3.4}{6}{b}{P(X\ge6)=0.21487}
+\]
 
 %
 \problem{3.5}{1}
 
+Let there be three types of tires, $a,b,c$, with probabilities
+$p_a=0.24$, $p_b=0.48$, and $p_c=0.29$.
+
+%
+\subproblem{3.5}{1}{a} The probability that the next 11 customers buy
+$n_a=4$ sets of A tires, $n_b=5$ sets of B tires, and $n_c=2$ sets of
+A tires is given by:
+
+\[
+P(X_a=n_a,X_b=n_b,X_c=n_c)=\frac{(n_a+n_b+n_c)!}{n_a!n_b!n_c!} p_a^{n_a} p_b^{n_b} p_c^{n_c}
+\] \[
+\subsolution{3.5}{1}{a}{P(X_a=n_a,X_b=n_b,X_c=n_c)=0.0492698}
+\]
+
+%
+\subproblem{3.5}{1}{b} The probability that fewer than 3 sets of type
+A are sold in the next 7 customers is $P(X_a<3)$, and can be
+calculated with:
+
+\[
+\multistep{
+P(X_a<3)&=\sum\limits_{n_a=0}^2 \sum\limits_{n_b=0}^{7-n_a} P(X_a=n_a,X_b=n_b,X_c=7-n_a-n_b) \\
+&=\sum\limits_{n_a=0}^2 \sum\limits_{n_b=0}^{7-n_a} \frac{7!}{n_a!n_b!(7-n_a-n_b)!} p_a^{n_a} p_b^{n_b} p_c^{7-n_a-n_b} \\
+}
+\]
+
+\[
+\subsolution{3.5}{1}{b}{P(X_a<3)=0.838047}
+\]
+
 %
 \problem{3.5}{5}
+
+There are two possibilities for where an order is placed: online and
+offline. For each of these, there are two possibilities for the size
+of the order: large and small. Let the random variables
+$X_1,X_2,X_3,X_4$ represent an online large order, an online small
+order, an offline large order, and an offline small order,
+respectively. The probabilities for each are:
+
+\[
+\begin{array}{c|c|c}
+Variable & Expression & Value \\
+\midrule
+p_1 & 0.60\cdot0.30 & 0.18 \\
+p_2 & 0.60\cdot0.70 & 0.42 \\
+p_3 & 0.40\cdot0.40 & 0.16 \\
+p_4 & 0.40\cdot0.60 & 0.24 \\
+\end{array}
+\]
+
+We want to find the probability that each type of order has 2 orders
+placed. This is:
+
+\[
+P(\cdots)=\frac{8!}{2!2!2!2!} 0.18^2 0.42^2 0.16^2 0.24^2
+\] \[
+\solution{3.5}{5}{P(\cdots)=0.0212377}
+\]
 
 \end{document}
