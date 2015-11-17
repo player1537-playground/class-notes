@@ -1,0 +1,190 @@
+\documentclass{article}
+%\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xintexpr}
+\usepackage{multicol}
+\usepackage{empheq}
+\usepackage{forest}
+\usepackage{booktabs}
+\usepackage{ifthen}
+\usepackage{xfrac}
+
+\setlength{\columnsep}{0.5cm}
+\setlength{\columnseprule}{1pt}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\problem}[2]{$\boxed{\text{#1.#2}}$}
+\newcommand{\subproblem}[3]{$\boxed{\text{(#3)}}$}
+\newcommand{\solution}[3]{\boxed{#3\quad(\text{#1.#2})}}
+\newcommand{\subsolution}[4]{\boxed{#4\quad(\text{#1.#2#3})}}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\newcommand{\p}[1]{\,\partial #1}
+\newcommand{\pp}[2]{\frac{\p{#1}}{\p{#2}}}
+\newcommand{\ppp}[2]{\dfrac{\p{#1}}{\p{#2}}}
+
+\newcommand{\multistep}[1]{\begin{array}{rl} #1 \end{array}}
+\newcommand{\subeq}{\subseteq}
+\newcommand{\sub}{\subset}
+
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\E}{\mathcal{E}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{0em}
+
+\begin{document}
+
+\section*{Homework 7}
+
+%
+\problem{4.1}{2}
+
+Let $V$ be a random variable with a uniform distribution of:
+
+\[
+V\sim U(1.43, 1.60)
+\]
+
+%
+\subproblem{4.1}{2}{a} We want to find the expected voltage level,
+$\E{}V$, which is defined by:
+
+\[
+\E V=\frac{1.43+1.60}{2}
+\] \[
+\subsolution{4.1}{2}{a}{\E V=1.515}
+\]
+
+%
+\subproblem{4.1}{2}{b} The standard deviation, $\sqrt{\var(V)}$, is
+given by:
+
+\[
+\sqrt{\var(V)}=\frac{(1.60-1.43)^2}{12}
+\] \[
+\subsolution{4.1}{2}{b}{\sqrt{\var(V)}=0.00240833}
+\]
+
+%
+\subproblem{4.1}{2}{c} The cumulative distribution function, $F_V(x)$,
+is:
+
+\[
+F_V(x)=\lbrack1.43\le x\le1.60\rbrack\frac{x-1.43}{1.60-1.43}
+\] \[
+\subsolution{4.1}{2}{c}{F_V(x)=\lbrack1.43\le x\le1.60\rbrack\frac{x-1.43}{0.17}}
+\]
+
+%
+\subproblem{4.1}{2}{d} Using the cumulative distribution function, we
+want to find $F_V(1.48)$:
+
+\[
+F_V(1.48)=\lbrack1.43\le 1.48\le1.60\rbrack\frac{1.48-1.43}{0.17}
+\] \[
+\subsolution{4.1}{2}{d}{F_V(1.48)=0.2941176}
+\]
+
+%
+\problem{4.1}{5}
+
+Let $D$ be a random variable for the diameter of a pin (in
+millimeters) with a uniform distribution with bounds $a=4.182$ and
+$b=4.185$, i.e.:
+
+\[
+D\sim U(a,b)
+\]
+
+%
+\subproblem{4.1}{5}{a} We want to find the probability that a pin will
+fit into a hole of diameter $h=4.184$. For a pin to fit, its diameter
+must be smaller than the hole's, so we are looking for
+$P(D<h)=F_D(h)$. We can compute this value using the definition for
+the CDF for a uniform distribution function:
+
+\[
+F_D(x)=\frac{x-a}{b-a}
+\]
+
+Then we can substitute the value, $x=h$, that we want:
+
+\[
+F_D(h)=\frac{h-a}{b-a}
+\] \[
+\subsolution{4.1}{5}{a}{F_D(h)=0.666666}
+\]
+
+%
+\subproblem{4.1}{5}{b} We want to find the probability that the
+difference between the diameter of the pin and the diameter of the
+whole is within some tolerance $t=0.0005$, given that the pin fits in
+the whole. If we introduce an event $H$ that the pin fits into the
+hole and an event $T$ that it is within the tolerance, then we are
+looking for $P(T|H)$, which is:
+
+\[
+P(T|H)=\frac{P(TH)}{P(H)}
+\]
+
+We already found $P(H)=F_D(h)$. To find $P(TH)$, we are looking for:
+
+\[
+\multistep{
+P(|D-h|<t \wedge D<h)&=P(-t<D-h<t \wedge D<h) \\
+&=P(h-t<D<t+h \wedge D<h) \\
+&=P(h-t<D \wedge D<t+h\wedge D<h) \\
+&=P(h-t<D \wedge D<h) \\
+&=P(h-t<D<h)
+}
+\]
+
+We can then separate $P(h-t<D<h)$ as:
+
+\[
+\multistep{
+P(h-t<D<h)&=P(D<h)-P(D<h-t) \\
+&=F_D(h)-F_D(h-t) \\
+}
+\]
+
+So now the probability we are looking for is given by:
+
+\[
+P(T|H)=\frac{F_D(h)-F_D(h-t)}{F_D(h)}
+\] \[
+\subsolution{4.1}{5}{b}{P(T|H)=0.245}
+\]
+
+%
+\problem{4.2}{6}
+
+%
+\problem{4.2}{8}
+
+%
+\problem{4.3}{5}
+
+%
+\problem{4.3}{6}
+
+\end{document}

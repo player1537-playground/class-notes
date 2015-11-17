@@ -43,173 +43,389 @@
 
 \begin{document}
 
+\section*{Tanner Hobson}
+
 %
 \problem{4.1}{2a}
 
-Let $A=\{1,2,3\}$ and $B=\{2,4,5\}$. We want to find relations from
-$A$ to $B$, which are defined by:
+We want to prove that the statement $S(n)$ for all $n\ge1$ where
 
 \[
-R\subseteq (A\times B)
+S(n): \sum\limits_{i=1}^n 2^{i-1}=2^n - 1
 \]
 
-where
+We start by proving that this holds for the base case, $n=1$, and
+expanding the expression for $S(1)$, we get:
 
 \[
-A\times B=\{\langle a,b\rangle|a\in A,b\in B\}
-\]
-
-So three relations are:
-
-\[
-\solution{
 \multistep{
-R_1&=\{\langle 1,2\rangle, \langle 1,4\rangle, \langle 2,4\rangle\} \\
-R_2&=\{\langle 1,5\rangle, \langle 3,5\rangle\} \\
-R_3&=\{\langle 2,2\rangle, \langle 3,5\rangle,\langle 3,2\rangle\} \\
-}
+S(1):&\sum\limits_{i=1}^1 2^{i-1}=2^1-1 \\
+&2^0=2^1-1 \\
+&1=1 \\
 }
 \]
+
+Therefore we have shown that the statement $S(n)$ for $n=1$ is
+true. Next we need to show that, if $S(k)$ is true for some arbitrary
+but particular $k\ge1$, then $S(k+1)$ is also true. $S(k)$ expands to:
+
+\[
+S(k):\sum\limits_{i=1}^k 2^{i-1}=2^k-1
+\]
+
+And $S(k+1)$ as:
+
+\[
+S(k+1):\sum\limits_{i=1}^{k+1} 2^{i-1}=2^{k+1}-1
+\]
+
+We can expand the sum of the $S(k+1)$ expression as:
+
+\[
+S(k+1):2^k+\sum\limits_{i=1}^k 2^{i-1}=2^{k+1}-1
+\]
+
+However, we recognize that the sumnation is equivalent to the LHS of
+the $S(k)$ statement, so we can replace it with the RHS.
+
+\[
+S(k+1):2^k+2^k-1=2^{k+1}-1
+\]
+
+This can be simplified with:
+
+\[
+\multistep{
+S(k+1):&2(2^k+2^k)-1=2^{k+1}-1 \\
+&2^{k+1}-1=2^{k+1}-1 \\
+}
+\]
+
+We recognize that this statement is true. Because we chose $k$
+arbitrarily, then by the principle of induction, we have proven that
+the statement $S(n)$ is true for any $n\ge1$.
 
 %
 \problem{4.1}{8}
 
-We want to represent the sample space of the testing process where we
-finish when we find two defective chips or when we test five different
-chips. We label good chips as $G$ and bad chips as $B$.
+We want to determine for which $n\ge1$ that $S(n)$ is true, where
+$S(n)$ is defined as:
 
-\resizebox{\textwidth}{!}{
-\begin{forest}
-  [\text{.}
-    [$\langle{}B\rangle$
-      [$\langle{}B{,}B\rangle$]
-      [$\langle{}B{,}G\rangle$
-        [$\langle B{,} G{,} B\rangle$]
-        [$\langle B{,} G{,} G\rangle$
-          [$\langle B{,} G{,} G{,} B\rangle$]
-          [$\langle B{,} G{,} G{,} G\rangle$
-            [$\langle B{,} G{,} G{,} G{,} B\rangle$]
-            [$\langle B{,} G{,} G{,} G{,} G\rangle$]
-          ]
-        ]
-      ]
-    ]
-    [$\langle G\rangle$
-      [$\langle G{,} B\rangle$
-        [$\langle G{,} B{,} B\rangle$]
-        [$\langle G{,} B{,} G\rangle$
-          [$\langle G{,} B{,} G{,} B\rangle$]
-          [$\langle G{,} B{,} G{,} G\rangle$
-            [$\langle G{,} B{,} G{,} G{,} B\rangle$]
-            [$\langle G{,} B{,} G{,} G{,} G\rangle$]
-          ]
-        ]
-      ]
-      [$\langle G{,} G\rangle$
-        [$\langle G{,} G{,} B\rangle$
-          [$\langle G{,} G{,} B{,} B\rangle$]
-          [$\langle G{,} G{,} B{,} G\rangle$
-            [$\langle G{,} G{,} B{,} G{,} B\rangle$]
-            [$\langle G{,} G{,} B{,} G{,} G\rangle$]
-          ]
-        ]
-        [$\langle G{,} G{,} G\rangle$
-          [$\langle G{,} G{,} G{,} B\rangle$
-            [$\langle G{,} G{,} G{,} B{,} B\rangle$]
-            [$\langle G{,} G{,} G{,} B{,} G\rangle$]
-          ]
-          [$\langle G{,} G{,} G{,} G\rangle$
-            [$\langle G{,} G{,} G{,} G{,} B\rangle$]
-            [$\langle G{,} G{,} G{,} G{,} G\rangle$]
-          ]
-        ]
-      ]
-    ]
-  ]
-\end{forest}
-}
+\[
+S(n):\sum\limits_{i=1}^{2n} i=\sum\limits_{i=1}^n i^2
+\]
+
+We can try different values of $n$ and find which it's true for:
+
+\[
+\begin{array}{ll}
+i & S(i) \\
+\midrule
+1 & 3=1 \\
+2 & 10=5 \\
+3 & 21=14 \\
+4 & 36=30 \\
+5 & 55=55 \\
+\end{array}
+\]
+
+Therefore, we have shown that $S(n)$ is true for $n=5$.
 
 %
 \problem{4.1}{14}
 
+We want to prove for all $n\in\mathbb{Z}^+$ that the statement $S(n)$
+holds, where $S(n)$ is:
+
+\[
+S(n):n>3\Rightarrow 2^n<n!
+\]
+
+The only times we need to check that the RHS of $S(n)$ is true is when
+the premise is true, because the only time a contradiction can be
+reached is when a true premise leads to a false conclusion, and the
+premise is true when $n>3$. The first $n>3$ such that
+$n\in\mathbb{Z}^+$ is $n=4$, so $n=4$ is our base case. $S(4)$ expands
+to:
+
+\[
+\multistep{
+S(4):&4>3\Rightarrow 2^4<4! \\
+&4>3\Rightarrow 16<24 \\
+}
+\]
+
+Which is a true statement. Now we choose an arbitrary, but particular
+$k\ge4$ and want to verify whether $S(k)\Rightarrow{}S(k+1)$. We can
+expand both of these as:
+
+\[
+S(k):k>3\Rightarrow 2^k<k!
+\]
+
+and
+
+\[
+S(k+1):k+1>3\Rightarrow 2^{k+1}<(k+1)!
+\]
+
+We can expand $2^{k+1}$ and $(k+1)!$ as:
+
+\[
+S(k+1):k+1>3\Rightarrow 2\cdot2^k<(k+1)k!
+\]
+
+We can then replace $2^k$ with $k!$ from $S(k)$.
+
+\[
+S(k+1):k+1>3\Rightarrow 2\cdot k!<(k+1)k!
+\]
+
+Because we assume that $k\ge4$, then we also know that $2<k+1$, and
+therefore the inequality holds. Since we chose $k$ arbitrarily, then
+we can conclude that the statement $S(n)$ is true for any
+$n\in\mathbb{Z}^+$.
+
 %
-\subproblem{a} We want to provide a recursive definition for the
-relation $R\subseteq{}\mathbb{Z}^+\times\mathbb{Z}^+$ where
-$(m,n)\in{}R$ iff $m\ge{}n$.
+\problem{4.1}{18}
 
-We start with the base case, where we use the smallest element of
-$\mathbb{Z}^+$ for both $m$ and $n$. In this case, that would be:
+Given the equations:
 
 \[
-(1,1)\in R
+\begin{array}{lrcl}
+1) & 1&=&1 \\
+2) & 2+3+4&=&1+8 \\
+3) & 5+6+7+8+9&=&8+27 \\
+4) & 10+11+12+13+14+15+16&=&27+64 \\
+\end{array}
 \]
 
-Then we go with the second case that if we add 1 to both elements of
-the tuple, then the inequality still holds:
+We want to determine an open statement $S(n)$ such that $S(1)$ is the
+first equation, $S(2)$ is the second, etc, and then prove that $S(n)$
+is true for all $n\ge1$.
+
+%
+\subproblem{a} We first recognize that the LHS of $S(n)$ must have the
+form:
 
 \[
-(i,j)\in R\Rightarrow (i+1,j+1)\in R
+\sum\limits_{i=f(n)}^{g(n)} i
 \]
 
-And lastly, we note that we can add 1 to the first element of the
-tuple and the inequality will still hold:
+for some $f(n)$ and $g(n)$. We can recognize that the lower bound is
+$f(n)=1+(n-1)^2$. Similarly, the upper bound is $g(n)=n^2$. This means
+the LHS of $S(n)$ is actually:
 
 \[
-(i,j)\in R\Rightarrow (i+1,j)\in R
+\sum\limits_{i=1+(n-1)^2}^{n^2} i
 \]
 
-Overall, this gives us a recursive definition:
+The RHS of $S(n)$ can be written as:
+
+\[
+(n-1)^3+n^3
+\]
+
+Ultimately, this makes $S(n)$:
+
+\[
+\subsolution{a}{S(n):\sum\limits_{i=1+(n-1)^2}^{n^2} i=(n-1)^3+n^3}
+\]
+
+%
+\subproblem{b}
+
+%
+\problem{4.1}{24}
+
+Let the sequence $a_1,a_2,\cdots$ be defined by: $a_1=1$, $a_2=2$,
+$a_n=a_{n-1}+a_{n-2},n\ge3$.
+
+%
+\subproblem{a} The next five elements in the sequence are:
 
 \[
 \subsolution{a}{
-\begin{array}{ll}
-(1) & (1,1)\in R \\
-(2) & (i,j)\in R\Rightarrow (i+1,j+1)\in R \\
-(3) & (i,j)\in R\Rightarrow (i+1,j)\in R \\
+\begin{array}{lll}
+i & a_i \\
+\midrule
+1 & 1 \\
+2 & 2 \\
+3 & 3 \\
+4 & 5 \\
+5 & 8 \\
+6 & 13 \\
+7 & 21 \\
 \end{array}
 }
 \]
 
 %
-\subproblem{b} Now we want to show, using our recursive definition,
-that $(5,2)\in{}R$ and $(4,4)\in{}R$.
+\subproblem{b} Now we want to prove for all $n\ge1$ that the statement
+$S(n)$ is true, where:
 
 \[
-\begin{array}{lll}
-\text{Rule} & \text{Premise} & \text{Conclusion} \\
-\midrule
-(1) & & (1,1)\in R \\
-(2) & (1,1)\in R & (2,2)\in R \\
-(3) & (2,2)\in R & (3,2)\in R \\
-(3) & (3,2)\in R & (4,2)\in R \\
-(3) & (4,2)\in R & \subsolution{b}{(5,2)\in R} \\
-\end{array}
+S(n):a_n<(7/4)^n
 \]
 
-Likewise, for $(4,4)\in{}R$:
+We first recognize that we need two base cases, $S(1)$ and $S(2)$,
+where:
 
 \[
-\begin{array}{lll}
-\text{Rule} & \text{Premise} & \text{Conclusion} \\
-\midrule
-(1) & & (1,1)\in R \\
-(2) & (1,1)\in R & (2,2)\in R \\
-(2) & (2,2)\in R & (3,3)\in R \\
-(2) & (3,3)\in R & \subsolution{b}{(4,4)\in R} \\
-\end{array}
+\multistep{
+S(1):&a_1<(7/4)^1 \\
+S(2):&a_2<(7/4)^2 \\
+}
 \]
 
-%
-\problem{4.1}{18}
+Which we can see is true, because $a_1=1<(7/4)$ and
+$a_2=2<(7^2/4^2)$. Then, for some arbitrary but particular $k\ge3$
+where $S(k-2)$ and $S(k-1)$ are true, we want to show that $S(k)$ must
+be true. We can expand $S(k-2)$, $S(k-1)$, and $S(k)$ as:
 
-%
-\problem{4.1}{24}
+\[
+\multistep{
+S(k-2):&a_{k-2}<(7/4)^{k-2} \\
+S(k-1):&a_{k-1}<(7/4)^{k-1} \\
+S(k):&a_k<(7/4)^k \\
+}
+\]
+
+We first recognize that, based on the definition of the sequence of
+numbers, that $a_k$ can be rewritten as $a_{k-2}+a_{k-1}$:
+
+\[
+S(k):a_{k-2}+a_{k-1}<(7/4)^k
+\]
+
+We can then use $S(k-2)$ and $a_{k-2}$ as well as $S(k-1)$ and
+$a_{k-1}$ to write:
+
+\[
+S(k):a_{k-2}+a_{k-1}<(7/4)^{k-2}+(7/4)^{k-1}
+\]
+
+Next we need to show that $(7/4)^{k-2}+(7/4)^{k-1}$ is bounded above
+by $(7/4)^k$:
+
+\[
+(7/4)^{k-2}+(7/4)^{k-1}<(7/4)^k
+\]
+
+If we graph the functions:
+
+\[
+\begin{cases}
+y_1=(7/4)^{x-2}+(7/4)^{x-1} \\
+y_2=(7/4)^x \\
+\end{cases}
+\]
+
+Then we see that $y_2>y_1$ for all values of $x$, which means that
+$(7/4)^{k-2}+(7/4)^{k-1}<(7/4)^k$, and therefore we have shown that:
+
+\[
+S(k):a_{k-2}+a_{k-1}<(7/4)^{k-2}+(7/4)^{k-1}<(7/4)^k
+\]
+
+Because we chose $k$ arbitrarily, we have proven that the statement is
+true for all $k\ge1$.
 
 %
 \problem{4.2}{12}
 
+Let the fibonacci numbers be defined by: $F_0=0$, $F_1=1$,
+$F_n=F_{n-2}+F_{n-1},n\ge2$. We want to show that the $n$th fibonacci
+number is equivalent to $F_{n+2}-1$. Let the statement $S(n)$
+represent this:
+
+\[
+S(n):F_n=F_{n+2}-1
+\]
+
+First we want to use two base cases $S(0)$ and $S(1)$:
+
+\[
+\multistep{
+S(0):&F_0=F_2-1 \\
+S(1):&F_1=F_3-1 \\
+}
+\]
+
+which is equivalent to:
+
+\[
+\multistep{
+S(0):&0=1-1 \\
+S(1):&1=2-1 \\
+}
+\]
+
+These statements are true. Now we can look at the statement $S(k-2)$,
+$S(k-1)$, and $S(k)$ for some arbitrary but particular $k\ge2$. These
+expand to:
+
+\[
+\multistep{
+S(k-2):&F_{k-2}=F_{k}-1 \\
+S(k-1):&F_{k-1}=F_{k+1}-1 \\
+S(k):&F_{k}=F_{k+2}-1 \\
+}
+\]
+
+We then recognize that we can rewrite $F_k$ given the definition for
+fibonacci numbers:
+
+\[
+S(k):F_{k-2}+F_{k-1}=F_{k+2}-1
+\]
+
+Using $S(k-2)$, we can replace $F_{k-2}$ with $F_{k}-1$:
+
+\[
+S(k):F_{k}-1+F_{k-1}=F_{k+2}-1
+\]
+
+Similarly, we can use $S(k-1)$ to replace $F_{k-1}$ with $F_{k+1}-1$:
+
+\[
+S(k):F_k-1+F_{k+1}-1=F_{k+2}-1
+\]
+
+We can then recognize that $F_k+F_{k+1}$ is the definition of
+$F_{k+2}$:
+
+\[
+S(k):F_{k+2}-2=F_{k+2}-1
+\]
+
+If these were the same, we could conclude that, because $k$ was
+arbitrary, then we have shown that $S(k)$ is true for any $k\ge0$.
+
 %
 \problem{4.2}{16}
 
+We want to find a recursive definition for (a) positive even integers
+and (b) nonnegative even integers.
+
+%
+\subproblem{a}
+
+\[
+\multistep{
+1) & 2\in S \\
+2) & \forall x\in S(x+2\in S) \\
+}
+\]
+
+%
+\subproblem{b}
+
+\[
+\multistep{
+1) & 0\in S \\
+2) & \forall x\in S(x+2\in S) \\
+}
+\]
 
 \end{document}
