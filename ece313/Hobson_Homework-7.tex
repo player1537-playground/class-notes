@@ -79,9 +79,9 @@ $\E{}V$, which is defined by:
 given by:
 
 \[
-\sqrt{\var(V)}=\frac{(1.60-1.43)^2}{12}
+\sqrt{\var(V)}=\sqrt{\frac{(1.60-1.43)^2}{12}}
 \] \[
-\subsolution{4.1}{2}{b}{\sqrt{\var(V)}=0.00240833}
+\subsolution{4.1}{2}{b}{\sqrt{\var(V)}=0.0490747}
 \]
 
 %
@@ -178,13 +178,198 @@ P(T|H)=\frac{F_D(h)-F_D(h-t)}{F_D(h)}
 %
 \problem{4.2}{6}
 
+Let $X$ be a random variable for the distance between imperfections in
+an strand of optical fiber and be modeled by an exponential
+distribution with parameter $\lambda=2$:
+
+%
+\subproblem{4.2}{6}{a} The expected distance between imperfections,
+$\E{}X$, can be calculated with:
+
+\[
+\E X=\frac{1}{\lambda}
+\] \[
+\subsolution{4.2}{6}{a}{\E X=0.5}
+\]
+
+%
+\subproblem{4.2}{6}{b} The probability that the distance between two
+imperfections being longer than $1$ meter, $P(X>1)$, can be computed
+using the CDF:
+
+\[
+\multistep{
+P(X>1)&=1-P(X\le 1) \\
+&=1-F_X(1) \\
+&=1-\left(1-e^{-\lambda\cdot1}\right) \\
+&=e^{-2} \\
+}
+\]
+
+\[
+\subsolution{4.2}{6}{b}{P(X>1)=0.135335}
+\]
+
+%
+\subproblem{4.2}{6}{c} The distribution of the number of imperfections
+in a $3$ meter stretch of fiber, called $Y$, is a Poisson
+distribution:
+
+\[
+Y\sim \text{Poisson}(\lambda\cdot3)
+\] \[
+\subsolution{4.2}{6}{c}{Y\sim\text{Poisson}(6)}
+\]
+
+%
+\subproblem{4.2}{6}{d} The probability that a $3$ meter stretch of
+fiber having no more than $4$ imperfections is given by
+$P(Y\le4)=F_Y(4)$:
+
+\[
+F_Y(4)=\sum\limits_{i=0}^4 \frac{e^{-6}6^i}{i!}
+\] \[
+\subsolution{4.2}{6}{d}{F_Y(4)=0.285056}
+\]
+
 %
 \problem{4.2}{8}
+
+Let $X$ be a random variable for the time of failure of a granite
+sample when subjected to stress. We know that $90\%$ of granite
+samples fail in the first $5$ hours, or:
+
+\[
+F_X(5)=0.90
+\]
+
+%
+\subproblem{4.2}{8}{a} If $X$ is modeled by an exponential
+distribution, we can use the defined formula for the $p$th percentile
+to determine a suitable value for $\lambda$. The $p$th percentile is
+given by:
+
+\[
+F_X(\tilde{x}_p)=p \Leftrightarrow \tilde{x}_p=\frac{-\ln(1-p)}{\lambda}
+\]
+
+Using the above definition for the 90th percentile, we have:
+
+\[
+F_X(5)=0.90 \Leftrightarrow 5=\frac{-\ln(1-0.90)}{\lambda}
+\] \[
+\subsolution{4.2}{8}{a}{\lambda = 0.460517}
+\]
+
+%
+\subproblem{4.2}{8}{b} Using this model, we want to find the
+probability that a fracture occurs within 3 hours, or $P(X\le3)$. This
+can be computed using the definition of the CDF:
+
+\[
+\multistep{
+P(X\le3)&=F_X(3) \\
+&=1-e^{-\lambda\cdot3} \\
+}
+\]
+
+\[
+\subsolution{4.2}{8}{b}{P(X\le3)=0.748811}
+\]
 
 %
 \problem{4.3}{5}
 
+Let each $X_i$ be a random variable with a exponential distribution
+with parameter $\lambda=2$.
+
+%
+\subproblem{4.3}{5}{a} The distribution of the distance between the
+first and the fifth imperfection. Each $X_i$ is the distance from the
+$i$th imperfection to the $i+1$th imperfection. So because we want to
+find the distribution between the first and fifth, then that's
+actually the sum of 4 $X_i$'s.
+
+Let $X$ be this random variable, which is a gamma distribution with
+$\lambda=2$ and $k=4$.
+
+%
+\subproblem{4.3}{5}{b} The expectation of the distance between the
+first and fifth imperfections, $\E{}X$, is:
+
+\[
+\E X=\frac{k}{\lambda}
+\] \[
+\subsolution{4.3}{5}{b}{\E X=2}
+\]
+
+%
+\subproblem{4.3}{5}{c} The standard deviation is given by:
+
+\[
+\multistep{
+\sqrt{\var(X)}&=\sqrt{\frac{k}{\lambda^2}} \\
+&=\frac{\sqrt{k}}{\lambda} \\
+}
+\]
+
+\[
+\subsolution{4.3}{5}{c}{\sqrt{\var(X)}=1}
+\]
+
+%
+\subproblem{4.3}{5}{d} Suppose the distance between the first and
+fifth imperfections is greater than 3 meters. The probability that
+this occurs, $P(X>3)$, can be computed with the CDF:
+
+\[
+\multistep{
+P(X>3)&=1-P(X\le3) \\
+&=1-F_X(3) \\
+&=1-\int\limits_{0}^3 \dfrac{\lambda^k x^{k-1} e^{-\lambda x}}{\Gamma(k)} \d{x} \\
+&=0.787801 \\
+}
+\]
+
 %
 \problem{4.3}{6}
+
+Let $Y$ be the distribution for the time between the first and fourth
+arrivals of the day, which is a gamma distribution. We know that an
+average of $1.8$ people arrive, so we can compute the $\lambda$
+parameter with the definition of the expectation of a Poisson process, $X$:
+
+\[
+\E X=1.8=\frac{1}{\lambda}
+\] \[
+\lambda=0.555555
+\]
+
+%
+\subproblem{4.3}{6}{a} The distribution of the time between the first
+and the fourth, $Y$, is a gamma distribution with $\lambda=0.555555$
+and $k=3$.
+
+%
+\subproblem{4.3}{6}{b} The expectation of $Y$, $\E{}Y$, is given by:
+
+\[
+\E Y=\frac{k}{\lambda}
+\] \[
+\subsolution{4.3}{6}{b}{\E Y=5.4}
+\]
+
+%
+\subproblem{4.3}{6}{c} The variance of $Y$, $\var(Y)$, can be computed
+with:
+
+\[
+\var(Y)=\frac{k}{\lambda^2}
+\] \[
+\subsolution{4.3}{6}{c}{\var(Y)=9.72}
+\]
+
+%
+\subproblem{4.3}{6}{d}
 
 \end{document}
