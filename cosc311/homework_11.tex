@@ -6,6 +6,7 @@
 \usepackage{xintexpr}
 \usepackage{multicol}
 \usepackage{forest}
+\usepackage{xfrac}
 
 \setlength{\columnsep}{0.5cm}
 \setlength{\columnseprule}{1pt}
@@ -38,6 +39,8 @@
 \newcommand{\subeq}{\subseteq}
 \newcommand{\sub}{\subset}
 
+\newcommand{\conj}[1]{\overline{#1}}
+
 \setlength\parindent{0pt}
 \setlength\parskip{0em}
 
@@ -46,33 +49,385 @@
 %
 \problem{5.1}{2}
 
+Let $A=\{1,2,3\}$ and $B=\{2,4,5\}$.
+
+%
+\subproblem{a} We want to find three non-empty relations from $A$ to
+$B$, which are defined by:
+
+\[
+R\subseteq (A\times B)
+\]
+
+where
+
+\[
+A\times B=\{\langle a,b\rangle|a\in A,b\in B\}
+\]
+
+So three relations are:
+
+\[
+\subsolution{a}{
+\multistep{
+R_1&=\{\langle 1,2\rangle, \langle 1,4\rangle, \langle 2,4\rangle\} \\
+R_2&=\{\langle 1,5\rangle, \langle 3,5\rangle\} \\
+R_3&=\{\langle 2,2\rangle, \langle 3,5\rangle,\langle 3,2\rangle\} \\
+}
+}
+\]
+
+%
+\subproblem{b} Now we want to find three non-empty relations on $A$,
+defined as:
+
+\[
+R\subseteq (A\times A)
+\]
+
+Three such relations are:
+
+\[
+\subsolution{b}{\multistep{
+R_1&=\{\langle 1,1\rangle, \langle 2,1\rangle, \langle 3,3\rangle\} \\
+R_2&=\{\langle 2,2\rangle\} \\
+R_3&=\{\langle 2,3\rangle, \langle 3,2\rangle\} \\
+}}
+\]
 
 %
 \problem{5.1}{10}
 
+We can model each phone call as a function. For example, if each of
+the people in the set $A_1$ calls one person in $A_2$, then we can
+model that as:
+
+\[
+R_{1,2}\subseteq(A_1\times A_2)
+\]
+
+Let $A_1$ be the set containing the originator ($|A_1|=1$), and $A_2$
+be the set containing the people the originator calls. Define a
+relation $R_{1,2}$ between $A_1$ and $A_2$, where the size of the
+relation is the number of phone calls made per person in $A_1$
+multiplied by the number of people in $A_1$. In other words:
+
+\[
+R_{1,2}\subseteq(A_1\times A_2)
+\] \[
+|R_{1,2}|=2|A_1|
+\]
+
+Because the relation $R_{1,2}$ is made up of tuples $(x,y)$ where
+$x\in{}A_1$ and $y\in{}A_2$, and no person is called twice (therefore
+if $(x,y)\in{}R_{1,2}$ and $(z,y)\in{}R_{1,2}$ then $x=z$), then the
+size of $A_2$ must be the size of the relation $R_{1,2}$:
+
+\[
+\multistep{
+|A_2|&=|R_{1,2}| \\
+&= 2|A_1| \\
+&= 2 \\
+}
+\]
+
+By the same reasoning, we can create $A_3$, the set of people called
+by people in $A_2$, and $R_{2,3}$, the relation mapping people in
+$A_2$ to people in $A_3$, and conclude that $|A_3|$ must be:
+
+\[
+\multistep{
+|A_3|&=|R_{2,3}| \\
+&=3|A_2| \\
+&= 6 \\
+}
+\]
+
+Finally, we define $A_4$ and $R_{3,4}$ the same way, to find that
+$|A_4|$ must be:
+
+\[
+\multistep{
+|A_4|&=|R_{3,4}| \\
+&=5|A_3| \\
+&=30 \\
+}
+\]
+
+%
+\subproblem{a} The total number of people who now know the rumor is
+the sum of the sizes of each set $A_1$, $A_2$, $A_3$, and $A_4$:
+
+\[
+|A_1|+|A_2|+|A_3|+|A_4|=1+2+6+30
+\] \[
+\subsolution{a}{|A_1|+|A_2|+|A_3|+|A_4|=39}
+\]
+
+%
+\subproblem{b} The total number of phone calls made is the sum of the
+sizes of each relation:
+
+\[
+|R_{1,2}|+|R_{2,3}|+|R_{3,4}|=2+6+30
+\] \[
+\subsolution{b}{|R_{1,2}|+|R_{2,3}|+|R_{3,4}|=38}
+\]
+
 %
 \problem{5.1}{12}
+
+Let $A$ and $B$ be sets with $|B|=3$. Suppose that there are $N=4096$
+total possible relations from $A$ to $B$. We want to find the size of
+$A$.
+
+To do this, we rely on the definition for the number of possible
+relations between two arbitrary sets, $X$ and $Y$, where $|X|=n$ and
+$|Y|=m$. The definition states the number of possible relations is:
+
+\[
+S=\{ R | \text{$R$ is a relation from $X$ to $Y$} \}
+\] \[
+|S|=2^{mn}
+\]
+
+Applying this to the sets $A$ and $B$, we see that it works out to be:
+
+\[
+N=2^{|A|\cdot|B|}
+\] \[
+4096=2^{3|A|}
+\]
+
+We can solve this to find that $|A|$ must be:
+
+\[
+\solution{|A|=4}
+\]
 
 %
 \problem{5.2}{4}
 
+Let $A$ and $B$ be sets, with $|B|=3$. Suppose there are $N=2187$
+functions $f:A\rightarrow{}B$. We want to find $A$. We can do this
+using the definition for the number of functions from $A$ to $B$,
+which states that:
+
+\[
+S=\{ f|f:A\rightarrow B \}
+\] \[
+|S|=|B|^{|A|}
+\]
+
+We can see that this involves solving the equation:
+
+\[
+2187=3^{|A|}
+\]
+
+Which yields:
+
+\[
+\solution{|A|=7}
+\]
+
 %
 \problem{5.2}{6}
 
-%
-\problem{5.2}{8a}
+Let $A$, $B$, and $C$ be functions mapping reals to reals, where:
+
+\[
+\multistep{
+A&=\{(x,y)|y=2x+1\} \\
+B&=\{(x,y)|y=3x\} \\
+C&=\{(x,y)|x-y=7\} \\
+}
+\]
 
 %
-\problem{5.2}{16a}
+\subproblem{a i} We want to find $A\cap{}B$. This involves finding the
+set:
+
+\[
+\multistep{
+A\cap B&=\{z|z\in A, z\in B\} \\
+&=\{(x,y)|y=2x+1, y=3x\} \\
+&=\{(x,y)|0=x-1, y=3x\} \\
+&=\{(x,y)|x=1, y=3x\} \\
+&=\{(1,3)\} \\
+}
+\]
+
+Therefore:
+
+\[
+\subsolution{a i}{A\cap B=\{(1,3)\}}
+\]
 
 %
-\problem{5.2}{16c}
+\subproblem{a ii} We want to find $B\cap{}C$:
+
+\[
+\multistep{
+B\cap C&=\{(x,y)|(x,y)\in B, (x,y)\in C\} \\
+&=\{(x,y)|y=3x, x-y=7\} \\
+}
+\]
+
+\[
+\subsolution{a ii}{B\cap C=\{(\sfrac{-7}{2}, \sfrac{-21}{2})\}}
+\]
 
 %
-\problem{5.2}{16f}
+\subproblem{a iii} We want to find $\conj{\conj{A}\cup\conj{C}}$. By
+applying DeMorgan's Law, we can see that this is the same as
+$A\cap{}C$.
+
+\[
+\multistep{
+A\cap C&=\{(x,y)|(x,y)\in A, (x,y)\in C\} \\
+&=\{(x,y)|y=2x+1, x-y=7\} \\
+&=\{(x,y)|x=-8, y=-15\} \\
+}
+\]
+
+\[
+\solution{A\cap C=\{(-8,-15)\}}
+\]
+
+%
+\subproblem{a iv} We want to find $\conj{B}\cup\conj{C}$. It will be
+easier to instead look at an alternative representation of this set
+using DeMorgan's Law: $\conj{B\cap{}C}$. We previously found
+$B\cap{}C$, which is:
+
+\[
+B\cap C=\{(-7/2,-21/2)\}
+\]
+
+The conjugate of this set, then, is the set:
+
+\[
+\subsolution{a iv}{\conj{B\cap C}=\mathbb{R}^2 - \{(-7/2, -21/2)\}}
+\]
+
+%
+\subproblem{b i} If we change our universe to
+$\mathbb{Z}^+\times\mathbb{Z}^+$, then (a i) does not change because
+its solution already lied in this universe.
+
+\[
+\solution{A\cap B=\{(1,3)\}}
+\]
+
+%
+\subproblem{b ii} However, because $\sfrac{-7}{2}\not\in\mathbb{Z}^+$
+(and $\sfrac{-21}{2}\not\in\mathbb{Z}^+$), then the set $B\cap{}C$
+becomes the empty set.
+
+\[
+\solution{B\cap C=\varnothing}
+\]
+
+%
+\subproblem{b iii} Similarly, $-8\not\in\mathbb{Z}^+$, so:
+
+\[
+\solution{A\cap C=\varnothing}
+\]
+
+%
+\subproblem{b iv} Lastly, because the set we remove from our universe
+($\{(\sfrac{-7}{2},\sfrac{-21}{2})\}$) does not lie in our universe
+now, then this instead becomes:
+
+\[
+\solution{\conj{B\cap C}=\mathbb{Z}^+\times\mathbb{Z}^+}
+\]
+
+%
+\problem{5.2}{8a} We want to determine with the statement $S$ is true
+or false, where:
+
+\[
+S:\lfloor a\rfloor =\lceil a\rceil\quad\text{for all $a\in\mathbb{Z}$}
+\]
+
+We recall the definitions of floor and ceiling:
+
+\[
+\lfloor x\rfloor \overset{def}{=}\text{max}\{z\in\mathbb{Z}|z\le x\}
+\] \[
+\lceil x\rceil \overset{def}{=}\text{min}\{z\in\mathbb{Z}|z\ge x\}
+\]
+
+We note that, if $x\in\mathbb{Z}$, then $\lfloor{}x\rfloor$ and
+$\lceil{}x\rceil$ are both just $x$. For instance, with the floor of
+$x$, then if we let $z=x$ then we have found an integer
+($z\in\mathbb{Z}$) that is less than or equal to $x$ ($z\le{}x$). If
+we had a hypothetical $z'=x+1$, then this would also be an integer
+($z'\in\mathbb{Z}$) but it would not be less than or equal to $x$
+($z\not\le{}x$). Therefore, for integers $\lfloor{}x\rfloor=x$, and
+similarly with ceilings.
+
+Likewise, because our statement $S$ deals only with integers
+$a\in\mathbb{Z}$, then the floor and ceiling of $x$ must be equal, by
+the above reasoning, so the statement is true.
+
+%
+\problem{5.2}{16}
+
+Let $f:\mathbb{R}\rightarrow\mathbb{R}$ where $f(x)=x^2$. We want to
+find the image of $f$ onto $A$, $f(A)$, for particular subsets
+$A\subseteq\mathbb{R}$.
+
+%
+\subproblem{a} Let $A=\{2,3\}$. The image $f(A)$ is defined as:
+
+\[
+\multistep{
+f(A)&=\{b|a\in A, (a,b)\in f\} \\
+&=\{b|a\in A, b=a^2\} \\
+&=\{2^2, 3^2\}
+}
+\]
+
+\[
+\subsolution{a}{f(A)=\{4,9\}}
+\]
+
+%
+\subproblem{c} Let $A=\{x\in\mathbb{R}|-3<x<3\}$. The image $f(A)$ is:
+
+\[
+\multistep{
+f(A)&=\{b|a\in A, (a,b)\in f\} \\
+&=\{b|a\in A, b=a^2\} \\
+&=\{a^2|-3<a<3\} \\
+}
+\]
+
+We can split our domain, $-3<a<3$, into two. A useful place to split
+is at $a=0$, because this is where the sign of $a$ changes.
+
+\[
+\multistep{
+f(A)&=\{a^2|-3<a\le 0\}\cup\{a^2|0<a<3\} \\
+&=\{x|(-3)^2<x\le (0)^2\}\cup\{x|(0)^2<x<(3)^2\} \\
+&=\{x|9<x\le 0\}\cup\{x|0<x<9\} \\
+&=\varnothing\cup\{x|0<x<9\} \\
+&=\{x|0<x<9\} \\
+}
+\]
+
+\[
+\subsolution{c}{f(A)=\{x\in\mathbb{R}|0<x<9\}}
+\]
+
+%
+\subproblem{f}
 
 %
 \problem{5.2}{20}
-
 
 \end{document}
