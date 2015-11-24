@@ -1,0 +1,384 @@
+\documentclass{article}
+%\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xintexpr}
+\usepackage{multicol}
+\usepackage{empheq}
+\usepackage{forest}
+\usepackage{booktabs}
+\usepackage{ifthen}
+\usepackage{xfrac}
+
+\setlength{\columnsep}{0.5cm}
+\setlength{\columnseprule}{1pt}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\problem}[2]{$\boxed{\text{#1.#2}}$}
+\newcommand{\subproblem}[3]{$\boxed{\text{(#3)}}$}
+\newcommand{\solution}[3]{\boxed{#3\quad(\text{#1.#2})}}
+\newcommand{\subsolution}[4]{\boxed{#4\quad(\text{#1.#2#3})}}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\newcommand{\p}[1]{\,\partial #1}
+\newcommand{\pp}[2]{\frac{\p{#1}}{\p{#2}}}
+\newcommand{\ppp}[2]{\dfrac{\p{#1}}{\p{#2}}}
+
+\newcommand{\multistep}[1]{\begin{array}{rl} #1 \end{array}}
+\newcommand{\subeq}{\subseteq}
+\newcommand{\sub}{\subset}
+
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\E}{\mathcal{E}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{0em}
+
+\begin{document}
+
+\section*{Homework 8}
+
+%
+\problem{4.4}{4}
+
+Let $X$ be a random variable for the time to failure in hours, modeled
+by a Weibull distribution with parameters $a=3$ and $\lambda=0.5$.
+
+%
+\subproblem{4.4}{4}{a} The median failure time of the circuit can be
+found by solving for $\tilde{x}_{0.5}$ in:
+
+\[
+F_X(\tilde{x}_{0.5})=0.5
+\]
+
+Where the CDF is given by:
+
+\[
+F_X(x)=1-e^{-(\lambda x)^a}
+\]
+
+This gives a median failure time of:
+
+\[
+\subsolution{4.4}{4}{a}{\tilde{x}_{0.5}=1.76999}
+\]
+
+%
+\subproblem{4.4}{4}{b} If the engineers want to be $99\%$ certain of
+how long a circuit will last, then we want to find the $99$th
+percentile, or:
+
+\[
+F_X(\tilde{x}_{0.99})=0.99
+\]
+
+This is given by:
+
+\[
+\tilde{x}_{0.99}=\dfrac{(-\ln(1-0.99))^{\sfrac{1}{a}}}{\lambda}
+\] \[
+\subsolution{4.4}{4}{b}{\tilde{x}_{0.99}=3.32745}
+\]
+
+%
+\subproblem{4.4}{4}{c} To find the expectation and variance of $X$, we
+go to the definitions:
+
+\[
+\E X=\frac{1}{\lambda} \Gamma\left(1+\frac{1}{a}\right)
+\]
+
+and
+
+\[
+\var(X)=\frac{1}{\lambda^2}\left(\Gamma\left(1+\frac{2}{a}\right)-\Gamma\left(1+\frac{1}{a}\right)^2\right)
+\]
+
+\[
+\subsolution{4.4}{4}{c}{\multistep{
+\E X&= 1.78596 \\
+\var(X)&= 0.421332 \\
+}}
+\]
+
+%
+\subproblem{4.4}{4}{d} Let $X_1$, $X_2$, $X_3$, and $X_4$ be
+independent Weibull distributions with parameters $a=3$ and
+$\lambda=0.5$. Let $A_i$ be the event that $X_i$ is less than 3
+hours. We want to find the probability $P(A_1A_2A_3A_4)$. Because each
+variable, and therefore each event, is independent, then we can
+rewrite it by the definition of independent events:
+
+\[
+\multistep{
+P(A_1A_2A_3A_4)&=P(A_1)P(A_2)P(A_3)P(A_4) \\
+&=P(X_1<3)P(X_2<3)P(X_3<3)P(X_4<3) \\
+}
+\]
+
+Similarly, because each $X_i\sim{}X$, then this simplifies to:
+
+\[
+\multistep{
+P(A_1A_2A_3A_4)&=(P_X(3))^4 \\
+&=\left(1-e^{-(\lambda 3)^a}\right)^4 \\
+}
+\] \[
+\subsolution{4.4}{4}{d}{P(A_1A_2A_3A_4)=0.869994}
+\]
+
+%
+\problem{4.4}{8}
+
+Let $X$ be a random variable for the number of days up to and
+including the day a patient is recovered, modeled by a Weibull
+distribution with parameters $a$ and $\lambda$. Let $F_X(x)$ be the
+percent of people who have recovered, where:
+
+\[
+F_X(x)=1-e^{-(\lambda x)^a}
+\]
+
+After $7$ days, it is found that $\sfrac{9}{82}$ patients have
+recovered:
+
+\[
+F_X(7)=\sfrac{9}{82}
+\]
+
+Then, after $14$ days, it is found that $\sfrac{24}{82}$ patients have
+recovered:
+
+\[
+F_X(14)=\sfrac{24}{82}
+\]
+
+We can set up a system of equations and solve for $a$ and $\lambda$:
+
+\[
+\begin{cases}
+\sfrac{9}{82}=1-e^{-(\lambda 7)^a} \\
+\sfrac{24}{82}=1-e^{-(\lambda 14)^a} \\
+\end{cases}
+\]
+
+Using Sympy, we end up with:
+
+\[
+\begin{cases}
+%soln = [(1.57457097793974, 0.0364218706301951)]
+a=1.5745709 \\
+\lambda= 0.0364219 \\
+\end{cases}
+\]
+
+Then, the median time to recovery is given by:
+
+\[
+\tilde{x}_{0.5}=\dfrac{\left(-\ln(1-0.5)\right)^{\sfrac{1}{a}}}{\lambda}
+\] \[
+\solution{4.4}{8}{\tilde{x}_{0.5}=21.7544}
+\]
+
+%
+\problem{4.8}{10}
+
+Let $X_i$ for $1\le{}i\le10$ be a random variable for the strength of
+a chemical solution. Let $W_i$ be the event $X_i<0.5$, where the
+solution is weak. Let $G_i$ be the event $0.5<X_i<0.8$, where the
+solution is good. Let $S_i$ be the event $X_i>0.8$, where the solution
+is strong. Each random variable, $X_i$, is independently modeled by a
+Beta distribution with $a=18$ and $b=11$.
+
+We want to find the probability that one batch is weak, one is strong,
+and eight are good, i.e.:
+
+\[
+P\left(W_1S_2\bigcap\limits_{i=3}^{10} G_i\right)=?
+\]
+
+Because each event is independent, we can multiply these probabilities
+together independently:
+
+\[
+P(W_1)P(S_2)\prod\limits_{i=3}^{10}P(G_i)
+\]
+
+Substituting each event, we get:
+
+\[
+P(X_1<0.5)P(X_2>0.8)\prod\limits_{i=3}^{10}P(0.5<X_i<0.8)
+\]
+
+These can be rewritten in terms of the CDF, $F_X$. Because each
+variable is modeled by the same distribution, we can just use the one
+CDF and write them all in terms of it:
+
+\[
+F_X(0.5)(1-F_X(0.8))\left(F_X(0.8)-F_X(0.5)\right)^8
+\]
+
+Where the CDF is given by:
+
+\[
+F_X(z)=\int\limits_{0}^{z} \dfrac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} x^{a-1}(1-x)^{b-1}\d{x}
+\]
+
+Using Scipy, the probability evaluates to:
+
+\[
+\solution{4.8}{10}{0.0005541369}
+\]
+
+%
+\problem{5.1}{10}
+
+Let $X$ be a random variable for the weight of a packet of sugar. Let
+$x_0=1$ be the separator between underweight packets and overweight
+ones ($X<x_0$ and $X>x_0$, respectively). Let $X$ be modeled by a
+normal distribution with mean $\mu=1.03$ and standard deviation
+$\omega=0.014$.
+
+%
+\subproblem{5.1}{10}{a} We want to find the proportion of packets that
+are underweight. Suppose $N$ is the number of packets produced. The
+proportion, then, would be:
+
+\[
+\% = \frac{N P(X<x_0)}{N}
+\]
+
+Therefore, the proportion is just the probability that a packet is
+underweight. The PDF for $X$ is given by:
+
+\[
+\rho_X(x)=\dfrac{1}{\sigma \sqrt{2\pi}}\,e^{\dfrac{-(x-\mu)^2}{2\sigma^2}}
+\]
+
+The CDF, then, is:
+
+\[
+F_X(x)=\int\limits_{-\infty}^x \rho_X(z)\d{z}
+\]
+
+Thus the percentage we are looking for is:
+
+\[
+\subsolution{5.1}{10}{a}{F_X(1)=0.0160623}
+\]
+
+%
+\subproblem{5.1}{10}{b} Suppose that we have another random variable,
+$Y$, defined in the same way as $X$ but with $\mu=1.05$ and
+$\omega=0.016$. We want to find the proportion of underweight packets
+for $Y$ and compare it to that for $X$. Again, we look at the CDF
+function at $x_0=1$.
+
+\[
+F_Y(1)=0.00088903
+\]
+
+We can see that $F_Y(1)$ is several orders of magnitude smaller than
+$F_X(1)$.
+
+%
+\subproblem{5.1}{10}{c} The expected excess package weight for $X$ and
+$Y$ are given by $\E(X-x_0)$ and $\E(Y-x_0)$ respectively. Because
+subtracting a constant from a normal distribution only changes the
+mean, then this is the same as defining $X'\sim{}N(0.03,0.014)$ and
+$Y'\sim{}N(0.05,0.016)$ and finding $\E{}X'$ and $\E{}Y'$, where the
+arguments for $N$ are $\mu$ and $\omega$. Similarly, because normal
+distributions are symmetric across the mean, then the expected value
+is just the mean, and therefore:
+
+\[
+\subsolution{5.1}{10}{c}{\multistep{
+\E X'&=0.03 \\
+\E Y'&=0.05 \\
+}}
+\]
+
+%
+\problem{5.2}{7} Let $X_1$ be a random variable for the worth of the
+first mutual fund after a year with parameter $x_1$, the initial
+amount of money you put in the fund, where
+$X_1\sim{}N(1.05x_1,0.0002x^2)$, where $N(\mu,\sigma^2)$ represents a
+normal distribution with mean $\mu$ and standard deviation $\sigma$.
+
+Let $X_2$ be another random variable for the worth of the second
+mutual fund, with parameter $x_2$, where
+$X_2\sim{}N(1.05x,0.0003x^2)$.
+
+Suppose that $x_1=y$ and $x_2=1000-y$, and let the random variable
+$Y=X_1+X_2$ be the total worth of both funds.
+
+%
+\subproblem{5.2}{7}{a} The expected value of $Y$, $\E{}Y$, is given
+by:
+
+\[
+\multistep{
+\E Y&=\E(X_1+X_2) \\
+&=\E(N(1.05y,0.0002y^2)+N(1.05(1000-y),0.0003(1-y)^2)) \\
+&=1.05y+1000\cdot1.05-1.05y \\
+}
+\]
+
+\[
+\subsolution{5.2}{7}{a}{\E Y=1050}
+\]
+
+%
+\subproblem{5.2}{7}{b} The variance is given by:
+
+\[
+\multistep{
+\var(Y)&=\var(X_1+X_2) \\
+&=\var(N(1.05y,0.0002y^2)+N(1.05(1000-y),0.0003(1-y)^2)) \\
+&=0.0002y^2+0.0003(1-y)^2 \\
+}
+\]
+
+%
+\subproblem{5.2}{7}{c} This is minimized when:
+
+\[
+0=\dd{}{y}0.0002y^2+0.0003(1-y)^2
+\]
+
+at
+
+\[
+y=0.6
+\]
+
+With this strategy, the probability $P(Y>1060)$ where
+$Y\sim{}N(1050,0.000120)$ is given by:
+
+\[
+\multistep{
+P(Y>1060)&=1-P_Y(1060) \\
+&=\int\limits_{-\infty}^{1060} \rho_Y(z)\d{z} \\
+}
+\]
+
+
+\end{document}
