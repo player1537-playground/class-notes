@@ -1,0 +1,142 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+\usepackage{enumitem}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\E}{\mathcal{E}}
+
+\newcommand{\multistep}[1]{\begin{array}{rl} #1 \end{array}}
+\newcommand{\subeq}{\subseteq}
+\newcommand{\sub}{\subset}
+
+\newcommand{\conj}[1]{\overline{#1}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Theory of Computation}
+
+We work with ``problems'' which are composed of three components:
+
+\begin{tabular}{l}
+Unknowns \\
+Data \\
+Conditions/Constraints \\
+\end{tabular}
+
+So we: solve a \underline{problem} means fiding a way of determining
+the \underline{unknowns} from given \underline{data} such that the
+\underline{conditions} of a problem are satisfied.
+
+\textbf{For example}: Find a remainder of $n$ divided by $5$/
+
+\begin{tabular}{r|l}
+Unknowns & integer $r$ \\
+Data & integer $n$ \\
+Cond & $n\text{ mod }5=r$ \\
+\end{tabular}
+
+\section*{Computation Theory}
+
+\textbf{Question}: What are the fundamental capabilities and
+limitations of computers?
+
+There are $3$ traditional areas of the \textit{Theory of Computation}:
+
+\begin{enumerate}
+\item Automata - provide problem solving devices (not necessarily a
+  computer).
+
+\item Computability - provide framework that can characterize devices
+  by their computing power.
+
+\item Complexity - provide framework to classify problems according to
+  time/space complexity of the tools used to solve them.
+\end{enumerate}
+
+\subsection*{Automata}
+
+The main idea is that this is an abstraction of a computing device.
+
+\begin{itemize}
+\item How much memory is used?
+\item What operations can be performed?
+\end{itemize}
+
+\subsection*{Computability}
+
+The main idea is to study different computing models and identify the
+most powerful one.
+
+The problems range from very simple problems (solved by the simplest
+to most powerful models) to very complex ones (solution cannot be
+provided by even the most powerful models).
+
+\subsection*{Complexity}
+
+Compute problems range from easy to hard, and we need to understand
+how to identify which type of problem we have.
+
+\textbf{For Example}: sorting is easy; scheduling is hard.
+
+The central question is: what makes some problems computationally hard
+and others easy? There's really \textit{no clear answer} to this
+question.
+
+\section*{Abstractions of Problems}
+
+\begin{itemize}
+\item \textbf{Data} - abstracted as a \textbf{word} in a given
+  alphabet.
+
+\item \textbf{Conditions} - abstracted as a \textbf{set} of
+  \textbf{words} called a \textbf{language}.
+
+\item \textbf{Unknowns} - A boolean variable: \textbf{true} if a word
+  is in the language; \textbf{false} otherwise.
+\end{itemize}
+
+\subsection*{Abstractions of Data}
+
+\begin{enumerate}
+\item $\Sigma$: alphabet - a finite, non-empty set of symbols.
+
+\item $\Sigma^*$: all words of finite length built up using $\Sigma$.
+  \begin{enumerate}[label=(\alph*)]
+  \item Rule 1: The empty word, $\epsilon$, is in $\Sigma^*$.
+  \item Rule 2: if $\omega\in\Sigma^*$ and $a\in\Sigma$, then
+    $a\omega\in\Sigma^*$.
+  \item Rule 3: Nothing else is in $\Sigma^*$
+  \end{enumerate}
+
+\end{enumerate}
+
+\textbf{Example}: If our alphabet is $\Sigma=\{0,1\}$, then
+$\Sigma^*=\{\epsilon,0,1,00,01,10,11,000,001,\cdots\}$. Note that this
+is an infinite set, but each word is individually finite.
+
+\end{document}
