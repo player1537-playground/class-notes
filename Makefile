@@ -64,6 +64,10 @@ pdf/cosc370/next: cosc370/next
 pdf/cosc312/next: cosc312/next
 	$(call pdf_next_rule)
 
+.PHONY: pdf/cosc456/next cosc456/next
+pdf/cosc456/next: cosc456/next
+	$(call pdf_next_rule)
+
 PDFS += pdf/math231/2014-11-17.pdf
 pdf/math231/2014-11-17.pdf: math231/2014-11-17.tex
 	$(call pdf_rule)
@@ -302,6 +306,14 @@ pdf/ece313/Hobson_Homework-9.pdf: ece313/Hobson_Homework-9.tex
 
 PDFS += pdf/cosc312/2016-01-14.pdf
 pdf/cosc312/2016-01-14.pdf: cosc312/2016-01-14.tex
+	$(call pdf_rule)
+
+PDFS += pdf/cosc456/2016-01-14.pdf
+pdf/cosc456/2016-01-14.pdf: cosc456/2016-01-14.tex
+	$(call pdf_rule)
+
+PDFS += pdf/cosc312/2016-01-21.pdf
+pdf/cosc312/2016-01-21.pdf: cosc312/2016-01-21.tex
 	$(call pdf_rule)
 
 .PHONY: pdf/all

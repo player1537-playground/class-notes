@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\E}{\mathcal{E}}
+
+\newcommand{\multistep}[1]{\begin{array}{rl} #1 \end{array}}
+\newcommand{\subeq}{\subseteq}
+\newcommand{\sub}{\subset}
+
+\newcommand{\conj}[1]{\overline{#1}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{The Rendering Equation}
+
+\[
+\begin{array}{c|c}
+\text{Term} & \text{Meaning} \\
+\midrule
+I(x, x') & \text{Intensity passing} \\
+g(x, x') & \text{If object is visible} \\
+\epsilon(x,x') & \text{Intensity emitted} \\
+\rho(x,x',x'') & \text{Scattering term} \\
+S & \text{union of all surfaces} \\
+\end{array}
+\]
+
+The equation is:
+
+\[
+I(x,x')=g(x,x')\left\lbrack\epsilon(x,x')+\int_S \rho(x,x',x'')I(x',x'')\d{x''}\right\rbrack
+\]
+
+\end{document}
