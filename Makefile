@@ -4,6 +4,12 @@ NEXT := $(shell date +'%Y-%m-%d')
 
 all: pdf/all index.org
 
+.PHONY: host
+host:
+	port=$$(( (RANDOM % 2000) + 8000)); \
+	echo port=$$port; \
+	python -m SimpleHTTPServer $$port &>/dev/null &
+
 .PHONY: clean
 clean:
 	find . -name '*~' -print -exec rm {} \;
@@ -314,6 +320,10 @@ pdf/cosc456/2016-01-14.pdf: cosc456/2016-01-14.tex
 
 PDFS += pdf/cosc312/2016-01-21.pdf
 pdf/cosc312/2016-01-21.pdf: cosc312/2016-01-21.tex
+	$(call pdf_rule)
+
+PDFS += pdf/cosc312/homework-1.pdf
+pdf/cosc312/homework-1.pdf: cosc312/homework-1.tex
 	$(call pdf_rule)
 
 .PHONY: pdf/all
