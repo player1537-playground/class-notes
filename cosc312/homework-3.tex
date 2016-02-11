@@ -197,30 +197,23 @@ to $Q$, giving $Q=\{\varnothing,\{1\},\{2\},\{1,2\}\}$.
 
 Now we know that our nodes are $\{1\}$, $\{2\}$, and $\{1,2\}$.
 
-\begin{figure}[H]
-  \centering
-  \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
-    \node[initial,state] (q11) {$q_{11}$};
-    \node[state] (q12) [right of=q11] {$q_{12}$};
-    \node[state] (q13) [right of=q12] {$q_{13}$};
-    \node[state] (q14) [right of=q13] {$q_{14}$};
-    \node[state,accepting] (q15) [right of=q14] {$q_{15}$};
-
-    \path[->]
-    (q11) edge [loop above] node {0,1} (q11)
-    (q11) edge node {0} (q12)
-
-    (q12) edge node {1} (q13)
-
-    (q13) edge node {0} (q14)
-
-    (q14) edge node {1} (q15)
-
-    (q15) edge [loop above] node {0,1} (q15)
-    ;
-  \end{tikzpicture}
-  \caption{$M_4$}
-\end{figure}
+%\begin{figure}[H]
+%  \centering
+%  \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
+%    \node[initial,state] (q11) {$\{1\}$};
+%    \node[state] (q12) [right of=q11] {$\{1,2\}$};
+%    \node[state] (q13) [right of=q12] {$\{2\}$};
+%    \node[state] (q22) [below of=q12] {$\varnothing$};
+%
+%    \path[->]
+%    (q11) edge node {a} (q12)
+%    (q11) edge node {b} (q13)
+%
+%    (q12) edge [loop above] node {a,b} (q12)
+%    ;
+%  \end{tikzpicture}
+%  \caption{$M_4$}
+%\end{figure}
 \end{minipage}
 
 \end{document}
