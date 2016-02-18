@@ -1,0 +1,165 @@
+\documentclass{article}
+%\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\lhead{Tanner Hobson}
+\rhead{thobson2}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\E}{\mathcal{E}}
+
+\newcommand{\multistep}[1]{\begin{array}{rl} #1 \end{array}}
+\newcommand{\subeq}{\subseteq}
+\newcommand{\sub}{\subset}
+
+\newcommand{\conj}[1]{\overline{#1}}
+
+\newcommand{\problem}[1]{$\boxed{\textbf{#1}}$}
+
+\setlength\parindent{0pt}
+\setlength\parskip{0em}
+\newenvironment{blockquote}{%
+  \par%
+  \medskip
+  \leftskip=4em\rightskip=2em%
+  \noindent\ignorespaces}{%
+  \par\medskip}
+\begin{document}
+
+\begin{minipage}{\textwidth}
+\problem{4.1}
+
+Let $C$ be the language $\{w|\text{$w$ has an equal number of 0s and 1s}\}$. We aim to prove that $C$ is irregular.
+
+\textbf{Proof}:
+
+Assume $C$ is regular and that $p$ is the pumping length of $C$. If we
+let $s=0^p1^p$, then we know that $s\in{}C$ and that $|s|\ge{}p$. By
+the Pumping Lemma, we can write $s=xyz$. The PL states that we must
+satisfy $|y|\ge1$, meaning that we must have $p\ge1$. Similarly, the
+PL states that $|xy|\le{}p$. Because the first $p$ characters of $s$
+are all 0s, we know that $y$ must also consist solely of 0s. Finally,
+the PL states that we must have, for all $i\ge0$,
+$xy^iz\in{}C$. However, we have reached a contradiction, because there
+would be more 0s than 1s in the string $xy^iz$ where $i\ge1$. Because
+we reached a contradiction, we know that our earlier premise that $C$
+is regular must be false, and can conclude that $C$ is irregular.
+
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+\problem{4.2}
+
+Let $F$ be the language $\{ww|\text{$w$ is a string from $\{0,1\}^*$}\}$. We aim to prove that $F$ is irregular.
+
+\textbf{Proof}:
+
+Assume that $F$ is regular and that $p$ is the pumping the length of
+$F$. Consider the string $s=0^p10^p1$ where $|s|\ge{}p$. To use the
+PL, we must introduce $s=xyz$ for some $|x|\ge0$, $|z|\ge0$, and
+$1\le|y|\le{}p$. We know that the first $p$ characters of $s$ are all
+0s, and by the PL, we know that $|xy|\le{}p$. From this, we can
+conclude that $y$ must consist solely of 0s. Finally, the PL states
+that for all $i\ge0$, $xy^iz\in{}F$. If we consider the case where
+$i=1$, then we can see that $xyyz\not\in{}F$ because there will be
+more 0s on the left half of the string than on the right. We have
+reached a contradiction so we know that our premise must be wrong, and
+can conclude that $F$ is irregular.
+
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+\problem{4.3}
+
+Let $A$ be the language $\{www|\text{$w$ is a string from $\{a,b\}^*$}\}$. We aim to prove that $A$ is irregular.
+
+\textbf{Proof}:
+
+Assume that $A$ is regular and that $p$ is the pumping the length of
+$A$. Consider the string $s=a^pba^pba^pb$ where $|s|\ge{}p$. To use
+the PL, we must introduce $s=xyz$ for some $|x|\ge0$, $|z|\ge0$, and
+$1\le|y|\le{}p$. We know that the first $p$ characters of $s$ are all
+$a$s, and by the PL, we know that $|xy|\le{}p$. From this, we can
+conclude that $y$ must consist solely of $a$s. Finally, the PL states
+that for all $i\ge0$, $xy^iz\in{}A$. If we consider the case where
+$i=1$, then we can see that $xyyz\not\in{}A$ because there will be
+more $a$s on the left third of the string than on the rest. We have
+reached a contradiction so we know that our premise must be wrong, and
+can conclude that $A$ is irregular.
+
+
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+\problem{4.4}
+
+We aim to find the problem with the following proof that $0^*1^*$ is
+irregular.
+
+\begin{blockquote}
+  Assume that $0^*1^*$ is regular.  Let $p$ be the pumping length for
+  $0^*1^*$ given by the Pumping Lemma. Choose $s$ to be the string
+  $0^p1^p$.  We know that $s$ is a member of $0^*1^*$ but we showed
+  that s cannot be pumped from the lecture example with the language
+  $B=\{0^n1^n|n\ge1\}$. So $0^*1^*$ must not be regular also.
+\end{blockquote}
+
+The proof's mistake lies in the assumption that because $s$ cannot be
+pumped by a different language, and because $s$ is in both language,
+then our $0^*1^*$ language must also not be regular.
+
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+\problem{4.5}
+
+Let $L$ be the language $\{0^n1^m0^n|m,n\ge0\}$. We aim to prove that
+$L$ is irregular.
+
+\textbf{Proof}:
+
+Assume that $L$ is regular and that $p$ is the pumping length of
+$L$. Let $s=0^p10^p$ be a string in $L$. For the pumping lemma, we
+introduce $s=xyz$ for some $|x|\ge0$, $|z|\ge0$, and
+$1\le|y|\le{}p$. We then let $x=0^a$, $y=0^b$, and $z=0^c10^p$, such
+that $b\ge1$ (to satisfy $|y|\ge1$) and $a+b+c=p$. Clearly,
+$|xy|\le{}p$ because $a+b=p-c$ and therefore $a+b\le{}p$. The PL
+states that for any $i\ge0$, $xy^iz\in{}L$. We can see that this is
+true for $i=1$ because this is our original string $s$ which we
+already know is in the language. However, for $i=0$, we can see that
+$xy^0z=0^a0^c10^p\not\in{}L$ because $a+c=p-b$ and $b\ge1$, so
+therefore $a+c<p$, and the number of $0$s on either side of the $1$ is
+not equal. We have reached a contradiction so our premise must be
+false, and therefore $L$ is irregular.
+
+\end{minipage}
+
+\end{document}

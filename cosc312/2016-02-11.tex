@@ -1,0 +1,270 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+\usepackage{forest}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{subcaption}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\E}{\mathcal{E}}
+
+\newcommand{\multistep}[1]{\begin{array}{rl} #1 \end{array}}
+\newcommand{\subeq}{\subseteq}
+\newcommand{\sub}{\subset}
+
+\newcommand{\conj}[1]{\overline{#1}}
+
+\setlength\parindent{0pt}
+\setlength\parskip{1em}
+
+\begin{document}
+
+\section*{Regular Languages}
+
+Use the Pumping Lemma to determine if a language is regular.
+
+Because regular languages are hard, we want to move to grammars and
+parse trees.
+
+\section*{Grammars}
+
+Suppose we have a grammar defined by:
+$G=\left(\{E,T,F\},\{a,+,\times,(,)\},R,E\right)$. Note that $E$
+recognizes an adding expression. $T$ represents a multiplying
+expression. And $F$ represents a variable?
+
+Each of the expressions can be written as:
+
+\begin{description}
+\item[$E$]$\rightarrow{}E+T|T$
+\item[$T$]$\rightarrow{}T\times{}F|F$
+\item[$F$]$\rightarrow{}(E)|a$
+\end{description}
+
+We might want to recognize the expression $a+a\times{}a$
+
+\begin{forest}
+[
+  [$E$
+    [$E$ [$T$ [$F$ [$a$]]]]
+    [$+$]
+    [$T$
+      [$T$ [$F$ [$a$]]]
+      [$\times$]
+      [$F$ [$a$]]
+    ]
+  ]
+]
+\end{forest}
+
+\begin{minipage}{\textwidth}
+Similarly, the expression $(a+a)$:
+
+\begin{forest}
+[$E$
+  [$T$
+    [$F$
+      [$($]
+      [$E$
+        [$E$ [$T$ [$F$ [$a$]]]]
+        [$+$]
+        [$T$ [$F$ [$a$]]]
+      ]
+      [$)$]
+    ]
+  ]
+]
+\end{forest}
+\end{minipage}
+
+\section*{Context-Free Grammar Design Techniques}
+
+How do you build complex grammars?
+
+\begin{enumerate}
+\item Many CFGs are \textbf{unions} of simpler CFGs.
+  \begin{enumerate}[label=(\alph*)]
+    \item Put all rules together
+    \item Construct new rules $S\rightarrow{}S_1|S_2|\cdots|S_k$ where
+      $S_i$ with $1\le{}i\le{}k$ are start variables of the individual
+      grammars.
+  \end{enumerate}
+
+  For example: Design a grammar for
+  $\{0^n1^n|n\ge0\}\cup\{1^n0^n|n\ge0\}$
+
+  \begin{enumerate}[label=(\arabic*)]
+    \item Construct grammar for $\{0^n1^n|n\ge0\}$
+
+      \[
+      S_1\rightarrow 0 S_1 1|\epsilon
+      \]
+
+    \item Construct grammar for $\{1^n0^n|n\ge0\}$
+
+      \[
+      S_2\rightarrow 1 S_2 0|\epsilon
+      \]
+
+    \item Combine rules $S\rightarrow{}S_1|S_2$
+
+      \[
+      \begin{cases}
+        S\rightarrow S_1|S_2 \\
+        S_1\rightarrow 0S_11|\epsilon \\
+        S_2\rightarrow 1S_20|\epsilon \\
+      \end{cases}
+      \]
+  \end{enumerate}
+
+\item See if you can construct a DFA first.
+  \begin{enumerate}[label=(\alph*)]
+    \item Make a variable $R_i$ for each state $q_i$ of DFA.
+    \item Add a rule $R_i\rightarrow{}aR_j$ if $\delta(q_i,a)=q_j$ for
+      some $a\in\Sigma$.
+    \item Add the rule $R-i\rightarrow\epsilon$ if $q_i$ is accept
+      state of DFA.
+    \item If $q_0$ is the start state of DFA, make $R_0$ the start
+      variable of CFG.
+  \end{enumerate}
+
+\item Certain context-free languages contain strings with related
+  substrings, such as $0^n$ and $1^n$ in $\{0^n1^n|n\ge0\}$.
+
+  Note that the machine would need to remember a potentially unbounded
+  amount of information about one of the substrings.
+
+  CFG handles this situation using rules of the form
+  $R\rightarrow{}uRv$.
+
+  For example, given the grammar
+
+  \[
+  G=\left(\{S,B\},\{a,b\},\left\{S\rightarrow{}aSB|B|\epsilon,B\rightarrow{}bB|b\right\},S\right)
+  \]
+
+  What is the language that is recognized?
+
+  \begin{enumerate}[label=(\arabic*)]
+  \item Let's do a few direct derivations:
+
+    \[
+    \boxed{S}\Rightarrow \underbrace{a\boxed{S}B}\Rightarrow a\underbrace{aS\boxed{B}}B\Rightarrow aaS\underbrace{bB}B
+    \]
+
+    \[
+    S\Rightarrow aSB\Rightarrow aaSBB\Rightarrow aaSBbB
+    \]
+
+    \[
+    S\Rightarrow aSB\Rightarrow aaSBB\Rightarrow aasBb
+    \]
+
+    \[
+    S\Rightarrow aSB\Rightarrow aaSBB\Rightarrow aaBB
+    \]
+
+  \item $L(G)=\{a^nb^m|n\le{}m\}$
+
+  \item We might also want a regular language, but that'd be silly
+    because you can't write it that way.
+
+  \end{enumerate}
+\end{enumerate}
+
+\section*{Context-Free Grammars: Ambiguity}
+
+Suppose you have a CFG that generates the same string ind ifferent
+ways, then we say that the string is derived \textbf{ambiguously} in
+that grammar.
+
+Similarly, a CFG is ambiguous if any string can be recognized ambiguously.
+
+\subsection*{Example}
+
+Suppose that we go back to our arithmetic recognizer with $G$ having the rule
+
+\[
+E\rightarrow E+E|E\times E|(E)|a
+\]
+
+If we give it the string $a+a\times{}a$
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \begin{forest}
+      [$E$
+        [$E$
+          [$E$ [$a$]]
+          [$+$]
+          [$E$ [$a$]]
+        ]
+        [$\times$]
+        [$E$ [$a$]]
+      ]
+    \end{forest}
+  \end{subfigure}%
+  %
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \begin{forest}
+      [$E$
+        [$E$ [$a$]]
+        [$+$]
+        [$E$
+          [$E$ [$a$]]
+          [$\times$]
+          [$E$ [$a$]]
+        ]
+      ]
+    \end{forest}
+  \end{subfigure}
+\end{figure}
+
+We need to address the \textbf{order} of how to apply the rules.
+
+\begin{description}
+\item[Leftmost Derivation] A derivation of a string $w$ in grammar $G$
+  is a leftmost derivation if at every step in the derivation, the
+  \textbf{leftmost non-terminal} is replaced.
+
+\item[Rightmost Derivation] A derivation of a string $w$ in grammar $G$
+  is a rightmost derivation if at every step in the derivation, the
+  \textbf{rightmost non-terminal} is replaced.
+\end{description}
+
+\subsection*{Why do we care?}
+
+A leftmost or rightmost derivation of a string $w$ is \textbf{unique}.
+
+\subsection*{Inherent Ambiguity}
+
+Some CFLs can have both ambiguous and unambiguous grammars.
+
+For example given the language: $\{0^i1^j2^k|i=j\vee{}j=k\}$
+
+\end{document}
