@@ -1,0 +1,283 @@
+\documentclass{article}
+%\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{forest}
+\usepackage{enumitem}
+
+\pagestyle{fancy}
+\lhead{Tanner Hobson}
+\rhead{thobson2}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\E}{\mathcal{E}}
+
+\newcommand{\multistep}[1]{\begin{array}{rl} #1 \end{array}}
+\newcommand{\subeq}{\subseteq}
+\newcommand{\sub}{\subset}
+
+\newcommand{\conj}[1]{\overline{#1}}
+
+\newcommand{\problem}[1]{$\boxed{\textbf{#1}}$}
+
+\setlength\parindent{0pt}
+\setlength\parskip{0em}
+\newenvironment{blockquote}{%
+  \par%
+  \medskip
+  \leftskip=4em\rightskip=2em%
+  \noindent\ignorespaces}{%
+  \par\medskip}
+\begin{document}
+
+\problem{5.1}
+
+The following CFG has $a$ as the sole terminal and $E$ as the starting
+variable. The rules are:
+
+\[\begin{cases}
+E\rightarrow E+T|T \\
+T\rightarrow T\times F|F \\
+F\rightarrow (E)|a \\
+\end{cases}\]
+
+\begin{minipage}{\textwidth}
+\problem{5.1a}
+
+The given string is $s=a$. The parse tree for $s$ is:
+
+\begin{forest}
+  for tree={
+    grow=0,reversed,
+    parent anchor=east,child anchor=west
+  }
+  [$E$ [$T$ [$F$ [$a$]]]]
+\end{forest}
+
+The derivation is:
+
+\[
+E\Rightarrow T\Rightarrow F\Rightarrow a
+\]
+
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+\problem{5.1b}
+
+The given string is $s=a+a$. The parse tree for $s$ is:
+
+\begin{forest}
+  for tree={
+    grow=0,reversed,
+    parent anchor=east,child anchor=west
+  }
+  [$E$
+    [$E$ [$T$ [$F$ [$a$]]]]
+    [$+$]
+    [$T$ [$F$ [$a$]]]
+  ]
+\end{forest}
+
+The derivation is:
+
+\[
+E\Rightarrow E+T\Rightarrow F+T\Rightarrow a+T\Rightarrow a+F\Rightarrow a+a
+\]
+
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+\problem{5.1c}
+
+The given string is $s=a+a+a$. The parse tree for $s$ is:
+
+\begin{forest}
+  for tree={
+    grow=0,reversed,
+    parent anchor=east,child anchor=west
+  }
+  [$E$
+    [$E$
+      [$E$ [$T$ [$F$ [$a$]]]]
+      [$+$]
+      [$T$ [$F$ [$a$]]]
+    ]
+    [$+$]
+    [$T$ [$F$ [$a$]]]
+  ]
+\end{forest}
+
+The derivation is:
+
+\[
+E\Rightarrow E+T\Rightarrow E+T+T\Rightarrow T+T+T\Rightarrow F+T+T
+\] \[\Rightarrow a+T+T\Rightarrow a+F+T\Rightarrow a+a+T\Rightarrow a+a+F\Rightarrow a+a+a
+\]
+
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+\problem{5.1d}
+
+The given string is $s=((a))$. The parse tree for $s$ is:
+
+\begin{forest}
+  for tree={
+    grow=0,reversed,
+    parent anchor=east,child anchor=west
+  }
+  [$E$
+    [$T$
+      [$F$
+        [$($]
+        [$E$
+          [$T$
+            [$F$
+              [$($]
+              [$E$ [$T$ [$F$ [$a$]]]]
+              [$)$]
+            ]
+          ]
+        ]
+        [$)$]
+      ]
+    ]
+  ]
+\end{forest}
+
+The derivation is:
+
+\[
+E\Rightarrow T\Rightarrow F\Rightarrow (E)\Rightarrow (T)\Rightarrow(F)\Rightarrow((E))\Rightarrow((T))\Rightarrow((F))\Rightarrow((a))
+\]
+
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+\problem{5.2a}
+
+We want to produce a grammar which matches the language $L$ where
+
+\[
+L=\{w|\text{$w$ starts and ends with the same symbol}\}
+\]
+
+The grammar is given by the 4 tuple $G=(\{S,X\},\{0,1\},R,S)$, where
+$R$ is:
+
+\[\begin{cases}
+S\rightarrow 0X0|1X1 \\
+X\rightarrow 0X|1X|\epsilon \\
+\end{cases}\]
+
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+\problem{5.2b}
+
+We want to produce a grammar which matches the language $L$ where
+
+\[
+L=\{w|\text{the length of $w$ is odd}\}
+\]
+
+The grammar is given by the 4 tuple $G=(\{S,X,Z\},\{0,1\},R,S)$, where
+$R$ is:
+
+\[\begin{cases}
+S\rightarrow XZ \\
+X\rightarrow 0|1 \\
+Z\rightarrow XXZ|\epsilon \\
+\end{cases}\]
+
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+\problem{5.2c}
+
+We want to produce a grammar which matches the language $L$ where
+
+\[
+L=\{w|\text{$w$ is a palindrome}\}
+\]
+
+The grammar is given by the 4 tuple $G=(\{S\},\{0,1\},R,S)$, where
+$R$ is:
+
+\[\begin{cases}
+S\rightarrow 0S0|1S1|\epsilon \\
+\end{cases}\]
+
+\end{minipage}
+
+
+\problem{5.3}
+
+Let $G=(\{S,T,U\},\{0,\#\},R,S)$ be a grammar with $R$ given as:
+
+\[\begin{cases}
+S\rightarrow TT|U \\
+T\rightarrow 0T|T0|\# \\
+U\rightarrow 0U00|\E \\
+\end{cases}\]
+
+\begin{minipage}{\textwidth}
+\problem{5.3a}
+
+In English (and regular expressions), $L(G)$ is either:
+
+\begin{enumerate}[label=(\alph*)]
+\item matched by the regular expression $0^*\#0^*\#0^*$
+\item has twice as many $0$s on the right of $\#$ as on the left,
+  i.e. is in the language $\{0^n\#0^{2n}|n\ge0\}$
+\end{enumerate}
+
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+\problem{5.3b}
+
+We want to prove that $L(G)$ is irregular.
+
+Assume that $L(G)$ is regular and that $p$ is the pumping length of
+$L(G)$. Let $s=0^p\#0^{2p}$ be a string that is in $L(G)$. By the
+pumping lemma, if we decompose $s$ into parts where $s=xyz$ and if
+some conditions hold, then we know that $xy^iz\in{}L(G)$ for all
+$i\ge0$ should be true for a regular language. By the conditions of
+the pumping lemma, we know that $|y|\ge1$ and $|xy|\le{}p$. From this,
+we can conclude that $y$ must consist solely of $0$s. The above
+property means that we should expect $xy^2z\in{}L(G)$, however because
+$y$ is all $0$s, this will unbalance the left and right sides of the
+$\#$. Because we have reached a contradiction, we can conclude that
+our earlier premise must be incorrect. Therefore, $L(G)$ is irregular.
+
+\end{minipage}
+
+\end{document}
