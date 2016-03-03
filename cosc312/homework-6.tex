@@ -1,0 +1,230 @@
+\documentclass{article}
+%\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xintexpr}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{forest}
+\usepackage{enumitem}
+
+\pagestyle{fancy}
+\lhead{Tanner Hobson}
+\rhead{thobson2}
+
+\newcommand{\T}{1}
+\newcommand{\F}{0}
+\newcommand{\TF}[1]{\if1#1\T\else\F\fi}
+\newcommand{\xintTF}[1]{\xintifboolexpr{#1}{\T}{\F}}
+
+\newcommand{\logicrule}[2]{
+\begin{array}{l}
+#1 \\
+\midrule
+\therefore #2 \\
+\end{array}
+}
+
+\newcommand{\inv}[1]{#1^{-1}}
+
+\renewcommand{\d}[1]{\,\textnormal{d}#1}
+\newcommand{\dd}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\ddd}[2]{\dfrac{\d{#1}}{\d{#2}}}
+
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\E}{\mathcal{E}}
+
+\newcommand{\multistep}[1]{\begin{array}{rl} #1 \end{array}}
+\newcommand{\subeq}{\subseteq}
+\newcommand{\sub}{\subset}
+
+\newcommand{\conj}[1]{\overline{#1}}
+
+\newcommand{\problem}[1]{$\boxed{\textbf{#1}}$}
+
+\setlength\parindent{0pt}
+\setlength\parskip{0em}
+\newenvironment{blockquote}{%
+  \par%
+  \medskip
+  \leftskip=4em\rightskip=2em%
+  \noindent\ignorespaces}{%
+  \par\medskip}
+
+\begin{document}
+
+\problem{6.1}
+
+\textit{Convert the following CFG into CNF}
+
+\[\begin{cases}
+A\rightarrow BAB | B | \epsilon \\
+B\rightarrow 00 | \epsilon \\
+\end{cases}\]
+
+We want to introduce a new start state. Here, we assume that $A$ is
+the starting state because it is not stated elsewhere. We add $S_0$ as
+the new start state:
+
+\[\begin{cases}
+S_0\rightarrow A \\
+A\rightarrow BAB | B | \epsilon \\
+B\rightarrow 00 | \epsilon \\
+\end{cases}\]
+
+We want to remove the non-terminals and replace them with a separate
+rule. Because the only terminal is $0$, we introduce $N_0$ to stand
+for it.
+
+\[\begin{cases}
+S_0\rightarrow A \\
+A\rightarrow BAB | B | \epsilon \\
+B\rightarrow N_0 N_0 | \epsilon \\
+N_0\rightarrow 0
+\end{cases}\]
+
+Now we want to remove the $A\rightarrow{}BAB$ rule because there are
+more than 2 non-terminals on the right.
+
+\[\begin{cases}
+S_0\rightarrow A \\
+A\rightarrow BA_1 | B | \epsilon \\
+A_1\rightarrow AB \\
+B\rightarrow N_0 N_0 | \epsilon \\
+N_0\rightarrow 0
+\end{cases}\]
+
+Now we want to remove $\epsilon$ rules. We'll start with the
+$B\rightarrow\epsilon$ rule and for any rule that has $B$, we account
+for the fact that it might be $\epsilon$.
+
+\[\begin{cases}
+S_0\rightarrow A \\
+A\rightarrow BA_1 | B | A_1 | \epsilon \\
+A_1\rightarrow AB | A \\
+B\rightarrow N_0 N_0  \\
+N_0\rightarrow 0
+\end{cases}\]
+
+Then we need to remove the $A\rightarrow\epsilon$ rule.
+
+\[\begin{cases}
+S_0\rightarrow A \\
+A\rightarrow BA_1 | B | A_1 \\
+A_1\rightarrow AB | A | B \\
+B\rightarrow N_0 N_0  \\
+N_0\rightarrow 0
+\end{cases}\]
+
+Now we need to remove unit rules. We'll start with
+$A\rightarrow{}A_1$.
+
+\[\begin{cases}
+S_0\rightarrow A \\
+A\rightarrow BA_1 | B | AB \\
+A_1\rightarrow AB | A | B \\
+B\rightarrow N_0 N_0  \\
+N_0\rightarrow 0
+\end{cases}\]
+
+Then $A\rightarrow{}B$
+
+\[\begin{cases}
+S_0\rightarrow A \\
+A\rightarrow BA_1 | N_0 N_0 | AB \\
+A_1\rightarrow AB | A | B \\
+B\rightarrow N_0 N_0  \\
+N_0\rightarrow 0
+\end{cases}\]
+
+And $A_1\rightarrow{}A$
+
+\[\begin{cases}
+S_0\rightarrow A \\
+A\rightarrow BA_1 | N_0 N_0 | AB \\
+A_1\rightarrow AB | BA_1 | N_0 N_0 | B \\
+B\rightarrow N_0 N_0  \\
+N_0\rightarrow 0
+\end{cases}\]
+
+And $A_1\rightarrow{}B$
+
+\[\begin{cases}
+S_0\rightarrow A \\
+A\rightarrow BA_1 | N_0 N_0 | AB \\
+A_1\rightarrow AB | BA_1 | N_0 N_0 \\
+B\rightarrow N_0 N_0  \\
+N_0\rightarrow 0
+\end{cases}\]
+
+And finally, $S_0\rightarrow{}A$
+
+\[\begin{cases}
+S_0\rightarrow BA_1 | N_0 N_0 | AB \\
+A\rightarrow BA_1 | N_0 N_0 | AB \\
+A_1\rightarrow AB | BA_1 | N_0 N_0 \\
+B\rightarrow N_0 N_0  \\
+N_0\rightarrow 0
+\end{cases}\]
+
+\problem{6.2}
+
+Let $G$ be the grammar:
+
+\[\begin{cases}
+S\rightarrow SS | T \\
+T\rightarrow a T b | ab \\
+\end{cases}\]
+
+The language produced by this grammar, $L(G)$, contains the following
+strings and more (generated from a Python program):
+
+\[\begin{array}{c}
+\text{Some words in language} \\
+\midrule
+ab \\ aabb \\ abab \\ aaabbb \\ abaabb \\ ababab \\ aaaabbbb \\ aabbaabb \\ aabbabab \\
+abaaabbb \\ ababaabb \\ aaaaabbbbb \\ aaaabbbbab \\ aaabbbaabb \\ aabbaaabbb \\ aabbabaabb \\
+abaaaabbbb \\ abaaabbbab \\ aaaaaabbbbbb \\ aaaabbbbabab \\ aaabbbababab \\ aabbaaaabbbb \\ aabbabaabbab \\
+abaabbabaabb \\ aaaaaaabbbbbbb \\ aabbaabbaaabbb \\ aabbabaabbaabb \\ aaaaaaaabbbbbbbb \\ aabbababaaaabbbb \\ abaabbababaabbab \\
+\end{array}\]
+
+By extension, we can conclude that $L(G)$ is an extension of a simpler
+language, $X=\{a^nb^n|n\ge1\}$ and that $L(G)=\{w|w\in{}X^*\}$.
+
+We can also show that $G$ is ambiguous by showing that the string
+$w=ababab$ can be parsed in two ways:
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \begin{forest}
+      [$S$
+        [$S$ [$T$ [$ab$]]]
+        [$S$
+          [$S$ [$T$ [$ab$]]]
+          [$S$ [$T$ [$ab$]]]
+        ]
+      ]
+    \end{forest}
+  \end{subfigure}%
+  %
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \begin{forest}
+      [$S$
+        [$S$
+          [$S$ [$T$ [$ab$]]]
+          [$S$ [$T$ [$ab$]]]
+        ]
+        [$S$ [$T$ [$ab$]]]
+      ]
+    \end{forest}
+  \end{subfigure}
+\end{figure}
+
+\end{document}
